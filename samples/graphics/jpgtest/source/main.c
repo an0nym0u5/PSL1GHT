@@ -43,14 +43,14 @@ eventHandler(u64 status, u64 param, void * userdata)
   }
 }
 
-void drawFrame(rsxBuffer *buf, long frame) {
+void drawFrame(rsxBuffer *buffer, long frame) {
   s32 i, j;
-  for(i = 0; i < buf->height; i++) {
-    s32 color = (i / (buf->height * 1.0) * 256);
+  for(i = 0; i < buffer->height; i++) {
+    s32 color = (i / (buffer->height * 1.0) * 256);
     /* This should make a nice black to green graident */
     color = (color << 8) | ((frame % 255) << 16);
-    for(j = 0; j < buf->width; j++)
-      buf->ptr[i* buf->width + j] = color;
+    for(j = 0; j < buffer->width; j++)
+      buffer->ptr[i* buffer->width + j] = color;
   }
 }
 
@@ -69,13 +69,12 @@ s32 main(s32 argc, const char* argv[])
   void *host_addr = NULL;
   rsxBuffer buffers[MAX_BUFFERS];
   int currentBuffer = 0;
-  u16 width;
-  u16 height;
-
   padInfo padinfo ;
   padData paddata ;
-
+  u16 width;
+  u16 height;
   int i;
+  long frame = 0; /* to keep track of how many frames we have rendered */
 
   atexit(unload_modules);
   if(sysModuleLoad(SYSMODULE_FS) != 0)
@@ -115,8 +114,6 @@ s32 main(s32 argc, const char* argv[])
   jpgLoadFromBuffer((void *)psl1ght_jpg, psl1ght_jpg_size, &jpg1);
 #endif
 
-  long frame = 0; // To keep track of how many frames we have rendered.
-
   /* Ok, everything is setup. Now for the main loop. */
   exitapp = 1;
   while(exitapp)
@@ -129,6 +126,7 @@ s32 main(s32 argc, const char* argv[])
 
         if(paddata.BTN_CROSS){
           exitapp = 0;
+          goto end;
         }
       }
     }
@@ -193,13 +191,17 @@ s32 main(s32 argc, const char* argv[])
       }
     }
 
-    flip(context, buffers[currentBuffer].id); // Flip buffer onto screen
+    waitFlip(); /* Wait for the last flip to finish, so we can draw to the old buffer */
+    drawFrame(&buffers[currentBuffer], frame++); /* Draw into the unused buffer */
+    flip(context, buffers[currentBuffer].id); /* Flip buffer onto screen */
 
     currentBuffer = !currentBuffer;
-    setRenderTarget(context, &buffers[currentBuffer]) ; // change buffer
+    setRenderTarget(context, &buffers[currentBuffer]) ; /* change buffer */
 
-    sysUtilCheckCallback(); // check user attention span
+    sysUtilCheckCallback(); /* check user attention span */
   }
+
+ end:
 
   gcmSetWaitFlip(context);
   for (i=0; i < MAX_BUFFERS; i++)
