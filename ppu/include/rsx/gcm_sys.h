@@ -33,9 +33,19 @@
 #define GCM_TRANSFER_LOCAL_TO_MAIN                         2
 #define GCM_TRANSFER_MAIN_TO_MAIN                          3
 
+#define GCM_TF_COLOR_X1R5G5B5_Z1R5G5B5                     1
+#define GCM_TF_COLOR_X1R5G5B5_O1R5G5B5                     2
 #define GCM_TF_COLOR_R5G5B5                                3
 #define GCM_TF_COLOR_X8R8G8B8                              5
 #define GCM_TF_COLOR_A8R8G8B8                              8
+#define GCM_TF_COLOR_B8                                    9
+#define GCM_TF_COLOR_G8B8                                  10
+#define GCM_TF_COLOR_F_W16Z16Y16X16                        11
+#define GCM_TF_COLOR_F_W32Z32Y32X32                        12
+#define GCM_TF_COLOR_X32                                   13
+#define GCM_TF_COLOR_X8B8G8R8_Z8B8G8R8                     14
+#define GCM_TF_COLOR_X8B8G8R8_O8B8G8R8                     15
+#define GCM_TF_COLOR_A8B8G8R8                              16
 
 /*! \brief 16-bit depth buffer */
 #define GCM_TF_ZETA_Z16                                    1

@@ -76,7 +76,7 @@ install: all
 	@cp -frv $(CURDIR)/lib/ppu/*.a $(PSL1GHT)/ppu/lib
 
 #---------------------------------------------------------------------------------
-$(LIBRARY).a: sprx.o
+$(LIBRARY).a: sprx.o resc_wrapper.o
 #---------------------------------------------------------------------------------
 
 .PHONY: lib ppu install

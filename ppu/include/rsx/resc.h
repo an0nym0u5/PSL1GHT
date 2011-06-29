@@ -25,68 +25,49 @@ extern "C" {
 #define RESC_ERROR_GCM_FLIP_QUE_FULL             (RESC_ERROR_BASE | 0x6)
 #define RESC_ERROR_BAD_COMBINATION               (RESC_ERROR_BASE | 0x7)
 
-/* Enum */
-typedef enum _rescResourcePolicy
-{
-    RESC_CONSTANT_VRAM =                         (0 << 0), 
-    RESC_MINIMUM_VRAM =                          (1 << 0), 
-    RESC_CONSTANT_GPU_LOAD =                     (0 << 1),  /* do not use */
-    RESC_MINIMUM_GPU_LOAD =                      (1 << 1), 
-} rescResourcePolicy;
+/* resource policies */
+#define RESC_CONSTANT_VRAM                       (0 << 0)
+#define RESC_MINIMUM_VRAM                        (1 << 0)
+#define RESC_CONSTANT_GPU_LOAD                   (0 << 1)  /* do not use */
+#define RESC_MINIMUM_GPU_LOAD                    (1 << 1)
 
-typedef enum _rescDstFormat
-{
-    RESC_SURFACE_A8R8G8B8 =                      GCM_SURFACE_A8R8G8B8,       /* 8 */
-    RESC_SURFACE_F_W16Z16Y16X16 =                GCM_SURFACE_F_W16Z16Y16X16, /* 11 */
-}rescDstFormat;
+/* dst formats */
+#define RESC_SURFACE_A8R8G8B8                    GCM_TF_COLOR_A8R8G8B8       /* 8 */
+#define RESC_SURFACE_F_W16Z16Y16X16              GCM_TF_COLOR_F_W16Z16Y16X16 /* 11 */
 
-typedef enum _rescDisplayBufferMode
-{
-    RESC_720x480 =                               (1 << 0), 
-    RESC_720x576 =                               (1 << 1), 
-    RESC_1280x720 =                              (1 << 2), 
-    RESC_1920x1080 =                             (1 << 3), 
-} rescBufferMode;
+/* buffer modes */
+#define RESC_720x480                             (1 << 0)
+#define RESC_720x576                             (1 << 1)
+#define RESC_1280x720                            (1 << 2)
+#define RESC_1920x1080                           (1 << 3)
 
-typedef enum _rescRatioConvertMode
-{
-    RESC_FULLSCREEN =                            0, 
-    RESC_LETTERBOX =                             1, 
-    RESC_PANSCAN =                               2, 
-} rescRatioConvertMode;
+/* ratio convert modes */
+#define RESC_FULLSCREEN                          0
+#define RESC_LETTERBOX                           1
+#define RESC_PANSCAN                             2
 
-typedef enum _rescPalTemporalMode
-{
-    RESC_PAL_50 =                                0, 
-    RESC_PAL_60_DROP =                           1, 
-    RESC_PAL_60_INTERPOLATE =                    2, 
-    RESC_PAL_60_INTERPOLATE_30_DROP =            3, 
-    RESC_PAL_60_INTERPOLATE_DROP_FLEXIBLE =      4, 
-    RESC_PAL_60_FOR_HSYNC =                      5, 
-} rescPalTemporalMode;
+/* PAL temporal mode */
+#define RESC_PAL_50                              0
+#define RESC_PAL_60_DROP                         1
+#define RESC_PAL_60_INTERPOLATE                  2
+#define RESC_PAL_60_INTERPOLATE_30_DROP          3
+#define RESC_PAL_60_INTERPOLATE_DROP_FLEXIBLE    4
+#define RESC_PAL_60_FOR_HSYNC                    5
 
-typedef enum _rescConvolutionFilterMode
-{
-    RESC_NORMAL_BILINEAR =                       0, 
-    RESC_INTERLACE_FILTER =                      1, 
-    RESC_3X3_GAUSSIAN =                          2, 
-    RESC_2X3_QUINCUNX =                          3, 
-    RESC_2X3_QUINCUNX_ALT =                      4, 
-} rescConvolutionFilterMode;
+/* convolution filter mode */
+#define RESC_NORMAL_BILINEAR                     0
+#define RESC_INTERLACE_FILTER                    1
+#define RESC_3X3_GAUSSIAN                        2
+#define RESC_2X3_QUINCUNX                        3
+#define RESC_2X3_QUINCUNX_ALT                    4
 
-/* typedef rescConvolutionFilterMode rescInterlaceFilterMode; */  /* for backword compatibility */
+/* table element */
+#define RESC_ELEMENT_HALF                        0
+#define RESC_ELEMENT_FLOAT                       1
 
-typedef enum _rescTableElement
-{
-    RESC_ELEMENT_HALF =                          0, 
-    RESC_ELEMENT_FLOAT =                         1, 
-} rescTableElement;
-
-typedef enum _rescFlipMode
-{
-    RESC_DISPLAY_VSYNC =                         0, 
-    RESC_DISPLAY_HSYNC =                         1, 
-} rescFlipMode;
+/* flip mode */
+#define RESC_DISPLAY_VSYNC                       0
+#define RESC_DISPLAY_HSYNC                       1
 
 /* Structures */
 typedef struct _rescInitConfig
@@ -118,31 +99,30 @@ typedef struct _rescDsts
 
 s32 rescInit(const rescInitConfig* const initConfig);
 void rescExit();
-s32 rescSetDsts(const rescBufferMode dstsMode, const rescDsts* const dsts);
-s32 rescSetDisplayMode(const rescBufferMode bufferMode);
-s32 rescGetNumColorBuffers(const rescBufferMode dstsMode, const rescPalTemporalMode palTemporalMode, const u32 reserved);
+s32 rescSetDsts(const u32 dstsMode, const rescDsts* const dsts);
+s32 rescSetDisplayMode(const u32 bufferMode);
+s32 rescGetNumColorBuffers(const u32 dstsMode, const u32 palTemporalMode, const u32 reserved);
 s32 rescGetBufferSize(s32* const colorBuffers, s32* const vertexArray, s32* const fragmentShader);
 s32 rescSetBufferAddress(const void* const colorBuffers, const void* const vertexArray, const void* const fragmentShader);
 s32 rescSetSrc(const s32 idx, const rescSrc* const src);
-s32 rescSetConvertAndFlip(gcmContextData* con, const s32 idx);
-void rescSetWaitFlip(gcmContextData* con);
+s32 rescSetConvertAndFlip(gcmContextData* context, const s32 idx);
+void rescSetWaitFlip(gcmContextData* context);
 s64 rescGetLastFlipTime();
 void rescResetFlipStatus();
 u32 rescGetFlipStatus();
 s32 rescGetRegisterCount();
-void rescSetRegisterCount(const s32 regCount);
+void rescSetRegisterCount(const s32 count);
 s32 rescSetPalInterpolateDropFlexRatio(const float ratio);
-s32 rescCreateInterlaceTable(void* ea, const float srcH, const rescTableElement depth, const int length);
+s32 rescCreateInterlaceTable(void* ea, const float srcH, const s32 depth, const int length);
 s32 rescAdjustAspectRatio(const float horizontal, const float vertical);
 
 /* Register event handler */
 void rescSetVBlankHandler(void (*handler)(const u32 head));
 void rescSetFlipHandler(void (*handler)(const u32 head));
 
-
 /* Utility functions */
-s32  rescGcmSurface2RescSrc(const gcmSurface* const gcmSurface, rescSrc* const rescSrc);
-s32  rescVideoOutResolutionId2RescBufferMode(const videoResolutionId resolutionId, rescBufferMode* const bufferMode);
+s32  rescGcmSurface2RescSrc(const gcmSurface* const surface, rescSrc* const src);
+s32  rescVideoOutResolutionId2RescBufferMode(const u32 resolutionId, u32* const bufferMode);
 
 #ifdef __cplusplus
     }
