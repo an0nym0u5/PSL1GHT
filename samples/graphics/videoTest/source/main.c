@@ -83,7 +83,8 @@ s32 main(s32 argc, const char* argv[])
       if(padinfo.status[i]){
         ioPadGetData(i, &paddata);
 
-        if(paddata.BTN_START){
+        if(paddata.BTN_CROSS){
+          exitapp = 0;
           goto end;
         }
       }
