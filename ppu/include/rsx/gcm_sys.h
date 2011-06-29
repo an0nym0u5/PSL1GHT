@@ -532,7 +532,7 @@ typedef struct _gcmTexture
      */ 
     u8 cubemap;
 
-        /*! \brief Color remapping bitfield.
+    /*! \brief Color remapping bitfield.
     
         Each of the texture color components (red, green, blue, alpha) can be
         remapped according to a specified remapping type. The type specifies
