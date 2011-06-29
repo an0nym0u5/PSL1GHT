@@ -191,8 +191,6 @@ s32 main(s32 argc, const char* argv[])
       }
     }
 
-    waitFlip(); /* Wait for the last flip to finish, so we can draw to the old buffer */
-    drawFrame(&buffers[currentBuffer], frame++); /* Draw into the unused buffer */
     flip(context, buffers[currentBuffer].id); /* Flip buffer onto screen */
 
     currentBuffer = !currentBuffer;
