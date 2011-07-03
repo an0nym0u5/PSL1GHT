@@ -22,6 +22,6 @@ EXPORT(rescAdjustAspectRatio, 0x22ae06d8);
 EXPORT(rescSetVBlankHandlerEx, 0xd3758645);
 EXPORT(rescSetFlipHandlerEx, 0x2ea94661);
 EXPORT(rescGcmSurface2RescSrc, 0x01220224);
-EXPORT(rescVideoResolutionId2RescBufferMode, 0xd1ca0503);
+EXPORT(rescVideoResolution2RescBufferMode, 0xd1ca0503);
 
 #endif
