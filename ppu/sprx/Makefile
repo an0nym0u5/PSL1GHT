@@ -17,6 +17,7 @@ all:
 	@$(MAKE) -C libsysutil --no-print-directory
 	@$(MAKE) -C libsysmodule --no-print-directory
 	@$(MAKE) -C libvdec --no-print-directory
+	@$(MAKE) -C libfreetype2 --no-print-directory
 	
 install:
 	@$(MAKE) -C libio install --no-print-directory
@@ -37,6 +38,7 @@ install:
 	@$(MAKE) -C libsysutil install --no-print-directory
 	@$(MAKE) -C libsysmodule install --no-print-directory
 	@$(MAKE) -C libvdec install --no-print-directory
+	@$(MAKE) -C libfreetype2 install --no-print-directory
 	
 clean:
 	@$(MAKE) -C libio clean --no-print-directory
@@ -57,5 +59,6 @@ clean:
 	@$(MAKE) -C libsysutil clean --no-print-directory
 	@$(MAKE) -C libsysmodule clean --no-print-directory
 	@$(MAKE) -C libvdec clean --no-print-directory
+	@$(MAKE) -C libfreetype2 clean --no-print-directory
 	
 .PHONY: all clean install
