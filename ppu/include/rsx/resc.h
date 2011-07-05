@@ -115,7 +115,7 @@ void rescExit();
 s32 rescSetDsts(const u32 dstsMode, const rescDsts* const dsts);
 s32 rescSetDisplayMode(const u32 bufferMode);
 s32 rescGetNumColorBuffers(const u32 dstsMode, const u32 palTemporalMode, const u32 reserved);
-s32 rescGetBufferSize(s32* const colorBuffers, s32* const vertexArray, s32* const fragmentShader);
+s32 rescGetBufferSize(int *colorBuffers, int *vertexArray, int *fragmentShader);
 s32 rescSetBufferAddress(const void* const colorBuffers, const void* const vertexArray, const void* const fragmentShader);
 s32 rescSetSrc(const s32 idx, const rescSrc* const src);
 s32 rescSetConvertAndFlip(gcmContextData* context, const s32 idx);
