@@ -6,59 +6,91 @@ ifeq ($(strip $(PS3DEV)),)
   endif
 endif
 
-export PATH	:=	$(PS3DEV)/bin:$(PS3DEV)/ppu/bin:$(PATH)
+export PATH		:=	$(PS3DEV)/bin:$(PS3DEV)/ppu/bin:$(PATH)
 
-export PORTLIBS	:=	$(PS3DEV)/portlibs/ppu
+export PORTLIBS		:=	$(PS3DEV)/portlibs/ppu
 
 export LIBPSL1GHT_INC	:=	-I$(PSL1GHT)/ppu/include -I$(PSL1GHT)/ppu/include/simdmath
 export LIBPSL1GHT_LIB	:=	-L$(PSL1GHT)/ppu/lib
 
-PREFIX	:=	ppu-
+PREFIX			:=	ppu-
 
-MACHDEP =  -mhard-float -fmodulo-sched -ffunction-sections -fdata-sections
+MACHDEP			=	-mhard-float -fmodulo-sched -ffunction-sections -fdata-sections
 
 include $(PSL1GHT)/base_rules
+include $(PSL1GHT)/data_rules
 
 PKG			:=	pkg.py
 SFO			:=	sfo.py
-SFOXML		:=	$(PS3DEV)/bin/sfo.xml
-ICON0		:=	$(PS3DEV)/bin/ICON0.PNG
+SFOXML			:=	$(PS3DEV)/bin/sfo.xml
+ICON0			:=	$(PS3DEV)/bin/ICON0.PNG
 
-SPRX		:=	sprxlinker$(POSTFIX)
-CGCOMP		:=	cgcomp$(POSTFIX)
-PS3LOADAPP	:=	ps3load$(POSTFIX)
+SPRX			:=	sprxlinker$(POSTFIX)
+CGCOMP			:=	cgcomp$(POSTFIX)
+PS3LOADAPP		:=	ps3load$(POSTFIX)
 
-FSELF		:=	fself.py
-FSELF_NPDRM	:=	$(FSELF) -n
+#FSELF			:=	fself.py
+FSELF			:=	fself$(POSTFIX)
+FSELF_NPDRM		:=	$(FSELF) -n
+DEX_FSELF		:=	make_fself$(POSTFIX)
+DEX_FSELF_NPDRM		:=	make_fself_npdrm$(POSTFIX)
 
 #FW 3.55 Tools
-SELF		:=	make_self
-SELF_NPDRM	:=	make_self_npdrm
-PACKAGE_FINALIZE := package_finalize
+SELF			:=	make_self
+SELF_NPDRM		:=	make_self_npdrm
+PACKAGE_FINALIZE	:=	package_finalize
 
 #---------------------------------------------------------------------------------
+%.dex.self: %.elf
+	$(VERB) echo DEX self ... $(notdir $@)
+	$(VERB) cp $< $(BUILDDIR)/$(notdir $<)
+	$(VERB) $(SPRX) $(BUILDDIR)/$(notdir $<)
+	$(VERB) make_fself $(BUILDDIR)/$(notdir $<) $@
+
+%.dex.pkg: %.dex.self
+	$(VERB) echo building DEX pkg ... $(notdir $@)
+	$(VERB) [ -n "$(TITLE)" ] || echo "\$TITLE not defined!"; exit -1
+	$(VERB) [ -n "$(APPID)" ] || echo "\$APPID not defined!"; exit -1
+	$(VERB) [ -n "$(CONTENTID)" ] || echo "\$CONTENTID not defined!"; exit -1
+	$(VERB) [ -n "$(ICON0)" ] || echo "\$ICON0 not defined!"; exit -1
+	$(VERB) [ -n "$(BUILDDIR)" ] || echo "\$BUILDDIR not defined!"; exit -1
+	$(VERB) mkdir -p $(BUILDDIR)/pkg
+	$(VERB) mkdir -p $(BUILDDIR)/pkg/USRDIR
+	$(VERB) cp $(ICON0) $(BUILDDIR)/pkg/
+	$(VERB) if [ -n "$(PKGFILES)" -a -d "$(PKGFILES)" ]; then cp -fr $(PKGFILES)/* $(BUILDDIR)/pkg/; fi
+	$(VERB) make_fself $(BUILDDIR)/$(basename $(notdir $<)).elf $(BUILDDIR)/pkg/USRDIR/EBOOT.BIN
+#	$(VERB) make_fself_npdrm $(BUILDDIR)/$(basename $(notdir $<)).elf $(BUILDDIR)/pkg/USRDIR/EBOOT.BIN
+	$(VERB) $(SFO) --title "$(TITLE)" --appid "$(APPID)" -f $(SFOXML) $(BUILDDIR)/pkg/PARAM.SFO
+	$(VERB) $(PKG) --contentid $(CONTENTID) $(BUILDDIR)/pkg/ $@ >> /dev/null
+
 %.self: %.elf
-	@echo output ... $(notdir $@)
+	$(VERB) echo CEX self .. $(notdir $@)
 	$(VERB) $(STRIP) $< -o $(BUILDDIR)/$(notdir $<)
 	$(VERB) $(SPRX) $(BUILDDIR)/$(notdir $<)
 	$(VERB) $(FSELF) $(BUILDDIR)/$(notdir $<) $@
 
-%.vpo: %.vcg
-	@echo $(notdir $<)
-	$(VERB) $(CGCOMP) -v $^ $@
-
-%.fpo: %.fcg
-	@echo $(notdir $<)
-	$(VERB) $(CGCOMP) -f $^ $@
-
 %.pkg: %.self
-	@echo building pkg ... $(notdir $@)
+	$(VERB) echo building pkg ... $(notdir $@)
+	$(VERB) [ -n "$(TITLE)" ] || echo "\$TITLE not defined!"; exit -1
+	$(VERB) [ -n "$(APPID)" ] || echo "\$APPID not defined!"; exit -1
+	$(VERB) [ -n "$(CONTENTID)" ] || echo "\$CONTENTID not defined!"; exit -1
+	$(VERB) [ -n "$(ICON0)" ] || echo "\$ICON0 not defined!"; exit -1
+	$(VERB) [ -n "$(BUILDDIR)" ] || echo "\$BUILDDIR not defined!"; exit -1
 	$(VERB) mkdir -p $(BUILDDIR)/pkg
 	$(VERB) mkdir -p $(BUILDDIR)/pkg/USRDIR
 	$(VERB) cp $(ICON0) $(BUILDDIR)/pkg/
+	$(VERB) if [ -n "$(PKGFILES)" -a -d "$(PKGFILES)" ]; then cp -fr $(PKGFILES)/* $(BUILDDIR)/pkg/; fi
 	$(VERB) $(SELF_NPDRM) $(BUILDDIR)/$(basename $(notdir $<)).elf $(BUILDDIR)/pkg/USRDIR/EBOOT.BIN $(CONTENTID) >> /dev/null
 	$(VERB) $(SFO) --title "$(TITLE)" --appid "$(APPID)" -f $(SFOXML) $(BUILDDIR)/pkg/PARAM.SFO
-	$(VERB) if test -n "$(PKGFILES)" -a -d "$(PKGFILES)"; then cp -rf $(PKGFILES)/* $(BUILDDIR)/pkg/; fi
 	$(VERB) $(PKG) --contentid $(CONTENTID) $(BUILDDIR)/pkg/ $@ >> /dev/null
-	$(VERB) cp $@ $(basename $@).geohot.pkg
-	$(VERB) $(PACKAGE_FINALIZE) $(basename $@).geohot.pkg
+	$(VERB) cp $@ $(basename $@).gnpdrm.pkg
+	$(VERB) $(PACKAGE_FINALIZE) $(basename $@).gnpdrm.pkg
+
+%.vpo: %.vcg
+	$(VERB) echo $(notdir $<)
+	$(VERB) $(CGCOMP) -v $^ $@
+
+%.fpo: %.fcg
+	$(VERB) echo $(notdir $<)
+	$(VERB) $(CGCOMP) -f $^ $@
+

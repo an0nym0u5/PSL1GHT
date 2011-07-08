@@ -42,48 +42,48 @@ endif
 #---------------------------------------------------------------------------------
 %.a:
 #---------------------------------------------------------------------------------
-	@echo $(notdir $@)
-	@rm -f $@
+	$(VERB) echo $(notdir $@)
+	$(VERB) rm -f $@
 	$(VERB) $(AR) -rc $@ $^
 
 #---------------------------------------------------------------------------------
 %.elf:
-	@echo linking ... $(notdir $@)
+	$(VERB) echo linking ... $(notdir $@)
 	$(VERB) $(LD)  $^ $(LDFLAGS) $(LIBPATHS) $(LIBS) -o $@
 
 #---------------------------------------------------------------------------------
 %.o: %.cpp
-	@echo $(notdir $<)
+	$(VERB) echo $(notdir $<)
 	$(VERB) $(CXX) $(DEPSOPT) $(CXXFLAGS) -c $< -o $@ $(ERROR_FILTER)
 
 #---------------------------------------------------------------------------------
 %.o: %.c
-	@echo $(notdir $<)
+	$(VERB) echo $(notdir $<)
 	$(VERB) $(CC) $(DEPSOPT) $(CFLAGS) -c $< -o $@ $(ERROR_FILTER)
 
 #---------------------------------------------------------------------------------
 %.o: %.m
-	@echo $(notdir $<)
+	$(VERB) echo $(notdir $<)
 	$(VERB) $(CC) $(DEPSOPT) $(OBJCFLAGS) -c $< -o $@ $(ERROR_FILTER)
 
 #---------------------------------------------------------------------------------
 %.o: %.s
-	@echo $(notdir $<)
+	$(VERB) echo $(notdir $<)
 	$(VERB) $(CC) $(DEPSOPT) -x assembler-with-cpp $(ASFLAGS) -c $< -o $@ $(ERROR_FILTER)
 
 #---------------------------------------------------------------------------------
 %.o: %.S
-	@echo $(notdir $<)
+	$(VERB) echo $(notdir $<)
 	$(VERB) $(CC) $(DEPSOPT) -x assembler-with-cpp $(ASFLAGS) -c $< -o $@ $(ERROR_FILTER)
 
 #---------------------------------------------------------------------------------
 # canned command sequence for binary data
 #---------------------------------------------------------------------------------
 define bin2o
-	bin2s -a 64 $< | $(AS) -o $(@)
-	echo "extern const u8" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`"_end[];" > `(echo $(<F) | tr . _)`.h
-	echo "extern const u8" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`"[];" >> `(echo $(<F) | tr . _)`.h
-	echo "extern const u32" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`_size";" >> `(echo $(<F) | tr . _)`.h
+	$(VERB) bin2s -a 64 $< | $(AS) -o $(@)
+	$(VERB) echo "extern const u8" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`"_end[];" > `(echo $(<F) | tr . _)`.h
+	$(VERB) echo "extern const u8" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`"[];" >> `(echo $(<F) | tr . _)`.h
+	$(VERB) echo "extern const u32" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`_size";" >> `(echo $(<F) | tr . _)`.h
 endef
 
 

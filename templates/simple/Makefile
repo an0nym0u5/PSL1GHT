@@ -1,89 +1,192 @@
+##--------------------------------------------------------------------------------
 ##
 ## Configuration
 ##
+##--------------------------------------------------------------------------------
+ifeq ($(strip $(PSL1GHT)),)
+$(error "Please set PSL1GHT in your environment. export PSL1GHT=<path>")
+endif
 
-PREFIX          := ppu
+include $(PSL1GHT)/ppu_rules
 
-TARGET		:= audiosync.self
 
+#---------------------------------------------------------------------------------
+# TITLE project title
+# APPEGO 6 character app identifier
+# APPVERSION 3 character version
+# APPID 6 character application id (9 characters TOTAL)
+# APPRAND 16 character random string
+# CONTENTID 
+# ICON0 320x176 pixel PNG image for XMB icon
+# PIC1 1920x1080 pxel PNG image for XMB background
+# SND0 ATRAC3 encoded audio file for XMB audio
+# SFOXML xml file used to create PARAM.SFO
+#---------------------------------------------------------------------------------
 TITLE		:= Template - PSL1GHT
-APPID		:= TEST00003
-CONTENTID	:= UP0001-$(APPID)_00-0000000000000000
-ICON0		:= /usr/local/ps3dev/bin/ICON0.PNG
-SFOXML		:= /usr/local/ps3dev/bin/sfo.xml
+APPEGO		:= TMP003
+APPVERSION	:= 003
+APPID		:= TEMPLT$(APPVERSION)
+APPRAND		:= $(shell openssl rand -hex 8 | tr [:lower:] [:upper:])
+CONTENTID	:= $(APPEGO)-$(APPID)_00-$(APPRAND)
+ICON0		:= $(CURDIR)/pkg/ICON0.PNG
+SFOXML		:= $(CURDIR)/pkg/sfo.xml
+PKGFILES	:= $(CURDIR)/pkg/extras
 
-FLAGS		:= -std=gnu99
-INCLUDES	:=
+
+#---------------------------------------------------------------------------------
+# TARGET name of the output
+# BUILD directory where object files & intermediate files will be placed
+# SOURCES list of directories containing source code
+# INCLUDES list of directories containing extra header files
+# DATA directory of binary files to be converted to object files
+# SHADERS directory of vertex / fragment shaders to be compiled
+# LIBS list of extra libraries to be link with the project
+# LIBDIRS list of directories containing libraries, this must be the top level
+#         containing include and lib
+#---------------------------------------------------------------------------------
+TARGET		:= $(notdir $(CURDIR))
+BUILD		:= build
+SOURCES		:= source
+INCLUDES	:= include
+DATA		:= data
+SHADERS		:= shaders
 LIBS		:= -laudio -lrt -llv2 -lm
+LIBDIRS		:= $(PS3DEV)/portlibs/ppu $(PSL1GHT)/ppu
 
-##
-## Tools
-##
 
-AS		:= $(PREFIX)-as
-CC		:= $(PREFIX)-gcc
-CPP		:= $(PREFIX)-g++
-LD		:= $(PREFIX)-g++
-
+#---------------------------------------------------------------------------------
+# FLAGS
+# ASFLAGS
+# CFLAGS
+# LDFLAGS
+#---------------------------------------------------------------------------------
+FLAGS		:= -std=gnu99 -pedantic -mcpu=cell
+CFLAGS		:= -g -O3 -Wall $(FLAGS) $(MACHDEP) $(LIBPATHS) $(INCLUDEPATHS)
+CXXFLAGS	:= $(CFLAGS)
+LDFLAGS		:= $(MACHDEP) -Wl,-Map,$(notdir $@).map
 ASFLAGS		:=
-CFLAGS		:= -Wall -pedantic -O3 $(FLAGS) -I$(PSL1GHT)/$(PREFIX)/include $(INCLUDES)
-CPPFLAGS	:= $(CFLAGS)
-LDFLAGS		:= -L$(PSL1GHT)/$(PREFIX)/lib $(LIBS)
 
-MAKE_SELF	:= make_self_npdrm
-MAKE_SFO	:= sfo.py
-MAKE_PKG	:= pkg.py
 
+#---------------------------------------------------------------------------------
+# no real need to edit anything past this point unless you need to add additional
+# rules for different file extensions
+#---------------------------------------------------------------------------------
+ifneq ($(BUILD),$(notdir $(CURDIR)))
+
+
+##--------------------------------------------------------------------------------
 ##
 ## Files
 ##
+##--------------------------------------------------------------------------------
+OUTPUT		:= $(CURDIR)/$(TARGET)
+VPATH		:= $(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
+		   $(foreach dir,$(DATA),$(CURDIR)/$(dir)) \
+		   $(foreach dir,$(SHADERS),$(CURDIR)/$(dir))
+BUILDDIR	:= $(CURDIR)/$(BUILD)
+DEPSDIR		:= $(BUILDDIR)
+#---------------------------------------------------------------------------------
+CFILES		:= $(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
+CPPFILES	:= $(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
+sFILES		:= $(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
+SFILES		:= $(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.S)))
+BINFILES	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.bin)))
+TTFFILES	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.ttf)))
+PNGFILES	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.png)))
+JPGFILES	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.jpg)))
+GIFFILES	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.gif)))
+RAWFILES	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.raw)))
+MP3FILES	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.mp3)))
+WAVFILES	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.wav)))
+VCGFILES	:= $(foreach dir,$(SHADERS),$(notdir $(wildcard $(dir)/*.vcg)))
+FCGFILES	:= $(foreach dir,$(SHADERS),$(notdir $(wildcard $(dir)/*.fcg)))
+VPOFILES	:= $(VCGFILES:.vcg=.vpo)
+FPOFILES	:= $(FCGFILES:.fcg=.fpo)
+#---------------------------------------------------------------------------------
+OFILES		:= $(addsuffix .o,$(BINFILES)) \
+		   $(addsuffix .o,$(TTFFILES)) \
+		   $(addsuffix .o,$(PNGFILES)) \
+		   $(addsuffix .o,$(JPGFILES)) \
+		   $(addsuffix .o,$(GIFFILES)) \
+		   $(addsuffix .o,$(RAWFILES)) \
+		   $(addsuffix .o,$(MP3FILES)) \
+		   $(addsuffix .o,$(WAVFILES)) \
+		   $(addsuffix .o,$(VPOFILES)) \
+		   $(addsuffix .o,$(FPOFILES)) \
+		   $(CFILES:.c=.o) \
+		   $(CPPFILES:.cpp=.o) \
+		   $(sFILES:.s=.o) $(SFILES:.S=.o)
+INCLUDEPATHS	:= $(foreach dir,$(INCLUDES), -I$(CURDIR)/$(dir)) \
+		   $(foreach dir,$(LIBDIRS),-I$(dir)/include) \
+		   $(LIBPSL1GHT_INC) \
+		   -I$(CURDIR)/$(BUILD)
+LIBPATHS	:= $(foreach dir,$(LIBDIRS),-L$(dir)/lib) \
+		   $(LIBPSL1GHT_LIB) -L $(PSL1GHT)/ppu/lib
+OUTPUT		:= $(CURDIR)/$(TARGET)
 
-RAWFILES	:= $(shell find * -name "*.raw" -print )
-CFILES		:= $(shell find * -name "*.c"   -print )
-CPPFILES	:= $(shell find * -name "*.cpp" -print )
-SFILES		:= $(shell find * -name "*.s"   -print )
 
-OFILES		:= ${RAWFILES:.raw=.o} ${CFILES:.c=.o} ${CPPFILES:.cpp=.o} ${SFILES:.s=.o}
+##--------------------------------------------------------------------------------
+##
+## Tools
+##
+##--------------------------------------------------------------------------------
+ifeq ($(strip $(CPPFILES)),)
+LD		:= $(CC)
+else
+LD		:= $(CXX)
+endif
 
+
+##--------------------------------------------------------------------------------
 ##
 ## Rules
 ##
+##--------------------------------------------------------------------------------
 
-default: $(TARGET)
+#---------------------------------------------------------------------------------
+.PHONY:	$(BUILD) clean bin pkg run
+#---------------------------------------------------------------------------------
+$(BUILD):
+	@[ -d $@ ] || mkdir -p $@
+	@echo compiling ...
+	@$(MAKE) --no-print-directory -C $(BUILDDIR) -f $(CURDIR)/Makefile
 
+#---------------------------------------------------------------------------------
+self:	$(BUILD) $(OUTPUT).self
+
+#---------------------------------------------------------------------------------
+dex:	$(BUILD) $(OUTPUT).dex.self
+
+#---------------------------------------------------------------------------------
 clean:
-	rm -f $(OFILES) $(TARGET)
+	@echo cleaning ...
+	@rm -rf $(BUILD) $(OUTPUT).a $(OUTPUT)*.elf $(OUTPUT)*.self $(OUTPUT)*.pkg
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+#---------------------------------------------------------------------------------
+run:	self
+	@ps3load $(OUTPUT).self
 
-%.o: %.cpp
-	$(CPP) $(CPPFLAGS) -c $< -o $@
+#---------------------------------------------------------------------------------
+pkg:	self $(OUTPUT).pkg
 
-%.o: %.raw
-	@bin2s -a 64 $< | $(AS) $(ASFLAGS) -o $@
-	@echo "extern const u8"  `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`"_end[];" >  `(echo $< | tr . _)`.h
-	@echo "extern const u8"  `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`"[];"     >> `(echo $< | tr . _)`.h
-	@echo "extern const u32" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`_size";"  >> `(echo $< | tr . _)`.h
+#---------------------------------------------------------------------------------
+else
 
-%.o: %.s
-	$(AS) $(ASFLAGS) -o $@
+DEPENDS		:= $(OFILES:.o=.d)
 
-%.a: $(OFILES)
-	$(AR) cru $@ $(OFILES)
 
-%.elf: $(OFILES)
-	$(LD) $(OFILES) $(LDFLAGS) -o $@
+##--------------------------------------------------------------------------------
+##
+## Targets
+##
+##--------------------------------------------------------------------------------
+$(OUTPUT).self:		$(OUTPUT).elf
+$(OUTPUT).dex.self:	$(OUTPUT).elf
+$(OUTPUT).elf:		$(OFILES)
 
-%.self: %.elf
-	$(MAKE_SELF) $< $@ $(CONTENTID) >> /dev/null
+#---------------------------------------------------------------------------------
+-include $(DEPENDS)
 
-%.pkg: %.elf
-	@rm -Rf pkg
-	@mkdir -p pkg
-	@mkdir -p pkg/USRDIR
-	@cp $(ICON0) pkg
-	$(MAKE_SELF) $< pkg/USRDIR/EBOOT.BIN $(CONTENTID) >> /dev/null
-	$(MAKE_SFO) --title "$(TITLE)" --appid "$(APPID)" -f $(SFOXML) pkg/PARAM.SFO
-	$(MAKE_PKG) --contentid $(CONTENTID) pkg/ $@ >> /dev/null
-	@rm -Rf pkg
+#---------------------------------------------------------------------------------
+endif
+#---------------------------------------------------------------------------------
