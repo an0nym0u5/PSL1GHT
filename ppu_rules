@@ -40,48 +40,48 @@ SELF			:=	make_self
 SELF_NPDRM		:=	make_self_npdrm
 PACKAGE_FINALIZE	:=	package_finalize
 
+# Package settings - allow for user override
+TITLE			?=	Untitled PSL1GHT homebrew
+APPID			?=	UNTITLED1
+SFOXML			?=	$(PS3DEV)/bin/sfo.xml
+ICON0			?=	$(PS3DEV)/bin/ICON0.PNG
+CONTENTID		?=	UP0001-$(APPID)_00-0000000000000000
+TARGET			?=	$(notdir $(CURDIR))
+BUILDDIR		?=	$(CURDIR)/build
+
 #---------------------------------------------------------------------------------
 %.dex.self: %.elf
 	$(VERB) echo DEX self ... $(notdir $@)
+	$(VERB) mkdir -p $(BUILDDIR)
 	$(VERB) cp $< $(BUILDDIR)/$(notdir $<)
 	$(VERB) $(SPRX) $(BUILDDIR)/$(notdir $<)
 	$(VERB) make_fself $(BUILDDIR)/$(notdir $<) $@
 
 %.dex.pkg: %.dex.self
 	$(VERB) echo building DEX pkg ... $(notdir $@)
-	$(VERB) [ -n "$(TITLE)" ] || echo "\$TITLE not defined!"; exit -1
-	$(VERB) [ -n "$(APPID)" ] || echo "\$APPID not defined!"; exit -1
-	$(VERB) [ -n "$(CONTENTID)" ] || echo "\$CONTENTID not defined!"; exit -1
-	$(VERB) [ -n "$(ICON0)" ] || echo "\$ICON0 not defined!"; exit -1
-	$(VERB) [ -n "$(BUILDDIR)" ] || echo "\$BUILDDIR not defined!"; exit -1
-	$(VERB) mkdir -p $(BUILDDIR)/pkg
 	$(VERB) mkdir -p $(BUILDDIR)/pkg/USRDIR
 	$(VERB) cp $(ICON0) $(BUILDDIR)/pkg/
-	$(VERB) if [ -n "$(PKGFILES)" -a -d "$(PKGFILES)" ]; then cp -fr $(PKGFILES)/* $(BUILDDIR)/pkg/; fi
 	$(VERB) make_fself $(BUILDDIR)/$(basename $(notdir $<)).elf $(BUILDDIR)/pkg/USRDIR/EBOOT.BIN
 #	$(VERB) make_fself_npdrm $(BUILDDIR)/$(basename $(notdir $<)).elf $(BUILDDIR)/pkg/USRDIR/EBOOT.BIN
+	$(VERB) if [ -n "$(PKGFILES)" -a -d "$(PKGFILES)" ]; then cp -fr $(PKGFILES)/* $(BUILDDIR)/pkg/; fi
 	$(VERB) $(SFO) --title "$(TITLE)" --appid "$(APPID)" -f $(SFOXML) $(BUILDDIR)/pkg/PARAM.SFO
 	$(VERB) $(PKG) --contentid $(CONTENTID) $(BUILDDIR)/pkg/ $@ >> /dev/null
 
+#---------------------------------------------------------------------------------
 %.self: %.elf
 	$(VERB) echo CEX self .. $(notdir $@)
+	$(VERB) mkdir -p $(BUILDDIR)
 	$(VERB) $(STRIP) $< -o $(BUILDDIR)/$(notdir $<)
 	$(VERB) $(SPRX) $(BUILDDIR)/$(notdir $<)
 	$(VERB) $(FSELF) $(BUILDDIR)/$(notdir $<) $@
 
 %.pkg: %.self
 	$(VERB) echo building pkg ... $(notdir $@)
-	$(VERB) [ -n "$(TITLE)" ] || echo "\$TITLE not defined!"; exit -1
-	$(VERB) [ -n "$(APPID)" ] || echo "\$APPID not defined!"; exit -1
-	$(VERB) [ -n "$(CONTENTID)" ] || echo "\$CONTENTID not defined!"; exit -1
-	$(VERB) [ -n "$(ICON0)" ] || echo "\$ICON0 not defined!"; exit -1
-	$(VERB) [ -n "$(BUILDDIR)" ] || echo "\$BUILDDIR not defined!"; exit -1
-	$(VERB) mkdir -p $(BUILDDIR)/pkg
 	$(VERB) mkdir -p $(BUILDDIR)/pkg/USRDIR
 	$(VERB) cp $(ICON0) $(BUILDDIR)/pkg/
-	$(VERB) if [ -n "$(PKGFILES)" -a -d "$(PKGFILES)" ]; then cp -fr $(PKGFILES)/* $(BUILDDIR)/pkg/; fi
 	$(VERB) $(SELF_NPDRM) $(BUILDDIR)/$(basename $(notdir $<)).elf $(BUILDDIR)/pkg/USRDIR/EBOOT.BIN $(CONTENTID) >> /dev/null
 	$(VERB) $(SFO) --title "$(TITLE)" --appid "$(APPID)" -f $(SFOXML) $(BUILDDIR)/pkg/PARAM.SFO
+	$(VERB) if [ -n "$(PKGFILES)" -a -d "$(PKGFILES)" ]; then cp -fr $(PKGFILES)/* $(BUILDDIR)/pkg/; fi
 	$(VERB) $(PKG) --contentid $(CONTENTID) $(BUILDDIR)/pkg/ $@ >> /dev/null
 	$(VERB) cp $@ $(basename $@).gnpdrm.pkg
 	$(VERB) $(PACKAGE_FINALIZE) $(basename $@).gnpdrm.pkg

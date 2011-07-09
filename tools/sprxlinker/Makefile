@@ -32,12 +32,16 @@ endif
 
 ifneq (,$(findstring Darwin,$(UNAME)))
 	CFLAGS	+= -I/opt/local/include
-	LDFLAGS	+= -L/opt/local/lib -lelf
+	LDFLAGS		+= -L/opt/local/lib -lelf
 	OS		:= Mac
 endif
 
+ifneq (,$(findstring BSD,$(UNAME)))
+	LDFLAGS		+= -lelf
+endif
+
 ifneq (,$(findstring Linux,$(UNAME)))
-	LDFLAGS += -lelf
+	LDFLAGS		+= -lelf
 	OS		:= Linux
 endif
 

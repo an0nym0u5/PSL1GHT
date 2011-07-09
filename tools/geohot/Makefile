@@ -37,12 +37,17 @@ ifneq (,$(findstring Darwin,$(UNAME)))
 	OSXCFLAGS	:= -mmacosx-version-min=10.4 -arch i386
 	OSXCXXFLAGS	:=	$(OSXCFLAGS)
 	CXXFLAGS	+=	-fvisibility=hidden
-	LDFLAGS		+= -mmacosx-version-min=10.4 -arch i386 -Wl,-syslibroot,$(SDK) -L/opt/local/lib -lgmp -lcrypto -lz
+	LDFLAGS		+=	-mmacosx-version-min=10.4 -arch i386 -Wl,-syslibroot,$(SDK) -L/opt/local/lib -lgmp -lcrypto -lz
+endif
+
+ifneq (,$(findstring BSD,$(UNAME)))
+	CFLAGS		+=	-I/usr/local/include
+	LDFLAGS		+=	-L/usr/local/lib -lgmp -lcrypto -lz
 endif
 
 ifneq (,$(findstring Linux,$(UNAME)))
-	LDFLAGS += -lgmp -lcrypto -lz
-	OS		:= Linux
+	LDFLAGS		+=	-lgmp -lcrypto -lz
+	OS		:=	Linux
 endif
 
 TARGETS	:=	make_self$(POSTFIX) make_self_npdrm$(POSTFIX) package_finalize$(POSTFIX)
