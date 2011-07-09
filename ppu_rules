@@ -22,8 +22,6 @@ include $(PSL1GHT)/data_rules
 
 PKG			:=	pkg.py
 SFO			:=	sfo.py
-SFOXML			:=	$(PS3DEV)/bin/sfo.xml
-ICON0			:=	$(PS3DEV)/bin/ICON0.PNG
 
 SPRX			:=	sprxlinker$(POSTFIX)
 CGCOMP			:=	cgcomp$(POSTFIX)
