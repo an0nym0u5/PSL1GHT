@@ -79,12 +79,12 @@ ifneq ($(BUILD),$(notdir $(CURDIR)))
 ## Files
 ##
 ##--------------------------------------------------------------------------------
-OUTPUT		:= $(CURDIR)/$(TARGET)
-VPATH		:= $(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
+export OUTPUT	:= $(CURDIR)/$(TARGET)
+export VPATH	:= $(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
 		   $(foreach dir,$(DATA),$(CURDIR)/$(dir)) \
 		   $(foreach dir,$(SHADERS),$(CURDIR)/$(dir))
-BUILDDIR	:= $(CURDIR)/$(BUILD)
-DEPSDIR		:= $(BUILDDIR)
+export BUILDDIR	:= $(CURDIR)/$(BUILD)
+export DEPSDIR	:= $(BUILDDIR)
 #---------------------------------------------------------------------------------
 CFILES		:= $(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
 CPPFILES	:= $(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
@@ -103,7 +103,7 @@ FCGFILES	:= $(foreach dir,$(SHADERS),$(notdir $(wildcard $(dir)/*.fcg)))
 VPOFILES	:= $(VCGFILES:.vcg=.vpo)
 FPOFILES	:= $(FCGFILES:.fcg=.fpo)
 #---------------------------------------------------------------------------------
-OFILES		:= $(addsuffix .o,$(BINFILES)) \
+export OFILES	:= $(addsuffix .o,$(BINFILES)) \
 		   $(addsuffix .o,$(TTFFILES)) \
 		   $(addsuffix .o,$(PNGFILES)) \
 		   $(addsuffix .o,$(JPGFILES)) \
@@ -116,13 +116,13 @@ OFILES		:= $(addsuffix .o,$(BINFILES)) \
 		   $(CFILES:.c=.o) \
 		   $(CPPFILES:.cpp=.o) \
 		   $(sFILES:.s=.o) $(SFILES:.S=.o)
-INCLUDEPATHS	:= $(foreach dir,$(INCLUDES), -I$(CURDIR)/$(dir)) \
+export INCLUDEPATHS	:= $(foreach dir,$(INCLUDES), -I$(CURDIR)/$(dir)) \
 		   $(foreach dir,$(LIBDIRS),-I$(dir)/include) \
 		   $(LIBPSL1GHT_INC) \
 		   -I$(CURDIR)/$(BUILD)
-LIBPATHS	:= $(foreach dir,$(LIBDIRS),-L$(dir)/lib) \
+export LIBPATHS	:= $(foreach dir,$(LIBDIRS),-L$(dir)/lib) \
 		   $(LIBPSL1GHT_LIB) -L $(PSL1GHT)/ppu/lib
-OUTPUT		:= $(CURDIR)/$(TARGET)
+export OUTPUT	:= $(CURDIR)/$(TARGET)
 
 
 ##--------------------------------------------------------------------------------
@@ -144,18 +144,12 @@ endif
 ##--------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------
-.PHONY:	$(BUILD) clean bin pkg run
+.PHONY:	$(BUILD) bin clean dex pkg run
 #---------------------------------------------------------------------------------
-$(BUILD):
+$(BUILD): bin
 	@[ -d $@ ] || mkdir -p $@
 	@echo compiling ...
 	@$(MAKE) --no-print-directory -C $(BUILDDIR) -f $(CURDIR)/Makefile
-
-#---------------------------------------------------------------------------------
-self:	$(BUILD) $(OUTPUT).self
-
-#---------------------------------------------------------------------------------
-dex:	$(BUILD) $(OUTPUT).dex.self
 
 #---------------------------------------------------------------------------------
 clean:
@@ -163,11 +157,14 @@ clean:
 	@rm -rf $(BUILD) $(OUTPUT).a $(OUTPUT)*.elf $(OUTPUT)*.self $(OUTPUT)*.pkg
 
 #---------------------------------------------------------------------------------
-run:	self
-	@ps3load $(OUTPUT).self
+dex:	$(BUILD) $(OUTPUT).dex.self
 
 #---------------------------------------------------------------------------------
-pkg:	self $(OUTPUT).pkg
+pkg:	$(BUILD) $(OUTPUT).pkg
+
+#---------------------------------------------------------------------------------
+run:	$(BUILD) $(OUTPUT).self
+	@ps3load $(OUTPUT).self
 
 #---------------------------------------------------------------------------------
 else
@@ -180,8 +177,8 @@ DEPENDS		:= $(OFILES:.o=.d)
 ## Targets
 ##
 ##--------------------------------------------------------------------------------
-$(OUTPUT).self:		$(OUTPUT).elf
 $(OUTPUT).dex.self:	$(OUTPUT).elf
+$(OUTPUT).self:		$(OUTPUT).elf
 $(OUTPUT).elf:		$(OFILES)
 
 #---------------------------------------------------------------------------------

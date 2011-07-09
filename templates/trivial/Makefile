@@ -10,10 +10,10 @@
 
 #OFILES is what is linked into your binary
 #the object files are made automatically from the corresponding c/cpp files
-OFILES=source/main.o 
+OFILES=source/main.o
 
 #The CFLAGS are not set by the framework makefiles. These are sound defaults.
-CFLAGS=-I/opt/ps3dev/ppu/include/ -std=gnu99
+CFLAGS=-I$(PS3DEV)/ppu/include -std=gnu99
 
 LDFLAGS=
 
