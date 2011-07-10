@@ -28,6 +28,9 @@
 #define GCM_CONTEXT_SURFACE2D                              (0x313371C3)
 #define GCM_CONTEXT_SWIZZLE2D                              (0x31337A73)
 
+#define GCM_TRANSFER_LOCAL                                 0
+#define GCM_TRANSFER_MAIN                                  1
+
 #define GCM_TRANSFER_LOCAL_TO_LOCAL                        0
 #define GCM_TRANSFER_MAIN_TO_LOCAL                         1
 #define GCM_TRANSFER_LOCAL_TO_MAIN                         2
