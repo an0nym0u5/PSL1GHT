@@ -2,6 +2,7 @@
 #define __LV2_NETCTL_H__
 
 #include <ppu-types.h>
+#include <net/net.h>
 
 /* info */
 #define NET_CTL_INFO_DEVICE                           (1)
@@ -230,7 +231,7 @@ union net_ctl_info {
 };
 
 
-void netCtlInit(void);
+s32 netCtlInit(void);
 void netCtlTerm(void);
 s32 netCtlGetInfo(s32 code,union net_ctl_info *info);
 s32 netCtlGetState(s32 *state);
