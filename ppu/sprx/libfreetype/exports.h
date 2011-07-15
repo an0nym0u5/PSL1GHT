@@ -4,6 +4,9 @@
 EXPORT(freeType2Ex, 0xf8d95c49);
 EXPORT(freeType2GetRevisionFlags, 0x211248e7);
 
+EXPORT(FT_Init_FreeType, 0x85a969b6);
+EXPORT(FT_Debug_Init, 0xfa502b9b);
+
 EXPORT(FT_Activate_Size, 0x06a553df);
 EXPORT(FT_Add_Default_Modules, 0x68c25868);
 EXPORT(FT_Add_Module, 0xa6ec00f4);
@@ -21,7 +24,6 @@ EXPORT(FT_CeilFix, 0xafe5ebc4);
 EXPORT(FT_CMap_Done, 0x2b74d0b3);
 EXPORT(FT_CMap_New, 0x32a1bd52);
 EXPORT(FT_Cos, 0xe46f3662);
-EXPORT(FT_Debug_Init, 0xfa502b9b);
 EXPORT(FT_DivFix, 0xe68e4744);
 EXPORT(FT_Done_Face, 0x1cedf8d0);
 EXPORT(FT_Done_FreeType, 0xe956bf64);
@@ -86,7 +88,6 @@ EXPORT(FT_Glyph_To_Bitmap, 0xb499d895);
 EXPORT(FT_Glyph_Transform, 0xd912b0f4);
 EXPORT(FT_Has_PS_Glyph_Names, 0xaed08db1);
 EXPORT(FT_Highpow2, 0x552550e5);
-EXPORT(FT_Init_FreeType, 0x85a969b6);
 EXPORT(FT_Library_Version, 0x9eba183c);
 EXPORT(FT_List_Add, 0xc24e39fc);
 EXPORT(FT_List_Finalize, 0x4ee1b202);

@@ -1,6 +1,10 @@
 #ifndef __EXPORTS_H__
 #define __EXPORTS_H__
 
+EXPORT(fontInitializeWithRevision, 0xf03dcc29);
+EXPORT(fontGetRevisionFlags, 0xb015a84e);
+EXPORT(fontGetInitializedRevisionFlags, 0x7c5df0d8);
+
 EXPORT(fontGetRenderEffectWeight, 0x0109f3d3);
 EXPORT(fontGraphicsGetDrawType, 0x03a142b9);
 EXPORT(fontCreateRenderer, 0x042e74e3);
@@ -25,7 +29,6 @@ EXPORT(fontOpenFontInstance, 0x29329541);
 EXPORT(fontSetScalePixel, 0x297f0e93);
 EXPORT(fontGetRenderCharGlyphMetrics, 0x2da9fd9d);
 EXPORT(fontClearFileCache, 0x3da90559);
-EXPORT(fontEndLibrary, 0x40d40544);
 EXPORT(fontAdjustFontScaling, 0x47ca71ef);
 EXPORT(fontSetupRenderScalePoint, 0x4d19c631);
 EXPORT(fontGlyphGetVerticalShift, 0x534e785f);
@@ -40,13 +43,10 @@ EXPORT(fontSetFontOpenMode, 0x6cfada83);
 EXPORT(fontGetRenderCharGlyphMetricsVertical, 0x700e6223);
 EXPORT(fontSetScalePoint, 0x70f3e728);
 EXPORT(fontSetupRenderEffectSlant, 0x78d05e08);
-EXPORT(fontEnd, 0x7ab47f7e);
-EXPORT(fontGetInitializedRevisionFlags, 0x7c5df0d8);
 EXPORT(fontGraphicsSetLineRGBA, 0x7c83bc15);
 EXPORT(fontSetEffectSlant, 0x8657c8f5);
 EXPORT(fontGraphicsSetDrawType, 0x87bd650f);
 EXPORT(fontRenderCharGlyphImage, 0x88be4799);
-EXPORT(fontEndGraphics, 0x8a35c887);
 EXPORT(fontGetResolutionDpi, 0x8a632038);
 EXPORT(fontGlyphRenderImageVertical, 0x8e3f2c40);
 EXPORT(fontRenderSurfaceInit, 0x90b9465e);
@@ -62,7 +62,6 @@ EXPORT(fontSetupRenderEffectWeight, 0xa6dc25d1);
 EXPORT(fontDelete, 0xa7b2103a);
 EXPORT(fontOpenFontset, 0xa885cc9b);
 EXPORT(fontGlyphGetOutlineControlDistance, 0xa8fae920);
-EXPORT(fontGetRevisionFlags, 0xb015a84e);
 EXPORT(fontCloseFont, 0xb276f1f6);
 EXPORT(fontPatchWorks, 0xb3d304b2);
 EXPORT(fontRenderSurfaceSetScissor, 0xb422b005);
@@ -77,11 +76,14 @@ EXPORT(fontExtend, 0xdee0836c);
 EXPORT(fontGlyphRenderImage, 0xe01b199e);
 EXPORT(fontGetEffectSlant, 0xe16e679a);
 EXPORT(fontRenderCharGlyphImageVertical, 0xe857a0ca);
-EXPORT(fontInitializeWithRevision, 0xf03dcc29);
 EXPORT(fontUnbindRenderer, 0xf16379fa);
 EXPORT(fontGetScalePoint, 0xf7a19060);
 EXPORT(fontGraphicsGetLineRGBA, 0xf7aaa8e2);
 EXPORT(fontSetResolutionDpi, 0xfb3341ba);
 EXPORT(fontGetCharGlyphMetricsVertical, 0xfe9a6dd7);
+
+EXPORT(fontEndGraphics, 0x8a35c887);
+EXPORT(fontEndLibrary, 0x40d40544);
+EXPORT(fontEnd, 0x7ab47f7e);
 
 #endif
