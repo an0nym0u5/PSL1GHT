@@ -42,6 +42,7 @@ typedef enum
 
 s32 sysModuleLoad(sysModuleId id);
 s32 sysModuleUnload(sysModuleId id);
+s32 sysModuleIsLoaded(sysModuleId id);
 
 #ifdef __cplusplus
 	}
