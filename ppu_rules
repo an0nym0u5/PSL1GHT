@@ -21,13 +21,14 @@ include $(PSL1GHT)/base_rules
 include $(PSL1GHT)/data_rules
 
 PKG			:=	pkg.py
-SFO			:=	sfo.py
+SFOPY			:=	sfo.py
+SFO			:=	make_sfo$(POSTFIX)
 
 SPRX			:=	sprxlinker$(POSTFIX)
 CGCOMP			:=	cgcomp$(POSTFIX)
 PS3LOADAPP		:=	ps3load$(POSTFIX)
 
-#FSELF			:=	fself.py
+FSELFPY			:=	fself.py
 FSELF			:=	fself$(POSTFIX)
 FSELF_NPDRM		:=	$(FSELF) -n
 DEX_FSELF		:=	make_fself$(POSTFIX)

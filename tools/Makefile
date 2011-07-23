@@ -28,6 +28,7 @@ all:
 	@$(MAKE) -C cgcomp --no-print-directory
 	@$(MAKE) -C ps3py --no-print-directory
 	@$(MAKE) -C fself --no-print-directory
+	@$(MAKE) -C make_sfo --no-print-directory
 
 install-socat:
 	@[ -d $(PS3DEV)/bin ] || mkdir -p $(PS3DEV)/bin
@@ -41,6 +42,7 @@ install:
 	@$(MAKE) -C cgcomp install --no-print-directory
 	@$(MAKE) -C ps3py install --no-print-directory
 	@$(MAKE) -C fself install --no-print-directory
+	@$(MAKE) -C make_sfo install --no-print-directory
 
 clean:
 	@$(MAKE) -C geohot clean --no-print-directory
@@ -50,5 +52,6 @@ clean:
 	@$(MAKE) -C cgcomp clean --no-print-directory
 	@$(MAKE) -C ps3py clean --no-print-directory
 	@$(MAKE) -C fself clean --no-print-directory
+	@$(MAKE) -C make_sfo clean --no-print-directory
 
 .PHONY: all clean install install-socat
