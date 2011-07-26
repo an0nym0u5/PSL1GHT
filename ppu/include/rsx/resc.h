@@ -1,6 +1,6 @@
 /*! \file resc.h
  * \brief libresc
- * */
+ */
 
 #ifndef __RESC_H__
 #define __RESC_H__

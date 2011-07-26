@@ -17,9 +17,10 @@ all:
 	@$(MAKE) -C libsysutil --no-print-directory
 	@$(MAKE) -C libsysmodule --no-print-directory
 	@$(MAKE) -C libvdec --no-print-directory
-	@$(MAKE) -C libfont --no-print-directory
-	@$(MAKE) -C libfontFT --no-print-directory
-	@$(MAKE) -C libfreetype --no-print-directory
+	@$(MAKE) -C libusb --no-print-directory
+#	@$(MAKE) -C libfont --no-print-directory
+#	@$(MAKE) -C libfontFT --no-print-directory
+#	@$(MAKE) -C libfreetype --no-print-directory
 	
 install:
 	@$(MAKE) -C libio install --no-print-directory
@@ -40,9 +41,10 @@ install:
 	@$(MAKE) -C libsysutil install --no-print-directory
 	@$(MAKE) -C libsysmodule install --no-print-directory
 	@$(MAKE) -C libvdec install --no-print-directory
-	@$(MAKE) -C libfont install --no-print-directory
-	@$(MAKE) -C libfontFT install --no-print-directory
-	@$(MAKE) -C libfreetype install --no-print-directory
+	@$(MAKE) -C libusb install --no-print-directory
+#	@$(MAKE) -C libfont install --no-print-directory
+#	@$(MAKE) -C libfontFT install --no-print-directory
+#	@$(MAKE) -C libfreetype install --no-print-directory
 	
 clean:
 	@$(MAKE) -C libio clean --no-print-directory
@@ -63,8 +65,9 @@ clean:
 	@$(MAKE) -C libsysutil clean --no-print-directory
 	@$(MAKE) -C libsysmodule clean --no-print-directory
 	@$(MAKE) -C libvdec clean --no-print-directory
-	@$(MAKE) -C libfontFT clean --no-print-directory
-	@$(MAKE) -C libfontFT clean --no-print-directory
-	@$(MAKE) -C libfreetype clean --no-print-directory
+	@$(MAKE) -C libusb clean --no-print-directory
+#	@$(MAKE) -C libfontFT clean --no-print-directory
+#	@$(MAKE) -C libfontFT clean --no-print-directory
+#	@$(MAKE) -C libfreetype clean --no-print-directory
 	
 .PHONY: all clean install

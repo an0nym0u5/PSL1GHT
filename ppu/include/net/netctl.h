@@ -3,6 +3,7 @@
 
 #include <ppu-types.h>
 #include <net/net.h>
+#include <netinet/in.h>
 
 /* info */
 #define NET_CTL_INFO_DEVICE                           (1)

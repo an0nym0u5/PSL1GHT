@@ -870,7 +870,11 @@ int
 main ( int argc, char **argv )
 {
   paramSFO paramsfo ;
+  paramsfo.entries = NULL ;
+
   argOptions args ;
+  args.verbose = 0 ;
+  args.silent = 0 ;
   args.title = NULL ;
   args.title_id = NULL ;
   args.dst_xml = NULL ;
@@ -881,8 +885,6 @@ main ( int argc, char **argv )
   static int option_index ;
 
   version () ;
-  args.verbose = 0 ;
-  args.silent = 0 ;
 
   while ( 1 )
   {
