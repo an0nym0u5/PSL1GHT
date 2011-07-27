@@ -107,10 +107,9 @@
 #define VALUE_REGION_DENY_LEN             0x04
 #define VALUE_RESOLUTION_LEN              0x04
 #define VALUE_SOUND_FORMAT_LEN            0x04
-#define VALUE_TITLE_LEN                   0x0b
-#define VALUE_TITLE_ID_LEN                0x0e
+#define VALUE_TITLE_LEN                   0x12
+#define VALUE_TITLE_ID_LEN                0x08
 #define VALUE_VERSION_LEN                 0x06
-#define VALUE_PADDING_LEN                 0x02
 
 #define VALUE_APP_VER_MAX                 0x08
 #define VALUE_ATTRIBUTE_MAX               0x04

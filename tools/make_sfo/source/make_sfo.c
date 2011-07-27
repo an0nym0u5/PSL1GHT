@@ -215,10 +215,6 @@ initValues ( paramSFO *paramsfo )
   paramsfo->values.version = malloc ( VALUE_VERSION_MAX ) ;
   CHECK_ERRNO( paramsfo->values.version, "paramsfo->values.version" ) ;
   memset ( paramsfo->values.version, 0x00, sizeof ( VALUE_VERSION_MAX ) ) ;
-
-  paramsfo->values.padding = malloc ( VALUE_PADDING_LEN ) ;
-  CHECK_ERRNO( paramsfo->values.padding, "paramsfo->values.padding" ) ;
-  memset ( paramsfo->values.padding, 0x00, sizeof ( VALUE_PADDING_LEN ) ) ;
 }
 
 static void
@@ -254,7 +250,6 @@ freeMemory ( paramSFO *paramsfo )
   free ( paramsfo->values.title ) ;
   free ( paramsfo->values.title_id ) ;
   free ( paramsfo->values.version ) ;
-  free ( paramsfo->values.padding ) ;
 }
 
 static void
@@ -798,8 +793,6 @@ writeValues ( FILE *fp, paramSFO *paramsfo )
   WRITE_VALUE_STR ( fp, ret, paramsfo->keys.title,            paramsfo->values.title,             VALUE_TITLE_MAX ) ;
   WRITE_VALUE_STR ( fp, ret, paramsfo->keys.title_id,         paramsfo->values.title_id,          VALUE_TITLE_ID_MAX ) ;
   WRITE_VALUE_STR ( fp, ret, paramsfo->keys.version,          paramsfo->values.version,           VALUE_VERSION_MAX ) ;
-
-  WRITE_PADDING( fp, ret, paramsfo->values.padding, VALUE_PADDING_LEN ) ;
 }
 
 static void

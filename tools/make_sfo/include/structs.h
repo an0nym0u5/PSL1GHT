@@ -74,7 +74,6 @@ typedef struct _param_values
   uint8_t *title;
   uint8_t *title_id;
   uint8_t *version;
-  uint8_t *padding;
 } paramValues;
 
 typedef struct _param_SFO
