@@ -7,6 +7,16 @@
 extern "C" {
 #endif
 
+/* constants */
+#define SYSMODULE_OK                             0x00
+#define SYSMODULE_LOADED                         0x00
+#define SYSMODULE_ERR_DUPLICATE                  0x80012001 /* already loaded */
+#define SYSMODULE_ERR_UNKNOWN                    0x80012002 /* unknown prx */
+#define SYSMODULE_ERR_UNLOADED                   0x80012003 /* already unloaded */
+#define SYSMODULE_ERR_INVALID_MEM                0x80012004 /* invalid memory container */
+#define SYSMODULE_ERR_FATAL                      0x800120ff /* call failed */
+
+
 typedef enum
 {
 	SYSMODULE_NET = 0x0,
@@ -79,9 +89,11 @@ typedef enum
 	SYSMODULE_ADEC_MP3 = 0xf01e,
 } sysModuleId;
 
+
 s32 sysModuleLoad(sysModuleId id);
 s32 sysModuleUnload(sysModuleId id);
 s32 sysModuleIsLoaded(sysModuleId id);
+
 
 #ifdef __cplusplus
 	}
