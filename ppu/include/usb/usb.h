@@ -12,139 +12,159 @@
  */
 
 /* request types */
-#define USB_REQTYPE_DIR_BITS           0x80
-#define USB_REQTYPE_DIR_TO_DEVICE        0x00
-#define USB_REQTYPE_DIR_TO_HOST          0x80
-#define USB_REQTYPE_TYPE_BITS          0x60
-#define USB_REQTYPE_TYPE_STANDARD        0x00
-#define USB_REQTYPE_TYPE_CLASS           0x20
-#define USB_REQTYPE_TYPE_VENDOR          0x40
-#define USB_REQTYPE_TYPE_RESERVED        0x60
-#define USB_REQTYPE_RECIP_BITS           0x1f
-#define USB_REQTYPE_RECIP_DEVICE         0x00
-#define USB_REQTYPE_RECIP_INTERFACE        0x01
-#define USB_REQTYPE_RECIP_ENDPOINT         0x02
-#define USB_REQTYPE_RECIP_OTHER          0x03
+#define USB_REQTYPE_DIR_BITS                     0x80
+#define USB_REQTYPE_DIR_TO_DEVICE                0x00
+#define USB_REQTYPE_DIR_TO_HOST                  0x80
+#define USB_REQTYPE_TYPE_BITS                    0x60
+#define USB_REQTYPE_TYPE_STANDARD                0x00
+#define USB_REQTYPE_TYPE_CLASS                   0x20
+#define USB_REQTYPE_TYPE_VENDOR                  0x40
+#define USB_REQTYPE_TYPE_RESERVED                0x60
+#define USB_REQTYPE_RECIP_BITS                   0x1f
+#define USB_REQTYPE_RECIP_DEVICE                 0x00
+#define USB_REQTYPE_RECIP_INTERFACE              0x01
+#define USB_REQTYPE_RECIP_ENDPOINT               0x02
+#define USB_REQTYPE_RECIP_OTHER                  0x03
 
 /* request */
-#define USB_REQUEST_GET_STATUS           0x00
-#define USB_REQUEST_CLEAR_FEATURE        0x01
-#define USB_REQUEST_SET_FEATURE          0x03
-#define USB_REQUEST_SET_ADDRESS          0x05
-#define USB_REQUEST_GET_DESCRIPTOR         0x06
-#define USB_REQUEST_SET_DESCRIPTOR         0x07
-#define USB_REQUEST_GET_CONFIGURATION      0x08
-#define USB_REQUEST_SET_CONFIGURATION      0x09
-#define USB_REQUEST_GET_INTERFACE        0x0a
-#define USB_REQUEST_SET_INTERFACE        0x0b
-#define USB_REQUEST_SYNCH_FRAME          0x0c
+#define USB_REQUEST_GET_STATUS                   0x00
+#define USB_REQUEST_CLEAR_FEATURE                0x01
+#define USB_REQUEST_SET_FEATURE                  0x03
+#define USB_REQUEST_SET_ADDRESS                  0x05
+#define USB_REQUEST_GET_DESCRIPTOR               0x06
+#define USB_REQUEST_SET_DESCRIPTOR               0x07
+#define USB_REQUEST_GET_CONFIGURATION            0x08
+#define USB_REQUEST_SET_CONFIGURATION            0x09
+#define USB_REQUEST_GET_INTERFACE                0x0a
+#define USB_REQUEST_SET_INTERFACE                0x0b
+#define USB_REQUEST_SYNCH_FRAME                  0x0c
 
 /* descriptor types */
-#define USB_DESCRIPTOR_TYPE_DEVICE         0x01
-#define USB_DESCRIPTOR_TYPE_CONFIGURATION    0x02
-#define USB_DESCRIPTOR_TYPE_STRING         0x03
-#define USB_DESCRIPTOR_TYPE_INTERFACE      0x04
-#define USB_DESCRIPTOR_TYPE_ENDPOINT       0x05
-#define USB_DESCRIPTOR_TYPE_HID          0x21
-#define USB_DESCRIPTOR_TYPE_REPORT         0x22
+#define USB_DESCRIPTOR_TYPE_DEVICE               0x01
+#define USB_DESCRIPTOR_TYPE_CONFIGURATION        0x02
+#define USB_DESCRIPTOR_TYPE_STRING               0x03
+#define USB_DESCRIPTOR_TYPE_INTERFACE            0x04
+#define USB_DESCRIPTOR_TYPE_ENDPOINT             0x05
+#define USB_DESCRIPTOR_TYPE_HID                  0x21
+#define USB_DESCRIPTOR_TYPE_REPORT               0x22
 
 /* features */
-#define USB_FEATURE_ENDPOINT_HALT        0x00
-#define USB_FEATURE_DEVICE_REMOTE_WAKEUP     0x01
+#define USB_FEATURE_ENDPOINT_HALT                0x00
+#define USB_FEATURE_DEVICE_REMOTE_WAKEUP         0x01
 
 /* device classes */
-#define USB_CLASS_PER_INTERFACE          0x00
-#define USB_CLASS_AUDIO              0x01
-#define USB_CLASS_COMMUNICATIONS         0x02
-#define USB_CLASS_HID              0x03
-#define USB_CLASS_MONITOR            0x04
-#define USB_CLASS_PHYSICAL             0x05
-#define USB_CLASS_POWER              0x06
-#define USB_CLASS_PRINTER            0x07
-#define USB_CLASS_STORAGE            0x08
-#define USB_CLASS_HUB              0x09
-#define USB_CLASS_DATA               0x0a
-#define USB_CLASS_VENDOR_SPECIFIC        0xff
+#define USB_CLASS_PER_INTERFACE                  0x00
+#define USB_CLASS_AUDIO                          0x01
+#define USB_CLASS_COMMUNICATIONS                 0x02
+#define USB_CLASS_HID                            0x03
+#define USB_CLASS_MONITOR                        0x04
+#define USB_CLASS_PHYSICAL                       0x05
+#define USB_CLASS_POWER                          0x06
+#define USB_CLASS_PRINTER                        0x07
+#define USB_CLASS_STORAGE                        0x08
+#define USB_CLASS_HUB                            0x09
+#define USB_CLASS_DATA                           0x0a
+#define USB_CLASS_VENDOR_SPECIFIC                0xff
 
 /* configuration */
-#define USB_CONFIGURATION_RESERVED_ZERO      0x1f
-#define USB_CONFIGURATION_REMOTE_WAKEUP      0x20
-#define USB_CONFIGURATION_SELF_POWERED       0x40
-#define USB_CONFIGURATION_RESERVED_ONE       0x80
+#define USB_CONFIGURATION_RESERVED_ZERO          0x1f
+#define USB_CONFIGURATION_REMOTE_WAKEUP          0x20
+#define USB_CONFIGURATION_SELF_POWERED           0x40
+#define USB_CONFIGURATION_RESERVED_ONE           0x80
 
 /* bmAttribute */
-#define USB_ENDPOINT_TRANSFER_TYPE_BITS      0x03
-#define USB_ENDPOINT_TRANSFER_TYPE_SHIFT     0
-#define USB_ENDPOINT_TRANSFER_TYPE_CONTROL     0x00
+#define USB_ENDPOINT_TRANSFER_TYPE_BITS          0x03
+#define USB_ENDPOINT_TRANSFER_TYPE_SHIFT         0
+#define USB_ENDPOINT_TRANSFER_TYPE_CONTROL       0x00
 #define USB_ENDPOINT_TRANSFER_TYPE_ISOCHRONOUS   0x01
-#define USB_ENDPOINT_TRANSFER_TYPE_BULK      0x02
-#define USB_ENDPOINT_TRANSFER_TYPE_INTERRUPT   0x03
+#define USB_ENDPOINT_TRANSFER_TYPE_BULK          0x02
+#define USB_ENDPOINT_TRANSFER_TYPE_INTERRUPT     0x03
 
 /* bEndpointAddress */
-#define USB_ENDPOINT_NUMBER_BITS         0x1f
-#define USB_ENDPOINT_NUMBER_SHIFT        0
-#define USB_ENDPOINT_DIRECTION_BITS        0x80
-#define USB_ENDPOINT_DIRECTION_SHIFT       7
-#define USB_ENDPOINT_DIRECTION_OUT         0x00
-#define USB_ENDPOINT_DIRECTION_IN        0x80
+#define USB_ENDPOINT_NUMBER_BITS                 0x1f
+#define USB_ENDPOINT_NUMBER_SHIFT                0
+#define USB_ENDPOINT_DIRECTION_BITS              0x80
+#define USB_ENDPOINT_DIRECTION_SHIFT             7
+#define USB_ENDPOINT_DIRECTION_OUT               0x00
+#define USB_ENDPOINT_DIRECTION_IN                0x80
 
 /* packet sizes */
-#define USB_MAX_LS_CONTROL_PACKET_SIZE       8     /* low speed */
-#define USB_MAX_LS_INTERRUPT_PACKET_SIZE     8     /* low speed */
-#define USB_MAX_FS_CONTROL_PACKET_SIZE       64    /* full speed */
-#define USB_MAX_FS_INTERRUPT_PACKET_SIZE     64    /* full speed */
-#define USB_MAX_BULK_PACKET_SIZE         64    /* full speed only */
-#define USB_MAX_ISOCHRONOUS_PACKET_SIZE      1023  /* full speed only */
+#define USB_MAX_LS_CONTROL_PACKET_SIZE           8     /* low speed */
+#define USB_MAX_LS_INTERRUPT_PACKET_SIZE         8     /* low speed */
+#define USB_MAX_FS_CONTROL_PACKET_SIZE           64    /* full speed */
+#define USB_MAX_FS_INTERRUPT_PACKET_SIZE         64    /* full speed */
+#define USB_MAX_BULK_PACKET_SIZE                 64    /* full speed only */
+#define USB_MAX_ISOCHRONOUS_PACKET_SIZE          1023  /* full speed only */
 	
 /* OHCI completion codes */
-#define USB_HC_CC_NOERR              0x0
-#define USB_OHCI_CC_CRC              0x1
-#define USB_OHCI_CC_BFV              0x2
-#define USB_OHCI_CC_DTM              0x3
-#define USB_OHCI_CC_STALL            0x4
-#define USB_OHCI_CC_NOTRESP            0x5
-#define USB_OHCI_CC_PIDCF            0x6
-#define USB_OHCI_CC_UEPID            0x7
-#define USB_OHCI_CC_DOR              0x8
-#define USB_OHCI_CC_DUR              0x9
-#define USB_OHCI_CC_RSVDA            0xa
-#define USB_OHCI_CC_RSVDB            0xb
-#define USB_OHCI_CC_BOR              0xc
-#define USB_OHCI_CC_BUR              0xd
-#define USB_OHCI_CC_NOTACC1            0xe
-#define USB_OHCI_CC_NOTACC2            0xf
-#define USB_EHCI_CC_MISSMF             0x10
-#define USB_EHCI_CC_XACT             0x20
-#define USB_EHCI_CC_BABBLE             0x30
-#define USB_EHCI_CC_DATABUF            0x40
-#define USB_EHCI_CC_HALTED             0x50
+#define USB_HC_CC_NOERR                          0x0
+#define USB_OHCI_CC_CRC                          0x1
+#define USB_OHCI_CC_BFV                          0x2
+#define USB_OHCI_CC_DTM                          0x3
+#define USB_OHCI_CC_STALL                        0x4
+#define USB_OHCI_CC_NOTRESP                      0x5
+#define USB_OHCI_CC_PIDCF                        0x6
+#define USB_OHCI_CC_UEPID                        0x7
+#define USB_OHCI_CC_DOR                          0x8
+#define USB_OHCI_CC_DUR                          0x9
+#define USB_OHCI_CC_RSVDA                        0xa
+#define USB_OHCI_CC_RSVDB                        0xb
+#define USB_OHCI_CC_BOR                          0xc
+#define USB_OHCI_CC_BUR                          0xd
+#define USB_OHCI_CC_NOTACC1                      0xe
+#define USB_OHCI_CC_NOTACC2                      0xf
+#define USB_EHCI_CC_MISSMF                       0x10
+#define USB_EHCI_CC_XACT                         0x20
+#define USB_EHCI_CC_BABBLE                       0x30
+#define USB_EHCI_CC_DATABUF                      0x40
+#define USB_EHCI_CC_HALTED                       0x50
 
 /* PSW isochronous transfer completion codes */
-#define USB_CC_NOERR               0x0
-#define USB_CC_MISSMF              0x1
-#define USB_CC_XACT                0x2
-#define USB_CC_BABBLE              0x4
-#define USB_CC_DATABUF               0x8
+#define USB_CC_NOERR                             0x0
+#define USB_CC_MISSMF                            0x1
+#define USB_CC_XACT                              0x2
+#define USB_CC_BABBLE                            0x4
+#define USB_CC_DATABUF                           0x8
 
 /* return codes */
-#define USB_PROBE_FAILED             (-1)
-#define USB_ATTACH_FAILED            (-1)
-#define USB_DETACH_FAILED            (-1)
-#define USB_PROBE_SUCCEEDED            (0)
-#define USB_ATTACH_SUCCEEDED           (0)
-#define USB_DETACH_SUCCEEDED           (0)
+#define USB_PROBE_FAILED                         (-1)
+#define USB_ATTACH_FAILED                        (-1)
+#define USB_DETACH_FAILED                        (-1)
+#define USB_PROBE_SUCCEEDED                      (0)
+#define USB_ATTACH_SUCCEEDED                     (0)
+#define USB_DETACH_SUCCEEDED                     (0)
 
-#define USB_MAX_ISOCH_PACKETS          (8)
+#define USB_MAX_ISOCH_PACKETS                    (8)
 
 /* device speed */
-#define USB_DEVICE_SPEED_LS            (0)
-#define USB_DEVICE_SPEED_FS            (1)
-#define USB_DEVICE_SPEED_HS            (2)
+#define USB_DEVICE_SPEED_LS                      (0)
+#define USB_DEVICE_SPEED_FS                      (1)
+#define USB_DEVICE_SPEED_HS                      (2)
 
 /* thread type */
-#define USB_THREAD_TYPE_EVENT_HANDLER      (0)
-#define USB_THREAD_TYPE_USBD_THREAD        (1)
-#define USB_THREAD_TYPE_CALLBACK_THREAD      (2)
+#define USB_THREAD_TYPE_EVENT_HANDLER            (0)
+#define USB_THREAD_TYPE_USBD_THREAD              (1)
+#define USB_THREAD_TYPE_CALLBACK_THREAD          (2)
+
+/* errors */
+#define USB_ERR_NOT_INITIALIZED                  (0x80110001)
+#define USB_ERR_ALREADY_INITIALIZED              (0x80110002)
+#define USB_ERR_NO_MEMORY                        (0x80110003)
+#define USB_ERR_INVALID_PARAM                    (0x80110004)
+#define USB_ERR_INVALID_TRANSFER_TYPE            (0x80110005)
+#define USB_ERR_LDD_ALREADY_REGISTERED           (0x80110006)
+#define USB_ERR_LDD_NOT_ALLOCATED                (0x80110007)
+#define USB_ERR_LDD_NOT_RELEASED                 (0x80110008)
+#define USB_ERR_LDD_NOT_FOUND                    (0x80110009)
+#define USB_ERR_DEVICE_NOT_FOUND                 (0x8011000a)
+#define USB_ERR_PIPE_NOT_ALLOCATED               (0x8011000b)
+#define USB_ERR_PIPE_NOT_RELEASED                (0x8011000c)
+#define USB_ERR_PIPE_NOT_FOUND                   (0x8011000d)
+#define USB_ERR_IOREQ_NOT_ALLOCATED              (0x8011000e)
+#define USB_ERR_IOREQ_NOT_RELEASED               (0x8011000f)
+#define USB_ERR_IOREQ_NOT_FOUND                  (0x80110010)
+#define USB_ERR_CANNOT_GET_DESCRIPTOR            (0x80110011)
+#define USB_ERR_FATAL                            (0x801100ff)
 
 
 /*
