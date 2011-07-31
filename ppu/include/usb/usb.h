@@ -147,6 +147,7 @@
 #define USB_THREAD_TYPE_CALLBACK_THREAD          (2)
 
 /* errors */
+#define USB_OK                                   0x00
 #define USB_ERR_NOT_INITIALIZED                  (0x80110001)
 #define USB_ERR_ALREADY_INITIALIZED              (0x80110002)
 #define USB_ERR_NO_MEMORY                        (0x80110003)
@@ -172,7 +173,8 @@
  */
 
 /* device request */
-typedef struct _usb_device_request {
+typedef struct _usb_device_request
+{
   u8 requestType;
   u8 request;
   u16 value;
@@ -181,7 +183,8 @@ typedef struct _usb_device_request {
 } usbDeviceRequest;
 
 /* device descriptor */
-typedef struct _usb_device_descriptor {
+typedef struct _usb_device_descriptor
+{
   u8 length;
   u8 descriptorType;
   u16 bcdUSB;
@@ -199,7 +202,8 @@ typedef struct _usb_device_descriptor {
 } usbDeviceDescriptor;
 
 /* configuration descriptor */
-typedef struct _usb_configuration_descriptor {
+typedef struct _usb_configuration_descriptor
+{
   u8 length;
   u8 descriptorType;
   u16 totalLength;
@@ -211,7 +215,8 @@ typedef struct _usb_configuration_descriptor {
 } usbConfigurationDescriptor;
 
 /* interface descriptor */
-typedef struct _usb_interface_descriptor {
+typedef struct _usb_interface_descriptor
+{
   u8 length;
   u8 descriptorType;
   u8 interfaceNumber;
@@ -224,7 +229,8 @@ typedef struct _usb_interface_descriptor {
 } usbInterfaceDescriptor;
 
 /* endpoint descriptor */
-typedef struct _usb_endpoint_descriptor {
+typedef struct _usb_endpoint_descriptor
+{
   u8 length;
   u8 descriptorType;
   u8 endpointAddress;
@@ -234,21 +240,24 @@ typedef struct _usb_endpoint_descriptor {
 } usbEndpointDescriptor;
 
 /* string descriptor */
-typedef struct _usb_string_descriptor {
+typedef struct _usb_string_descriptor
+{
   u8 length;
   u8 descriptorType;
   u8 string[0];
 } usbStringDescriptor;
 
 /* HID descriptor info (class specific descriptor) */
-typedef struct _usb_hid_sub_descriptor_info {
+typedef struct _usb_hid_sub_descriptor_info
+{
   u8 descriptorType;
   u8 descriptorLength0;
   u8 descriptorLength1;
 } usbHidSubDescriptorInfo;
 
 /* HID descriptor */
-typedef struct _usb_hid_descriptor {
+typedef struct _usb_hid_descriptor
+{
   u8 length;
   u8 descriptorType;
   u8 bcdHID0;
@@ -259,29 +268,33 @@ typedef struct _usb_hid_descriptor {
 } usbHidDescriptor;
 
 /* */
-typedef struct _usb_isoch_psw_len {
+typedef struct _usb_isoch_psw_len
+{
   u16 len:11;
   u16 reserved:1;
   u16 PSW:4;
 } usbIsochPswLen;
 
 /* */
-typedef struct _usb_hs_isoch_psw_len {
+typedef struct _usb_hs_isoch_psw_len
+{
   u16 len:12;
   u16 PSW:4;
 } usbHSIsochPswLen;
 
 /* */
-typedef struct _usb_hs_isoch_request {
-  void *buffer_base;
+typedef struct _usb_hs_isoch_request
+{
+  void *buffer_base ATTRIBUTE_PRXPTR;
   s32 relative_start_frame;
   s32 num_packets;
   usbHSIsochPswLen packets[USB_MAX_ISOCH_PACKETS];
 } usbHSIsochRequest;
 
 /* */
-typedef struct _usb_isoch_request {
-  void *buffer_base;
+typedef struct _usb_isoch_request
+{
+  void *buffer_base ATTRIBUTE_PRXPTR;
   s32 relative_start_frame;
   s32 num_packets;
   usbIsochPswLen packets[USB_MAX_ISOCH_PACKETS];
@@ -292,21 +305,31 @@ typedef struct _usb_isoch_request {
  */
 
 /* Logical Device Driver (ldd) callbacks */
-typedef struct _usb_ldd_ops {
-  const char *name;
-  s32 (*probe)(s32 device_id);
-  s32 (*attach)(s32 device_id);
-  s32 (*detach)(s32 device_id);
+typedef struct _usb_ldd_ops
+{
+  const char *name ATTRIBUTE_PRXPTR;
+  s32 (*probe)(s32 dev_id) ATTRIBUTE_PRXPTR;
+  s32 (*attach)(s32 dev_id) ATTRIBUTE_PRXPTR;
+  s32 (*detach)(s32 dev_id) ATTRIBUTE_PRXPTR;
 } usbLddOps;
 
+typedef struct _usb_ldd_ops_ex
+{
+  const char *name ATTRIBUTE_PRXPTR;
+
+  opd32 *probe ATTRIBUTE_PRXPTR;
+  opd32 *attach ATTRIBUTE_PRXPTR;
+  opd32 *detach ATTRIBUTE_PRXPTR;
+} usbLddOpsEx;
+
 /* done */
-typedef void (*usbDoneCallback)(int32_t result, int32_t count, void* arg);
+typedef void (*usbDoneCallback)(s32 result, s32 count, void* arg);
 
 /* isochronous done */
-typedef void (*usbIsochDoneCallback)(int32_t result, usbIsochRequest *req, void *arg);
+typedef void (*usbIsochDoneCallback)(s32 result, usbIsochRequest *req, void *arg);
 
 /* HS isochronous done */
-typedef void (*usbHSIsochDoneCallback)(int32_t result, usbHSIsochRequest *req, void *arg);
+typedef void (*usbHSIsochDoneCallback)(s32 result, usbHSIsochRequest *req, void *arg);
 
 
 /*
@@ -336,10 +359,10 @@ s32 usbUnregisterExtraLdd(usbLddOps *lddops);
 
 s32 usbBulkTransfer(s32 pipe_id, void *buf, s32 len, usbDoneCallback cb, void* arg);
 s32 usbControlTransfer(s32 pipe_id, usbDeviceRequest *req, void *buf, usbDoneCallback cb, void *arg);
+s32 usbInterruptTransfer(s32 pipe_id, void *buf, s32 len, usbDoneCallback cb, void *arg);
 s32 usbIsochronousTransfer(s32 pipe_id, usbIsochRequest *req, usbIsochDoneCallback cb, void *arg);
 s32 usbHSIsochronousTransfer(s32 pipe_id, usbHSIsochRequest *req, usbHSIsochDoneCallback cb, void *arg);
 
-s32 usbInterruptTransfer(s32 pipe_id, void *buf, s32 len, usbDoneCallback cb, void *arg);
 s32 usbSetThreadPriority2(s32 event_prio, s32 usb_prio, s32 callback_priority);
 
 
