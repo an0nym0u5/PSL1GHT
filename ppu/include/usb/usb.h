@@ -6,6 +6,7 @@
 #define __USB_H__
 
 #include <ppu-types.h>
+#include <ppu-asm.h>
 
 /*
  * constants
@@ -304,31 +305,22 @@ typedef struct _usb_isoch_request
  * callbacks
  */
 
-/* Logical Device Driver (ldd) callbacks */
+/* Logical Device Driver (ldd) operations */
 typedef struct _usb_ldd_ops
 {
-  const char *name ATTRIBUTE_PRXPTR;
-  s32 (*probe)(s32 dev_id) ATTRIBUTE_PRXPTR;
-  s32 (*attach)(s32 dev_id) ATTRIBUTE_PRXPTR;
-  s32 (*detach)(s32 dev_id) ATTRIBUTE_PRXPTR;
+  const char *name;
+  s32 (*probe)(s32 dev_id);
+  s32 (*attach)(s32 dev_id);
+  s32 (*detach)(s32 dev_id);
 } usbLddOps;
 
-typedef struct _usb_ldd_ops_ex
-{
-  const char *name ATTRIBUTE_PRXPTR;
-
-  opd32 *probe ATTRIBUTE_PRXPTR;
-  opd32 *attach ATTRIBUTE_PRXPTR;
-  opd32 *detach ATTRIBUTE_PRXPTR;
-} usbLddOpsEx;
-
-/* done */
+/* transfer done */
 typedef void (*usbDoneCallback)(s32 result, s32 count, void* arg);
 
-/* isochronous done */
+/* isochronous transfer done */
 typedef void (*usbIsochDoneCallback)(s32 result, usbIsochRequest *req, void *arg);
 
-/* HS isochronous done */
+/* HS isochronous transfer done */
 typedef void (*usbHSIsochDoneCallback)(s32 result, usbHSIsochRequest *req, void *arg);
 
 
@@ -338,21 +330,27 @@ typedef void (*usbHSIsochDoneCallback)(s32 result, usbHSIsochRequest *req, void 
 
 s32 usbInit(void);
 s32 usbEnd(void);
+
 s32 usbOpenPipe(s32 device_id, usbEndpointDescriptor *end_desc);
 s32 usbClosePipe(s32 pipe_id);
+
 s32 usbAllocateMemory(void **ptr, size_t size);
 s32 usbFreeMemory(void *ptr);
+
 void *usbScanStaticDescriptor(s32 device_id, void *ptr, unsigned char type);
+
 s32 usbGetDeviceLocation(s32 device_id, unsigned char *location);
 s32 usbGetDeviceSpeed(s32 device_id, u8 *speed);
+
 void *usbGetPrivateData(s32 device_id);
 s32 usbSetPrivateData(s32 device_id, void *priv);
+
 s32 usbGetThreadPriority(s32 thread_type);
 //s32 usbSetThreadPriority(UNKNOWN);
+s32 usbSetThreadPriority2(s32 event_prio, s32 usb_prio, s32 callback_priority);
 
 s32 usbRegisterLdd(usbLddOps *lddops);
 s32 usbUnregisterLdd(usbLddOps *lddops);
-
 s32 usbRegisterExtraLdd(usbLddOps *lddops, u16 vendor_id, u16 product_id);
 s32 usbRegisterExtraLdd2(usbLddOps *lddops, u16 vendor_id, u16 product_id_min, u16 product_id_max);
 s32 usbUnregisterExtraLdd(usbLddOps *lddops);
@@ -362,8 +360,6 @@ s32 usbControlTransfer(s32 pipe_id, usbDeviceRequest *req, void *buf, usbDoneCal
 s32 usbInterruptTransfer(s32 pipe_id, void *buf, s32 len, usbDoneCallback cb, void *arg);
 s32 usbIsochronousTransfer(s32 pipe_id, usbIsochRequest *req, usbIsochDoneCallback cb, void *arg);
 s32 usbHSIsochronousTransfer(s32 pipe_id, usbHSIsochRequest *req, usbHSIsochDoneCallback cb, void *arg);
-
-s32 usbSetThreadPriority2(s32 event_prio, s32 usb_prio, s32 callback_priority);
 
 
 /*
