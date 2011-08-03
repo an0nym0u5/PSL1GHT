@@ -10,7 +10,8 @@ extern "C" {
 typedef enum
 {
 	SYS_DISCTYPE_OTHER = 0,
-	SYS_DISCTYPE_PS3
+	SYS_DISCTYPE_PS3,
+	SYS_DISCTYPE_PS2
 } sysDiscType;
 
 typedef void (*sysDiscEjectCallback)(void);

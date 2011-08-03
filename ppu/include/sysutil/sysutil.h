@@ -3,6 +3,8 @@
 
 #include <ppu-types.h>
 
+#define SYSUTIL_OK                              0
+
 #define SYSUTIL_EVENT_SLOT0			0
 #define SYSUTIL_EVENT_SLOT1			1
 #define SYSUTIL_EVENT_SLOT2			2
