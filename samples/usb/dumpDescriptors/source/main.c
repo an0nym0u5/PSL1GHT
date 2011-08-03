@@ -49,18 +49,9 @@ static u32 module_flag ;
 
 SYS_PROCESS_PARAM ( 1001, 0x10000 )
 
-static void printDeviceDesc ( s32 dev_id, void *ptr )
+char*
+stringDescriptorType ( enum usbDescriptorType descriptorType, char *string )
 {
-  ( void ) dev_id;
-
-  usbDeviceDescriptor *descriptor = ( usbDeviceDescriptor* )ptr ;
-  enum usbDescriptorType descriptorType = descriptor->bDescriptorType ;
-  enum usbClassCode deviceClassCode = descriptor->bDeviceClass ;
-  char string[128];
- 
-  dbgprintf ( stdout, "DEVICE DESCRIPTOR" ) ;
-  argprintf ( stdout, "  bLength:                0x%02X ( %d )", descriptor->bLength, descriptor->bLength ) ;
-
   switch ( descriptorType )
   {
     case DT_DEVICE:
@@ -94,11 +85,37 @@ static void printDeviceDesc ( s32 dev_id, void *ptr )
       sprintf ( string, "Unknown" ) ;
       break ;
   }
-  argprintf ( stdout, "  bDescriptorType:        0x%02X ( %d ) [%s]", descriptor->bDescriptorType, descriptor->bDescriptorType, string ) ;
+  return string ;
+}
 
-  argprintf ( stdout, "  bcdUSB:                 0x%04X", swap16 ( &descriptor->bcdUSB ) ) ;
+char*
+stringDescriptorVersion ( enum usbBCD bcd, char *string )
+{
+  switch ( bcd )
+  {
+    case BCD_10:
+      sprintf ( string, "USB 1.0" ) ;
+      break ;
+    case BCD_11:
+      sprintf ( string, "USB 1.1" ) ;
+      break ;
+    case BCD_20:
+      sprintf ( string, "USB 2.0" ) ;
+      break ;
+    case BCD_30:
+      sprintf ( string, "USB 3.0" ) ;
+      break ;
+    default:
+      sprintf ( string, "Unknown" ) ;
+      break ;
+  }
+  return string ;
+}
 
-  switch ( deviceClassCode )
+char*
+stringDeviceClass ( enum usbDeviceClass deviceClass, char *string )
+{
+  switch ( deviceClass )
   {
     case CLASS_PER_INTERFACE:
       sprintf ( string, "Per Interface" ) ;
@@ -133,6 +150,24 @@ static void printDeviceDesc ( s32 dev_id, void *ptr )
     case CLASS_DATA:
       sprintf ( string, "Data" ) ;
       break ;
+    case CLASS_CHIP:
+      sprintf ( string, "Memory Card" ) ;
+      break ;
+    case CLASS_SECURITY:
+      sprintf ( string, "Security" ) ;
+      break ;
+    case CLASS_VIDEO:
+      sprintf ( string, "Video" ) ;
+      break ;
+    case CLASS_DIAG:
+      sprintf ( string, "Diagnostic" ) ;
+      break ;
+    case CLASS_WIRELESS:
+      sprintf ( string, "Wireless" ) ;
+      break ;
+    case CLASS_MISC:
+      sprintf ( string, "Miscellaneous" ) ;
+      break ;
     case CLASS_APPLICATION:
       sprintf ( string, "Application" ) ;
       break ;
@@ -143,194 +178,37 @@ static void printDeviceDesc ( s32 dev_id, void *ptr )
       sprintf ( string, "Unknown" ) ;
       break ;
   }
-  argprintf ( stdout, "  bDeviceClass:           0x%02X ( %d ) [%s]", descriptor->bDeviceClass, descriptor->bDeviceClass, string ) ;
-
-  argprintf ( stdout, "  bDeviceSubClass:        0x%02X ( %d )", descriptor->bDeviceSubClass, descriptor->bDeviceSubClass ) ;
-  argprintf ( stdout, "  bDeviceProtocol:        0x%02X ( %d )", descriptor->bDeviceProtocol, descriptor->bDeviceProtocol ) ;
-  argprintf ( stdout, "  bMaxPacketSize0:        0x%02X ( %d )", descriptor->bMaxPacketSize0, descriptor->bMaxPacketSize0 ) ;
-  argprintf ( stdout, "  idVendor:               0x%04X", swap16 ( &descriptor->idVendor ) ) ;
-  argprintf ( stdout, "  idProduct:              0x%04X", swap16 ( &descriptor->idProduct ) ) ;
-  argprintf ( stdout, "  bcdDevice:              0x%04X", swap16 ( &descriptor->bcdDevice ) ) ;
-  argprintf ( stdout, "  iManufacturer:          0x%02X ( %d )", descriptor->iManufacturer, descriptor->iManufacturer ) ;
-  argprintf ( stdout, "  iProduct:               0x%02X ( %d )", descriptor->iProduct, descriptor->iProduct ) ;
-  argprintf ( stdout, "  iSerialNumber:          0x%02X ( %d )", descriptor->iSerialNumber, descriptor->iSerialNumber ) ;
-  argprintf ( stdout, "  bNumConfigurations:     0x%02X ( %d )", descriptor->bNumConfigurations, descriptor->bNumConfigurations ) ;
-  fprintf ( stdout, "\n" ) ;
+  return string ;
 }
 
-static void printConfigDesc ( s32 dev_id, void *ptr )
+char*
+stringMaxPower ( s32 MaxPower, char *string )
 {
-  ( void ) dev_id;
-
-  usbConfigurationDescriptor *descriptor = ( usbConfigurationDescriptor* )ptr ;
-  enum usbDescriptorType descriptorType = descriptor->bDescriptorType ;
-  char string[128];
- 
-  dbgprintf ( stdout, "CONFIGURATION DESCRIPTOR" ) ;
-  argprintf ( stdout, "  bLength:                0x%02X ( %d )", descriptor->bLength, descriptor->bLength ) ;
-
-  switch ( descriptorType )
-  {
-    case DT_DEVICE:
-      sprintf ( string, "Device" ) ;
-      break ;
-    case DT_CONFIG:
-      sprintf ( string, "Configuration" ) ;
-      break ;
-    case DT_STRING:
-      sprintf ( string, "String" ) ;
-      break ;
-    case DT_INTERFACE:
-      sprintf ( string, "Interface" ) ;
-      break ;
-    case DT_ENDPOINT:
-      sprintf ( string, "Endpoint" ) ;
-      break ;
-    case DT_HID:
-      sprintf ( string, "HID" ) ;
-      break ;
-    case DT_REPORT:
-      sprintf ( string, "Report" ) ;
-      break ;
-    case DT_PHYSICAL:
-      sprintf ( string, "Physical" ) ;
-      break ;
-    case DT_HUB:
-      sprintf ( string, "Hub" ) ;
-      break ;
-    default:
-      sprintf ( string, "Unknown" ) ;
-      break ;
-  }
-  argprintf ( stdout, "  bDescriptorType:        0x%02X ( %d ) [%s]", descriptor->bDescriptorType, descriptor->bDescriptorType, string ) ;
-
-  argprintf ( stdout, "  wTotalLength:           0x%04X ( %d )", swap16 ( &descriptor->wTotalLength ), swap16 ( &descriptor->wTotalLength ) ) ;
-  argprintf ( stdout, "  bNumInterfaces:         0x%02X ( %d )", descriptor->bNumInterfaces, descriptor->bNumInterfaces ) ;
-  argprintf ( stdout, "  bConfigurationValue:    0x%02X ( %d )", descriptor->bConfigurationValue, descriptor->bConfigurationValue ) ;
-  argprintf ( stdout, "  iConfiguration:         0x%02X ( %d )", descriptor->iConfiguration, descriptor->iConfiguration ) ;
-  argprintf ( stdout, "  bmAttributes:           0x%02X ( %d )", descriptor->bmAttributes, descriptor->bmAttributes ) ;
-  argprintf ( stdout, "  MaxPower:               0x%02X ( %d )", descriptor->MaxPower, descriptor->MaxPower ) ;
-  fprintf ( stdout, "\n" ) ;
+  sprintf ( string, "%d ma", MaxPower * 2 ) ;
+  return string ;
 }
 
-static void printInterfaceDesc ( s32 dev_id, void *ptr )
+char*
+stringEndpointDirection ( enum usbEndpointDirection endpointAddressDirection, char *string )
 {
-  ( void ) dev_id;
-
-  usbInterfaceDescriptor *descriptor = ( usbInterfaceDescriptor* )ptr ;
-  enum usbDescriptorType descriptorType = descriptor->bDescriptorType ;
-  char string[128] ;
- 
-  dbgprintf ( stdout, "INTERFACE DESCRIPTOR" ) ;
-  argprintf ( stdout, "  bLength:                0x%02X ( %d )", descriptor->bLength, descriptor->bLength ) ;
-
-  switch ( descriptorType )
-  {
-    case DT_DEVICE:
-      sprintf ( string, "Device" ) ;
-      break ;
-    case DT_CONFIG:
-      sprintf ( string, "Configuration" ) ;
-      break ;
-    case DT_STRING:
-      sprintf ( string, "String" ) ;
-      break ;
-    case DT_INTERFACE:
-      sprintf ( string, "Interface" ) ;
-      break ;
-    case DT_ENDPOINT:
-      sprintf ( string, "Endpoint" ) ;
-      break ;
-    case DT_HID:
-      sprintf ( string, "HID" ) ;
-      break ;
-    case DT_REPORT:
-      sprintf ( string, "Report" ) ;
-      break ;
-    case DT_PHYSICAL:
-      sprintf ( string, "Physical" ) ;
-      break ;
-    case DT_HUB:
-      sprintf ( string, "Hub" ) ;
-      break ;
-    default:
-      sprintf ( string, "Unknown" ) ;
-      break ;
-  }
-  argprintf ( stdout, "  bDescriptorType:        0x%02X ( %d ) [%s]", descriptor->bDescriptorType, descriptor->bDescriptorType, string ) ;
-
-  argprintf ( stdout, "  bInterfaceNumber:       0x%02X ( %d )", descriptor->bInterfaceNumber, descriptor->bInterfaceNumber ) ;
-  argprintf ( stdout, "  bAlternateSetting:      0x%02X ( %d )", descriptor->bAlternateSetting, descriptor->bAlternateSetting ) ;
-  argprintf ( stdout, "  bNumEndpoints:          0x%02X ( %d )", descriptor->bNumEndpoints, descriptor->bNumEndpoints ) ;
-  argprintf ( stdout, "  bInterfaceClass:        0x%02X ( %d )", descriptor->bInterfaceClass, descriptor->bInterfaceClass ) ;
-  argprintf ( stdout, "  bInterfaceSubClass:     0x%02X ( %d )", descriptor->bInterfaceSubClass, descriptor->bInterfaceSubClass ) ;
-  argprintf ( stdout, "  bInterfaceProtocol:     0x%02X ( %d )", descriptor->bInterfaceProtocol, descriptor->bInterfaceProtocol ) ;
-  argprintf ( stdout, "  iInterface:             0x%02X ( %d )", descriptor->iInterface, descriptor->iInterface ) ;
-  fprintf ( stdout, "\n" ) ;
-}
-
-static void printEndpointDesc ( s32 dev_id, void *ptr )
-{
-  ( void ) dev_id;
-
-  usbEndpointDescriptor *descriptor = ( usbEndpointDescriptor* )ptr ;
-  enum usbDescriptorType descriptorType = descriptor->bDescriptorType ;
-  enum usbEndpointDirection endpointAddressDirection = descriptor->bEndpointAddress ;
-  enum usbTransferType attributesTransferType = descriptor->bmAttributes ;
-  char string[128];
-	
-  dbgprintf ( stdout, "ENDPOINT DESCRIPTOR" ) ;
-  argprintf ( stdout, "  length:                 0x%02X ( %d )", descriptor->bLength, descriptor->bLength ) ;
-
-  switch ( descriptorType )
-  {
-    case DT_DEVICE:
-      sprintf ( string, "Device" ) ;
-      break ;
-    case DT_CONFIG:
-      sprintf ( string, "Configuration" ) ;
-      break ;
-    case DT_STRING:
-      sprintf ( string, "String" ) ;
-      break ;
-    case DT_INTERFACE:
-      sprintf ( string, "Interface" ) ;
-      break ;
-    case DT_ENDPOINT:
-      sprintf ( string, "Endpoint" ) ;
-      break ;
-    case DT_HID:
-      sprintf ( string, "HID" ) ;
-      break ;
-    case DT_REPORT:
-      sprintf ( string, "Report" ) ;
-      break ;
-    case DT_PHYSICAL:
-      sprintf ( string, "Physical" ) ;
-      break ;
-    case DT_HUB:
-      sprintf ( string, "Hub" ) ;
-      break ;
-    default:
-      sprintf ( string, "Unknown" ) ;
-      break ;
-  }
-  argprintf ( stdout, "  bDescriptorType:        0x%02X ( %d ) [%s]", descriptor->bDescriptorType, descriptor->bDescriptorType, string ) ;
-
   switch ( endpointAddressDirection )
   {
     case ENDPOINT_IN:
-      sprintf ( string,"In" ) ;
+      sprintf ( string,"Out" ) ;
       break ;
     case ENDPOINT_OUT:
-      sprintf ( string,"Out" ) ;
+      sprintf ( string,"In" ) ;
       break ;
     default:
       sprintf ( string, "Unknown" ) ;
       break ;
   }
-  argprintf ( stdout, "  bEndpointAddress:       0x%02X ( %d ) [%s]", descriptor->bEndpointAddress, descriptor->bEndpointAddress, string ) ;
+  return string ;
+}
 
+char*
+stringTransferType ( enum usbTransferType attributesTransferType, char *string )
+{
   switch ( attributesTransferType )
   {
     case TRANSFER_TYPE_CONTROL:
@@ -349,57 +227,110 @@ static void printEndpointDesc ( s32 dev_id, void *ptr )
       sprintf ( string, "Unknown" ) ;
       break ;
   }
-  argprintf ( stdout, "  attribute:              0x%02X ( %d ) [%s]", descriptor->bmAttributes, descriptor->bmAttributes, string ) ;
+  return string ;
+}
 
-  argprintf ( stdout, "  wMaxPacketSize:         0x%04X ( %d )", swap16 ( &descriptor->wMaxPacketSize ), swap16 ( &descriptor->wMaxPacketSize ) ) ;
-  argprintf ( stdout, "  interval:               0x%02X ( %d )", descriptor->bInterval, descriptor->bInterval ) ;
+static void printDeviceDesc ( s32 dev_id, void *ptr )
+{
+  ( void ) dev_id;
+
+  usbDeviceDescriptor *descriptor = ( usbDeviceDescriptor* )ptr ;
+  char *string = malloc ( 128 * sizeof ( char ) ) ;
+ 
+  dbgprintf ( stdout, "Device Descriptor" ) ;
+  argprintf ( stdout, "  bLength:                0x%02X ( %d )", descriptor->bLength, descriptor->bLength ) ;
+  argprintf ( stdout, "  bDescriptorType:        0x%02X ( %d ) [%s]", descriptor->bDescriptorType, descriptor->bDescriptorType, stringDescriptorType ( descriptor->bDescriptorType, string ) ) ;
+  argprintf ( stdout, "  bcdUSB:                 0x%04X [%s]", swap16 ( &descriptor->bcdUSB ), stringDescriptorVersion ( swap16 ( &descriptor->bcdUSB ), string ) ) ;
+  argprintf ( stdout, "  bDeviceClass:           0x%02X ( %d ) [%s]", descriptor->bDeviceClass, descriptor->bDeviceClass, stringDeviceClass ( descriptor->bDeviceClass, string ) ) ;
+
+  argprintf ( stdout, "  bDeviceSubClass:        0x%02X ( %d )", descriptor->bDeviceSubClass, descriptor->bDeviceSubClass ) ;
+  argprintf ( stdout, "  bDeviceProtocol:        0x%02X ( %d )", descriptor->bDeviceProtocol, descriptor->bDeviceProtocol ) ;
+  argprintf ( stdout, "  bMaxPacketSize0:        0x%02X ( %d )", descriptor->bMaxPacketSize0, descriptor->bMaxPacketSize0 ) ;
+  argprintf ( stdout, "  idVendor:               0x%04X", swap16 ( &descriptor->idVendor ) ) ;
+  argprintf ( stdout, "  idProduct:              0x%04X", swap16 ( &descriptor->idProduct ) ) ;
+  argprintf ( stdout, "  bcdDevice:              0x%04X", swap16 ( &descriptor->bcdDevice ) ) ;
+  argprintf ( stdout, "  iManufacturer:          0x%02X ( %d )", descriptor->iManufacturer, descriptor->iManufacturer ) ;
+  argprintf ( stdout, "  iProduct:               0x%02X ( %d )", descriptor->iProduct, descriptor->iProduct ) ;
+  argprintf ( stdout, "  iSerialNumber:          0x%02X ( %d )", descriptor->iSerialNumber, descriptor->iSerialNumber ) ;
+  argprintf ( stdout, "  bNumConfigurations:     0x%02X ( %d )", descriptor->bNumConfigurations, descriptor->bNumConfigurations ) ;
   fprintf ( stdout, "\n" ) ;
+
+  free ( string ) ;
+}
+
+static void printConfigDesc ( s32 dev_id, void *ptr )
+{
+  ( void ) dev_id;
+
+  usbConfigurationDescriptor *descriptor = ( usbConfigurationDescriptor* )ptr ;
+  char *string = malloc ( 128 * sizeof ( char ) ) ;
+ 
+  dbgprintf ( stdout, "Configuration Descriptor" ) ;
+  argprintf ( stdout, "  bLength:                0x%02X ( %d )", descriptor->bLength, descriptor->bLength ) ;
+  argprintf ( stdout, "  bDescriptorType:        0x%02X ( %d ) [%s]", descriptor->bDescriptorType, descriptor->bDescriptorType, stringDescriptorType ( descriptor->bDescriptorType, string ) ) ;
+
+  argprintf ( stdout, "  wTotalLength:           0x%04X ( %d )", swap16 ( &descriptor->wTotalLength ), swap16 ( &descriptor->wTotalLength ) ) ;
+  argprintf ( stdout, "  bNumInterfaces:         0x%02X ( %d )", descriptor->bNumInterfaces, descriptor->bNumInterfaces ) ;
+  argprintf ( stdout, "  bConfigurationValue:    0x%02X ( %d )", descriptor->bConfigurationValue, descriptor->bConfigurationValue ) ;
+  argprintf ( stdout, "  iConfiguration:         0x%02X ( %d )", descriptor->iConfiguration, descriptor->iConfiguration ) ;
+  argprintf ( stdout, "  bmAttributes:           0x%02X ( %d )", descriptor->bmAttributes, descriptor->bmAttributes ) ;
+  argprintf ( stdout, "  MaxPower:               0x%02X ( %d ) [%s]", descriptor->MaxPower, descriptor->MaxPower, stringMaxPower ( descriptor->MaxPower, string ) ) ;
+  fprintf ( stdout, "\n" ) ;
+
+  free ( string ) ;
+}
+
+static void printInterfaceDesc ( s32 dev_id, void *ptr )
+{
+  ( void ) dev_id;
+
+  usbInterfaceDescriptor *descriptor = ( usbInterfaceDescriptor* )ptr ;
+  char *string = malloc ( 128 * sizeof ( char ) ) ;
+ 
+  dbgprintf ( stdout, "Interface Descriptor" ) ;
+  argprintf ( stdout, "  bLength:                0x%02X ( %d )", descriptor->bLength, descriptor->bLength ) ;
+  argprintf ( stdout, "  bDescriptorType:        0x%02X ( %d ) [%s]", descriptor->bDescriptorType, descriptor->bDescriptorType, stringDescriptorType ( descriptor->bDescriptorType, string ) ) ;
+
+  argprintf ( stdout, "  bInterfaceNumber:       0x%02X ( %d )", descriptor->bInterfaceNumber, descriptor->bInterfaceNumber ) ;
+  argprintf ( stdout, "  bAlternateSetting:      0x%02X ( %d )", descriptor->bAlternateSetting, descriptor->bAlternateSetting ) ;
+  argprintf ( stdout, "  bNumEndpoints:          0x%02X ( %d )", descriptor->bNumEndpoints, descriptor->bNumEndpoints ) ;
+  argprintf ( stdout, "  bInterfaceClass:        0x%02X ( %d )", descriptor->bInterfaceClass, descriptor->bInterfaceClass ) ;
+  argprintf ( stdout, "  bInterfaceSubClass:     0x%02X ( %d )", descriptor->bInterfaceSubClass, descriptor->bInterfaceSubClass ) ;
+  argprintf ( stdout, "  bInterfaceProtocol:     0x%02X ( %d )", descriptor->bInterfaceProtocol, descriptor->bInterfaceProtocol ) ;
+  argprintf ( stdout, "  iInterface:             0x%02X ( %d )", descriptor->iInterface, descriptor->iInterface ) ;
+  fprintf ( stdout, "\n" ) ;
+
+  free ( string ) ;
+}
+
+static void printEndpointDesc ( s32 dev_id, void *ptr )
+{
+  ( void ) dev_id;
+
+  usbEndpointDescriptor *descriptor = ( usbEndpointDescriptor* )ptr ;
+  char *string = malloc ( 128 * sizeof ( char ) ) ;
+	
+  dbgprintf ( stdout, "Endpoint Descriptor" ) ;
+  argprintf ( stdout, "  bLength:                0x%02X ( %d )", descriptor->bLength, descriptor->bLength ) ;
+  argprintf ( stdout, "  bDescriptorType:        0x%02X ( %d ) [%s]", descriptor->bDescriptorType, descriptor->bDescriptorType, stringDescriptorType ( descriptor->bDescriptorType, string ) ) ;
+  argprintf ( stdout, "  bEndpointAddress:       0x%02X ( %d ) [%s]", descriptor->bEndpointAddress, descriptor->bEndpointAddress, stringEndpointDirection ( descriptor->bEndpointAddress & 0x80, string ) ) ;
+  argprintf ( stdout, "  bmAttributes:           0x%02X ( %d ) [%s]", descriptor->bmAttributes, descriptor->bmAttributes, stringTransferType ( descriptor->bmAttributes, string ) ) ;
+  argprintf ( stdout, "  wMaxPacketSize:         0x%04X ( %d )", swap16 ( &descriptor->wMaxPacketSize ), swap16 ( &descriptor->wMaxPacketSize ) ) ;
+  argprintf ( stdout, "  bInterval:              0x%02X ( %d )", descriptor->bInterval, descriptor->bInterval ) ;
+  fprintf ( stdout, "\n" ) ;
+
+  free ( string ) ;
 }
 
 static void printClassSpecificDesc ( s32 dev_id, u8 *descriptor )
 {
   int i ;
   ( void ) dev_id;
-  enum usbDescriptorType descriptorType = descriptor[1] ;
-  char string[128] ;
+  char *string = malloc ( 128 * sizeof ( char ) ) ;
 
-  dbgprintf ( stdout, "CLASS-SPECIFIC DESCRIPTOR" ) ;
-  argprintf ( stdout, "  length:                 0x%02X ( %d )", descriptor[0], descriptor[0] ) ;
-
-  switch ( descriptorType )
-  {
-    case DT_DEVICE:
-      sprintf ( string, "Device" ) ;
-      break ;
-    case DT_CONFIG:
-      sprintf ( string, "Configuration" ) ;
-      break ;
-    case DT_STRING:
-      sprintf ( string, "String" ) ;
-      break ;
-    case DT_INTERFACE:
-      sprintf ( string, "Interface" ) ;
-      break ;
-    case DT_ENDPOINT:
-      sprintf ( string, "Endpoint" ) ;
-      break ;
-    case DT_HID:
-      sprintf ( string, "HID" ) ;
-      break ;
-    case DT_REPORT:
-      sprintf ( string, "Report" ) ;
-      break ;
-    case DT_PHYSICAL:
-      sprintf ( string, "Physical" ) ;
-      break ;
-    case DT_HUB:
-      sprintf ( string, "Hub" ) ;
-      break ;
-    default:
-      sprintf ( string, "Unknown" ) ;
-      break ;
-  }
-  argprintf ( stdout, "  bDescriptorType:        0x%02X ( %d ) [%s]", descriptor[1], descriptor[1], string ) ;
+  dbgprintf ( stdout, "Class-Specific Descriptor" ) ;
+  argprintf ( stdout, "  bLength:                0x%02X ( %d )", descriptor[0], descriptor[0] ) ;
+  argprintf ( stdout, "  bDescriptorType:        0x%02X ( %d ) [%s]", descriptor[1], descriptor[1], stringDescriptorType ( descriptor[1], string ) ) ;
 
   for ( i = 2; i < descriptor[0]; i++ )
   {

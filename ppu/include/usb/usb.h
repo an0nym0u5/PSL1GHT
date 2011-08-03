@@ -69,7 +69,13 @@
 #define USB_CLASS_STORAGE                        0x08
 #define USB_CLASS_HUB                            0x09
 #define USB_CLASS_DATA                           0x0a
+#define USB_CLASS_CHIP                           0x0b
+#define USB_CLASS_SECURITY                       0x0d
+#define USB_CLASS_VIDEO                          0x0e
+#define USB_CLASS_XBOX                           0x58
+#define USB_CLASS_DIAG                           0xdc
 #define USB_CLASS_WIRELESS                       0xe0
+#define USB_CLASS_MISC                           0xef
 #define USB_CLASS_APPLICATION                    0xfe
 #define USB_CLASS_VENDOR_SPEC                    0xff
 
@@ -179,7 +185,8 @@
  * enums
  */
 
-enum usbClassCode {
+enum usbDeviceClass
+{
   CLASS_PER_INTERFACE =                          USB_CLASS_PER_INTERFACE,
   CLASS_AUDIO =                                  USB_CLASS_AUDIO,
   CLASS_COMM =                                   USB_CLASS_COMM,
@@ -191,11 +198,18 @@ enum usbClassCode {
   CLASS_STORAGE =                                USB_CLASS_STORAGE,
   CLASS_HUB =                                    USB_CLASS_HUB,
   CLASS_DATA =                                   USB_CLASS_DATA,
+  CLASS_CHIP =                                   USB_CLASS_CHIP,
+  CLASS_SECURITY =                               USB_CLASS_SECURITY,
+  CLASS_VIDEO =                                  USB_CLASS_VIDEO,
+  CLASS_DIAG =                                   USB_CLASS_DIAG,
+  CLASS_WIRELESS =                               USB_CLASS_WIRELESS,
+  CLASS_MISC =                                   USB_CLASS_MISC,
   CLASS_APPLICATION =                            USB_CLASS_APPLICATION,
   CLASS_VENDOR_SPEC =                            USB_CLASS_VENDOR_SPEC
 };
 
-enum usbDescriptorType {
+enum usbDescriptorType
+{
   DT_DEVICE =                                    USB_DESCRIPTOR_TYPE_DEVICE,
   DT_CONFIG =                                    USB_DESCRIPTOR_TYPE_CONFIG,
   DT_STRING =                                    USB_DESCRIPTOR_TYPE_STRING,
@@ -207,19 +221,22 @@ enum usbDescriptorType {
   DT_HUB =                                       USB_DESCRIPTOR_TYPE_HUB
 };
 
-enum usbEndpointDirection {
+enum usbEndpointDirection
+{
   ENDPOINT_IN =                                  USB_ENDPOINT_DIRECTION_IN,
   ENDPOINT_OUT =                                 USB_ENDPOINT_DIRECTION_OUT
 };
 
-enum usbTransferType {
+enum usbTransferType
+{
   TRANSFER_TYPE_CONTROL =                        USB_ENDPOINT_TRANSFER_TYPE_CONTROL, 
   TRANSFER_TYPE_ISOCHRONOUS =                    USB_ENDPOINT_TRANSFER_TYPE_ISOCHRONOUS,
   TRANSFER_TYPE_BULK =                           USB_ENDPOINT_TRANSFER_TYPE_BULK,
   TRANSFER_TYPE_INTERRUPT =                      USB_ENDPOINT_TRANSFER_TYPE_INTERRUPT,
 };
 
-enum usbStandardRequest {
+enum usbStandardRequest
+{
   REQUEST_GET_STATUS =                           USB_REQUEST_GET_STATUS,
   REQUEST_CLEAR_FEATURE =                        USB_REQUEST_CLEAR_FEATURE,
   REQUEST_SET_FEATURE =                          USB_REQUEST_SET_FEATURE,
@@ -233,19 +250,29 @@ enum usbStandardRequest {
   REQUEST_SYNCH_FRAME =                          USB_REQUEST_SYNCH_FRAME
 };
 
-enum usbRequestType {
+enum usbRequestType
+{
   REQUEST_TYPE_STANDARD =                        USB_REQTYPE_TYPE_STANDARD,
   REQUEST_TYPE_CLASS =                           USB_REQTYPE_TYPE_CLASS,
   REQUEST_TYPE_VENDOR =                          USB_REQTYPE_TYPE_VENDOR,
   REQUEST_TYPE_BITS =                            USB_REQTYPE_TYPE_BITS
 };
 
-enum usbRequestRecipient {
+enum usbRequestRecipient
+{
   RECIPIENT_DEVICE =                             USB_REQTYPE_RECIP_DEVICE,
   RECIPIENT_INTERFACE =                          USB_REQTYPE_RECIP_INTERFACE,
   RECIPIENT_ENDPOINT =                           USB_REQTYPE_RECIP_ENDPOINT,
   RECIPIENT_OTHER =                              USB_REQTYPE_RECIP_OTHER,
   RECIPIENT_BITS =                               USB_REQTYPE_RECIP_BITS
+};
+
+enum usbBCD
+{
+  BCD_10 =                                       0x0100,
+  BCD_11 =                                       0x0110,
+  BCD_20 =                                       0x0200,
+  BCD_30 =                                       0x0300
 };
 
 
