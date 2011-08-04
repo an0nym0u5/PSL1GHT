@@ -29,6 +29,11 @@ typedef struct _param_entry
   uint32_t value_offset;
 } paramEntry ;
 
+typedef struct _param_key
+{
+  uint8_t *key ;
+} paramKey ;
+
 typedef struct _param_keys
 {
   unsigned char *app_ver;
@@ -52,6 +57,13 @@ typedef struct _param_keys
   unsigned char *version;
   unsigned char *padding;
 } paramKeys;
+
+typedef struct _param_value
+{
+  void *value ;
+  uint32_t *val32 ;
+  uint8_t *val8 ;
+} paramValue ;
 
 typedef struct _param_values
 {
