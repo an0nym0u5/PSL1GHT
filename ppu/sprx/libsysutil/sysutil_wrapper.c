@@ -7,7 +7,6 @@
 #include <sysutil/save.h>
 #include <sysutil/game.h>
 #include <sysutil/disc.h>
-#include <sysutil/trophy.h>
 
 /* sysUtil functions */
 extern s32 sysUtilRegisterCallbackEx(s32 slot,opd32 *opd,void *usrdata);
@@ -54,32 +53,13 @@ extern s32 sysGameDiscRegisterDiscChangeCallbackEx(sysGameDiscEjectCallback cbEj
 /* Disc utility support */
 extern s32 sysDiscRegisterDiscChangeCallbackEx(opd32 *cbEject,opd32 *cbInsert);
 
-/* sysUtil trophy support */
-extern s32 sysTrophyInit(void *pool, size_t poolSize, sys_mem_container_t container, uint64_t options);
-extern s32 sysTrophyTerm(void);
-extern s32 sysTrophyCreateHandle(sysTrophyHandle *handle);
-extern s32 sysTrophyDestroyHandle(sysTrophyHandle handle);
-extern s32 sysTrophyAbortHandle(sysTrophyHandle handle);
-extern s32 sysTrophyCreateContext(sysTrophyContext *context, const sysCommunicationId *commId, const sysCommunicationSignature *commSign, uint64_t options);
-extern s32 sysTrophyGetRequiredDiskSpace(sysTrophyContext context, sysTrophyHandle handle, uint64_t *reqspace, uint64_t options);
-extern s32 sysTrophyRegisterContextEx(sysTrophyContext context,sysTrophyHandle handle, opd32 *statusCb, void *arg, uint64_t options);
-extern s32 sysTrophyDestroyContext(sysTrophyContext context);
-extern s32 sysTrophyGetGameInfo(sysTrophyContext context, sysTrophyHandle handle, sysTrophyGameDetails *details, sysTrophyGameData *data);
-extern s32 sysTrophyGetUnlockState(sysTrophyContext context, sysTrophyHandle handle, sysTrophyFlagArray *flags, size_t *count);
-extern s32 sysTrophyGetInfo(sysTrophyContext context, sysTrophyHandle handle, sysTrophyId trophyId, sysTrophyDetails *details, sysTrophyData *data);
-extern s32 sysTrophyGetGameIcon(sysTrophyContext context, sysTrophyHandle handle, void *buffer, size_t *size);
-extern s32 sysTrophyGetIcon(sysTrophyContext context, sysTrophyHandle handle, sysTrophyId trophyId, void *buffer, size_t *size);
-extern s32 sysTrophySetSoundLevel(sysTrophyContext context, sysTrophyHandle handle, uint32_t level, uint64_t options);
-extern s32 sysTrophyUnlock(sysTrophyContext context, sysTrophyHandle handle, sysTrophyId trophyId, sysTrophyId *platinumId);
-extern s32 sysTrophyGetGameProgress(sysTrophyContext context, sysTrophyHandle handle, int32_t *percentage);
-
-// sysUtil wrapper functions
+/* sysUtil wrapper functions */
 s32 sysUtilRegisterCallback(s32 slot,sysutilCallback cb,void *usrdata)
 {
 	return sysUtilRegisterCallbackEx(slot,(opd32*)__get_opd32(cb),usrdata);
 }
 
-// msgDialog wraper functions
+/* msgDialog wraper functions */
 s32 msgDialogOpen(msgType type,const char *msg,msgDialogCallback cb,void *usrData,void *unused)
 {
 	return msgDialogOpenEx(type,msg,(opd32*)__get_opd32(cb),usrData,unused);
@@ -247,16 +227,5 @@ s32 sysGameDiscRegisterDiscChangeCallback(sysDiscEjectCallback cbEject,sysDiscIn
 s32 sysDiscRegisterDiscChangeCallback(sysDiscEjectCallback cbEject,sysDiscInsertCallback cbInsert)
 {
 	return sysDiscRegisterDiscChangeCallbackEx((opd32*)__get_opd32(cbEject),(opd32*)__get_opd32(cbInsert));
-}
-
-/* sysTrophy wrapper function */
-s32 sysTrophyRegisterContext(sysTrophyContext context,
-       sysTrophyHandle handle,
-       sysTrophyStatusCallback statusCb,
-       void *arg,
-       uint64_t options
-       )
-{
-  return sysTrophyRegisterContextEx (context, handle, (opd32*) __get_opd32(statusCb), arg, options);
 }
 
