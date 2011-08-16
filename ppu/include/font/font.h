@@ -66,19 +66,19 @@ typedef struct _font_entry
 {
     u32 lock;
     u32 uniqueId;
-    const void* fontLib;
-    void* fontH;
+    const void* fontLib ATTRIBUTE_PRXPTR;
+    void* fontH ATTRIBUTE_PRXPTR;
 } fontEntry;
 
 typedef struct _font_config
 {
     struct
     {
-        u32* buffer;
+        u32* buffer ATTRIBUTE_PRXPTR;
         u32 size;
     } FileCache;
     u32 fontEntriesMax;
-    fontEntry* fontEntries;
+    fontEntry* fontEntries ATTRIBUTE_PRXPTR;
     u32 flags;
 } fontConfig;
 
@@ -135,11 +135,11 @@ typedef struct _font_glyph_outline
     {
         float x;
         float y;
-    } *Points;
-    u8 *pointTags;
-    u16* contourIndexs;
+    } *Points ATTRIBUTE_PRXPTR;
+    u8 *pointTags ATTRIBUTE_PRXPTR;
+    u16* contourIndexs ATTRIBUTE_PRXPTR;
     u32 flags;
-    void* generateEnv;
+    void* generateEnv ATTRIBUTE_PRXPTR;
 } fontGlyphOutline;
 
 typedef struct _font_glyph
@@ -165,8 +165,8 @@ typedef struct _font_vertexes_glyph_data
 
 typedef struct _font_vertexes_glyph
 {
-    fontVertexesGlyphData *data;
-    fontVertexesGlyphSubHeader *subHeader;
+    fontVertexesGlyphData *data ATTRIBUTE_PRXPTR;
+    fontVertexesGlyphSubHeader *subHeader ATTRIBUTE_PRXPTR;
 } fontVertexesGlyph;
 
 typedef struct _font_glyph_bounding_box
@@ -207,7 +207,7 @@ typedef struct _font_glyph_style
 
 typedef struct _font_render_surface
 {
-    void* buffer;
+    void* buffer ATTRIBUTE_PRXPTR;
     s32 widthByte;
     s32 pixelSizeByte;
     s32 width,height;
@@ -222,24 +222,24 @@ typedef struct _font_render_surface
 
 typedef struct _font_image_trans_info
 {
-    u8 *Image;
+    u8 *Image ATTRIBUTE_PRXPTR;
     u32 imageWidthByte;
     u32 imageWidth;
     u32 imageHeight;
-    void *Surface;
+    void *Surface ATTRIBUTE_PRXPTR;
     u32 surfWidthByte;
 } fontImageTransInfo;
 
 typedef struct _font
 {
-    void* SystemReserved[64];
+    void* SystemReserved[64] ATTRIBUTE_PRXPTR;
 } font;
 
 typedef struct _font_renderer_config
 {
     struct
     {
-        void* buffer;
+        void* buffer ATTRIBUTE_PRXPTR;
         u32 initSize;
         u32 maxSize;
         u32 expandSize;
@@ -249,7 +249,7 @@ typedef struct _font_renderer_config
 
 typedef struct _font_renderer
 {
-    void *systemReserved[64];
+    void *systemReserved[64] ATTRIBUTE_PRXPTR;
 } fontRenderer;
 
 typedef struct _font_graphics
@@ -260,7 +260,7 @@ typedef struct _font_graphics
 
 typedef struct _font_graphics_draw_context
 {
-    void* SystemReserved[64];
+    void* SystemReserved[64] ATTRIBUTE_PRXPTR;
 } fontGraphicsDrawContext;
 
 
@@ -270,7 +270,7 @@ typedef struct _font_graphics_draw_context
 //s32 fontInitLibrary(fontLibraryConfig*,const fontLibrary**lib);
 void fontGetRevisionFlags(u64*revisionFlags);
 void fontGetInitializedRevisionFlags(u64*revisionFlags);
-s32 fontInitializeWithRevision(u64 revisionFlags,fontConfig*config);
+s32 fontInitializeWithRevision(u64 revisionFlags,fontConfig* config);
 
 
 s32 fontGetLibrary(font*,const fontLibrary**lib,u32* type);
@@ -432,7 +432,7 @@ typedef void  (*fontGetOutlineVertexCallback)(void*arg,s32 contourN,s32 vertexNu
 
 typedef struct fontMemoryInterface
 {
-    void* Object;
+    void* Object ATTRIBUTE_PRXPTR;
     fontMallocCallback Malloc;
     fontFreeCallback Free;
     fontReallocCallback Realloc;
@@ -461,7 +461,7 @@ typedef struct fontGetOutlineVertexesIF
 
 typedef struct _font_library_config_FT
 {
-    void* library;
+    void* library ATTRIBUTE_PRXPTR;
     fontMemoryInterface MemoryIF;
 } fontLibraryConfigFT;
 
@@ -469,7 +469,7 @@ typedef struct _font_renderer_config_FT
 {
     struct
     {
-        void* buffer;
+        void* buffer ATTRIBUTE_PRXPTR;
         u32 initSize;
         u32 maxSize;
         u32 expandSize;
