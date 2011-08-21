@@ -2,6 +2,9 @@
 #define _SYS_NP_H_
 
 
+#include <lv2/sysfs.h>
+
+
 /*
  * constants
  */
@@ -74,9 +77,9 @@ typedef struct _sys_npdrm_open_arg
  * functions
  */
 
-s32 sceNpInit( u32 poolsize, void *poolptr );
+s32 sysNpInit( u32 poolsize, void *poolptr );
 
-s32 sceNpTerm( void ); 
+s32 sysNpTerm( void ); 
 
 /*  check */
 s32 sysNpIsAvailable( const sysNpKey *k_licensee, const char *path );
@@ -138,24 +141,24 @@ s32 sysNpProcessExitSpawn( const sysNpKey *k_licensee,  /* key */
 
 /* inline open np edata */
 static __inline__ s32
-sceNpDrmOpen( const sysNpKey *k_licensee,
-              const char *path,
-              s32 flags,
-              s32 *fd,
-              void * arg,
-              u64 size
-            )
+sysNpOpen( const sysNpKey *k_licensee,                  /* key */
+           const char *path,                            /* file path */
+           s32 flags,                                   /* creation flags */
+           s32 *fd,                                     /* file descriptor */
+           void * dummy_arg,                            /* arguments */
+           u64 dummy_size                               /* size */
+         )
 {
   static s32 ret;
 
   sysNpOpenArg arg;
   sysFSStat stat;
 
-  (void)arg;
-  (void)size;
+  (void)dummy_arg;
+  (void)dummy_size;
 
   /* file exists check */
-  if ((ret = sysLv2FsStat(path, &stat))==0x80010006)
+  if ((ret = sysFsStat(path, &stat))==0x80010006)
   {
     return ret;
   }
