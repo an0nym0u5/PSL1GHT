@@ -42,15 +42,6 @@ values:
 void sysProcessExitSpawn2(const char *path,const char *argv[],const char *envp[],void *data,size_t size,int priority,u64 flags);
 
 
-u32 sysProcessGetPid(void);
-u32 sysProcessGetPpid(void);
-s32 sysProcessGetId(u32 object, u32 *buf, size_t size, size_t *set_size);
-s32 sysProcessGetNumberOfObject(u32 object, size_t *numptr);
-////s32 sysProcessIsSpuLockLinkReservation(sys_addr_t addr, u64 flags);
-s32 sysProcessIsSpuLockLinkReservation(u32 addr, u64 flags);
-u32 sysProcessGetPpuGuid(void);
-
-
 #ifdef __cplusplus
 	}
 #endif

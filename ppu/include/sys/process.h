@@ -138,15 +138,17 @@ typedef struct _sys_process_param
  * \param size
  * \param set_size
  */
+/*
 s32 sysProcessGetId(u32 object, u32 *buf, size_t size, size_t *set_size)
 {
         lv2syscall4 (SYSCALL_PROCESS_GET_ID, object, (u32)(u64)buf, size, (u32)(u64)set_size);
         return_to_user_prog(s32);
 }
+*/
 
 /*! \brief get process id
  */
-u32 sysProcessGetPid(void)
+LV2_SYSCALL sysProcessGetPid(void)
 {
         lv2syscall0 (SYSCALL_PROCESS_GETPID);
         return_to_user_prog(sys_pid_t);
@@ -155,7 +157,7 @@ u32 sysProcessGetPid(void)
 /*! \brief get parent process id
  *
  */
-u32 sysProcessGetPpid(void)
+LV2_SYSCALL sysProcessGetPpid(void)
 {
         lv2syscall0 (SYSCALL_PROCESS_GETPPID);
         return_to_user_prog(sys_pid_t);
@@ -165,7 +167,7 @@ u32 sysProcessGetPpid(void)
  * \param object
  * \param numptr
  */
-s32 sysProcessGetNumberOfObject(u32 object, size_t *numptr)
+LV2_SYSCALL sysProcessGetNumberOfObject(u32 object, size_t *numptr)
 {
         lv2syscall2 (SYSCALL_PROCESS_GET_NUMBER_OF_OBJECT, object, (u32)(u64)numptr);
         return_to_user_prog(s32);
@@ -175,7 +177,7 @@ s32 sysProcessGetNumberOfObject(u32 object, size_t *numptr)
  * \param addr
  * \param flags
  */
-s32 sysProcessIsSpuLockLinkReservation(u32 addr, u64 flags)
+LV2_SYSCALL sysProcessIsSpuLockLinkReservation(u32 addr, u64 flags)
 {
         lv2syscall2 (SYSCALL_PROCESS_IS_SPU_LOCK_LINE_RESERVATION_ADDRESS, (u32)addr, flags);
         return_to_user_prog(s32);
@@ -183,8 +185,7 @@ s32 sysProcessIsSpuLockLinkReservation(u32 addr, u64 flags)
 
 /*! \brief get ppu guid info from ELF
  */
-//sys_addr_t sysProcessGetPpuGuid(void)
-u32 sysProcessGetPpuGuid(void)
+LV2_SYSCALL sysProcessGetPpuGuid(void)
 {
         lv2syscall0 (SYSCALL_PROCESS_GET_PPU_GUID);
         return_to_user_prog(sys_addr_t);
