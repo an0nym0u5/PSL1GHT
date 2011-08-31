@@ -6,6 +6,8 @@
 #define __SYS_COND_H__
 
 #include <lv2/cond.h>
+#include <lv2/syscalls.h>
+
 
 /*! \brief Pshared attribute for condition variables. */
 #define SYS_COND_ATTR_PSHARED			0x0200
@@ -32,7 +34,7 @@ typedef struct sys_cond_attr
 */
 LV2_SYSCALL sysCondCreate(sys_cond_t *cond,sys_mutex_t mutex,const sys_cond_attr_t *attr)
 {
-	lv2syscall3(105,(u64)cond,mutex,(u64)attr);
+	lv2syscall3(SYSCALL_COND_CREATE,(u64)cond,mutex,(u64)attr);
 	return_to_user_prog(s32);
 }
 
@@ -42,7 +44,7 @@ LV2_SYSCALL sysCondCreate(sys_cond_t *cond,sys_mutex_t mutex,const sys_cond_attr
 */
 LV2_SYSCALL sysCondDestroy(sys_cond_t cond)
 {
-	lv2syscall1(106,cond);
+	lv2syscall1(SYSCALL_COND_DESTROY,cond);
 	return_to_user_prog(s32);
 }
 
@@ -60,7 +62,7 @@ nonzero in case of error or if a timeout occured.
 */
 LV2_SYSCALL sysCondWait(sys_cond_t cond,u64 timeout_usec)
 {
-	lv2syscall2(107,cond,timeout_usec);
+	lv2syscall2(SYSCALL_COND_WAIT,cond,timeout_usec);
 	return_to_user_prog(s32);
 }
 
@@ -70,7 +72,18 @@ LV2_SYSCALL sysCondWait(sys_cond_t cond,u64 timeout_usec)
 */
 LV2_SYSCALL sysCondSignal(sys_cond_t cond)
 {
-	lv2syscall1(108,cond);
+	lv2syscall1(SYSCALL_COND_SIGNAL,cond);
+	return_to_user_prog(s32);
+}
+
+/*! \brief Signal a condition variable to a specific thread
+\param cond Condition variable identifier.
+\param thread Thread identifier.
+\return zero if no error occured, nonzero otherwise.
+*/
+LV2_SYSCALL sysCondSignalTo(sys_cond_t cond, sys_ppu_thread_t thread)
+{
+	lv2syscall2(SYSCALL_COND_SIGNAL_TO, cond, thread);
 	return_to_user_prog(s32);
 }
 
@@ -80,9 +93,10 @@ LV2_SYSCALL sysCondSignal(sys_cond_t cond)
 */
 LV2_SYSCALL sysCondBroadcast(sys_cond_t cond)
 {
-	lv2syscall1(109,cond);
+	lv2syscall1(SYSCALL_COND_SIGNAL_ALL,cond);
 	return_to_user_prog(s32);
 }
+
 
 #ifdef __cplusplus
 	}

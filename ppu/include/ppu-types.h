@@ -9,31 +9,40 @@
 	extern "C" {
 #endif
 
-typedef uint8_t			u8;
-typedef uint16_t 		u16;
-typedef uint32_t 		u32;
-typedef uint64_t	 	u64;
+typedef uint8_t		u8;
+typedef uint16_t 	u16;
+typedef uint32_t	u32;
+typedef uint64_t 	u64;
 
-typedef int8_t 			s8;
-typedef int16_t 		s16;
-typedef int32_t 		s32;
-typedef int64_t		 	s64;
+typedef int8_t 		s8;
+typedef int16_t 	s16;
+typedef int32_t 	s32;
+typedef int64_t	 	s64;
 
-typedef volatile u8		vu8;
+typedef volatile u8	vu8;
 typedef volatile u16	vu16;
 typedef volatile u32	vu32;
 typedef volatile u64	vu64;
 
-typedef volatile s8		vs8;
+typedef volatile s8	vs8;
 typedef volatile s16	vs16;
 typedef volatile s32	vs32;
 typedef volatile s64	vs64;
 
-typedef float			f32;
-typedef double			f64;
+typedef float		f32;
+typedef double		f64;
 
 typedef volatile f32	vf32;
 typedef volatile f64	vf64;
+
+/* process */
+/*! \brief opaque process id */
+typedef u32 sys_pid_t;
+/*! \brief opaque program segment id */
+typedef u32 sys_program_segment_t;
+/*! \brief opaque overlay module id */
+typedef u32 sys_overlay_t;
+typedef u32 sys_addr_t;
 
 typedef u32 sys_mem_id_t;
 typedef u32 sys_mem_addr_t;
@@ -45,6 +54,7 @@ typedef u32 sys_spu_thread_t;
 
 /*! \brief PPU thread identifier. */
 typedef u64 sys_ppu_thread_t;
+typedef u64 sys_ppu_thread_icontext_t;
 
 typedef u32 sys_interrupt_tag_t;
 typedef u64 sys_irqoutlet_id_t;

@@ -6,6 +6,8 @@
 #define __SYS_SEM_H__
 
 #include <ppu-lv2.h>
+#include <lv2/syscalls.h>
+
 
 /*! \brief Default protocol for semaphore attributes. */
 #define SYS_SEM_ATTR_PROTOCOL			0x0002
@@ -15,6 +17,7 @@
 #ifdef __cplusplus
 	extern "C" {
 #endif
+
 
 /*! \brief Semaphore sttributes data structure. */
 typedef struct sys_sem_attr
@@ -42,7 +45,7 @@ typedef struct sys_sem_attr
 */
 LV2_SYSCALL sysSemCreate(sys_sem_t *sem,const sys_sem_attr_t *attr,s32 initial_val,s32 max_val)
 {
-	lv2syscall4(90,(u64)sem,(u64)attr,initial_val,max_val);
+	lv2syscall4(SYSCALL_SEMAPHORE_CREATE,(u64)sem,(u64)attr,initial_val,max_val);
 	return_to_user_prog(s32);
 }
 
@@ -52,7 +55,7 @@ LV2_SYSCALL sysSemCreate(sys_sem_t *sem,const sys_sem_attr_t *attr,s32 initial_v
 */
 LV2_SYSCALL sysSemDestroy(sys_sem_t sem)
 {
-	lv2syscall1(91,sem);
+	lv2syscall1(SYSCALL_SEMAPHORE_DESTROY,sem);
 	return_to_user_prog(s32);
 }
 
@@ -64,7 +67,7 @@ nonzero in case of error or if a timeout occured.
 */
 LV2_SYSCALL sysSemWait(sys_sem_t sem,u64 timeout_usec)
 {
-	lv2syscall2(92,sem,timeout_usec);
+	lv2syscall2(SYSCALL_SEMAPHORE_WAIT,sem,timeout_usec);
 	return_to_user_prog(s32);
 }
 
@@ -75,7 +78,7 @@ nonzero in case of error or if the semaphore value is below 1.
 */
 LV2_SYSCALL sysSemTryWait(sys_sem_t sem)
 {
-	lv2syscall1(93,sem);
+	lv2syscall1(SYSCALL_SEMAPHORE_TRYWAIT,sem);
 	return_to_user_prog(s32);
 }
 
@@ -86,7 +89,7 @@ LV2_SYSCALL sysSemTryWait(sys_sem_t sem)
 */
 LV2_SYSCALL sysSemPost(sys_sem_t sem,s32 count)
 {
-	lv2syscall2(94,sem,count);
+	lv2syscall2(SYSCALL_SEMAPHORE_POST,sem,count);
 	return_to_user_prog(s32);
 }
 
@@ -97,9 +100,10 @@ LV2_SYSCALL sysSemPost(sys_sem_t sem,s32 count)
 */
 LV2_SYSCALL sysSemGetValue(sys_sem_t sem,s32 *count)
 {
-	lv2syscall2(114,sem,(u64)count);
+	lv2syscall2(SYSCALL_SEMAPHORE_GET_VALUE,sem,(u64)count);
 	return_to_user_prog(s32);
 }
+
 
 #ifdef __cplusplus
 	}

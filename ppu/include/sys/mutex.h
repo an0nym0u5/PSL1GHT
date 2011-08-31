@@ -7,6 +7,8 @@
 
 #include <ppu-lv2.h>
 #include <lv2/mutex.h>
+#include <lv2/syscalls.h>
+
 
 /*! \brief FIFO mutex scheduling policy. */
 #define SYS_MUTEX_PROTOCOL_FIFO				1
@@ -31,6 +33,7 @@
 #ifdef __cplusplus
 	extern "C" {
 #endif
+
 
 /*! \brief Mutex attributes data structure.*/
 typedef struct sys_mutex_attr
@@ -76,7 +79,7 @@ typedef struct sys_mutex_attr
 */
 LV2_SYSCALL sysMutexCreate(sys_mutex_t *mutex,const sys_mutex_attr_t *attr)
 {
-	lv2syscall2(100,(u64)mutex,(u64)attr);
+	lv2syscall2(SYSCALL_MUTEX_CREATE,(u64)mutex,(u64)attr);
 	return_to_user_prog(s32);
 }
 
@@ -86,7 +89,7 @@ LV2_SYSCALL sysMutexCreate(sys_mutex_t *mutex,const sys_mutex_attr_t *attr)
 */
 LV2_SYSCALL sysMutexDestroy(sys_mutex_t mutex)
 {
-	lv2syscall1(101,mutex);
+	lv2syscall1(SYSCALL_MUTEX_DESTROY,mutex);
 	return_to_user_prog(s32);
 }
 
@@ -98,7 +101,7 @@ nonzero in case of error or if a timeout occured.
 */
 LV2_SYSCALL sysMutexLock(sys_mutex_t mutex,u64 timeout_usec)
 {
-	lv2syscall2(102,mutex,timeout_usec);
+	lv2syscall2(SYSCALL_MUTEX_LOCK,mutex,timeout_usec);
 	return_to_user_prog(s32);
 }
 
@@ -109,7 +112,7 @@ nonzero in case of error or if the mutex is already locked by another thread.
 */
 LV2_SYSCALL sysMutexTryLock(sys_mutex_t mutex)
 {
-	lv2syscall1(103,mutex);
+	lv2syscall1(SYSCALL_MUTEX_TRYLOCK,mutex);
 	return_to_user_prog(s32);
 }
 
@@ -119,9 +122,10 @@ LV2_SYSCALL sysMutexTryLock(sys_mutex_t mutex)
 */
 LV2_SYSCALL sysMutexUnlock(sys_mutex_t mutex)
 {
-	lv2syscall1(104,mutex);
+	lv2syscall1(SYSCALL_MUTEX_UNLOCK,mutex);
 	return_to_user_prog(s32);
 }
+
 
 #ifdef __cplusplus
 	}

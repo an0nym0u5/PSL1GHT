@@ -45,7 +45,8 @@
 static inline vector float
 _fmodf4 (vector float x, vector float y)
 {
-  vector float q, xabs, yabs, qabs, xabs2;
+  //vector float q, xabs, yabs, qabs, xabs2; /* removed unused xabs2 to remove warning --an0n */
+  vector float q, xabs, yabs, qabs;
   vector signed int   qi0, qi1, qi2;
   vector float i0, i1, i2, r1, r2, i;
   vector unsigned int  inrange;
@@ -59,7 +60,7 @@ _fmodf4 (vector float x, vector float y)
   xabs = _fabsf4( x );
   yabs = _fabsf4( y );
   qabs = _fabsf4( q );
-  xabs2 = vec_add( xabs, xabs );
+  //xabs2 = vec_add( xabs, xabs ); /* removed unused xabs2 to remove warning --an0n */
                                                                                 
   inrange = (vector unsigned int)vec_cmpgt( (vector float)(__vec_splatsu4(0x49800000)), qabs );
                                                                                 
