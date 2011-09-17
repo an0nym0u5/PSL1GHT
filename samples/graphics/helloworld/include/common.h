@@ -11,6 +11,9 @@
 
 #define DEBUG              1
 
+#define WIDTH              1280
+#define HEIGHT             720
+
 #define SEM_CONSUMERS      2
 #define TIMEOUT            10000
 #define NO_TIMEOUT         0x00

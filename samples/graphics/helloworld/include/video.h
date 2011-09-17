@@ -21,6 +21,12 @@
 
 #define MAX_BUFFERS                     1
 
+/* define FIXED buffer size to draw into
+ * libresc rescales this buffer
+ */
+#define BUFFER_WIDTH                    WIDTH
+#define BUFFER_HEIGHT                   HEIGHT
+
 
 /* used to pass data between functions */
 typedef struct _video_data

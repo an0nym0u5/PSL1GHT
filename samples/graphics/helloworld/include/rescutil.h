@@ -11,8 +11,8 @@
 #include <rsx/resc.h>
 #include <sysutil/video.h> // videoState, videoResolution, videoGetState, videoGetResolution
 
-#include "video.h"
 #include "common.h"
+#include "video.h"
 
 
 /* initialize rsx */

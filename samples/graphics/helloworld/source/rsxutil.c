@@ -37,13 +37,6 @@ rsxInitialization ( videoData *vdata )
     goto error ;
   }
 
-  ret = rsxGetResolution ( &vdata->width, &vdata->height ) ;
-  if ( ret != 0 ) 
-  {
-    errprintf ( "ERROR %d", ret ) ;
-    goto error ;
-  }
-
   for ( i = 0 ; i < MAX_BUFFERS ; i++ ) 
   {
     vdata->rsx_buffers[i].width = vdata->width ;
@@ -184,13 +177,9 @@ rsxScreenInitialize ( videoData *vdata, u32 size )
   /* Wait for VSYNC to flip */
   gcmSetFlipMode ( GCM_FLIP_VSYNC ) ;
 
-  /* get current width / height */
-  ret = rsxGetResolution ( &vdata->width, &vdata->height ) ;
-  if ( ret != 0 ) 
-  {
-    errprintf ( "ERROR %d", ret ) ;
-    goto error ;
-  }
+  /* set width / height */
+  vdata->width = BUFFER_WIDTH ;
+  vdata->height = BUFFER_HEIGHT ;
 
   vdata->color_pitch = vdata->width * sizeof ( u32 ) ;
   vdata->depth_pitch = vdata->width * sizeof ( u32 ) ;
@@ -306,13 +295,11 @@ rsxGetResolution ( u16 *width, u16 *height )
   {
     if ( width ) 
     {
-      //*width = res.width ;
-      *width = 1280 ;
+      *width = res.width ;
     }
     if ( height ) 
     {
-      //*height = res.height ;
-      *height = 720 ;
+      *height = res.height ;
     }
     return 0 ;
   }
