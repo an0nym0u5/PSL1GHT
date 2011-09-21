@@ -9,6 +9,18 @@
 #include <ppu-asm.h>
 
 /*
+ * variable prefix definitions
+ *
+ * b   = byte ( 8 bits )
+ * w   = word ( 16 bits )
+ * bm  = bitmap
+ * bcd = binary-coded decimal
+ * i   = index
+ * id  = identifier
+ *
+ */
+
+/*
  * constants
  */
 
@@ -42,12 +54,18 @@
 #define USB_REQUEST_SET_INTERFACE                0x0b
 #define USB_REQUEST_SYNCH_FRAME                  0x0c
 
-/* descriptor types */
+/* bDescriptorType */
 #define USB_DESCRIPTOR_TYPE_DEVICE               0x01
 #define USB_DESCRIPTOR_TYPE_CONFIG               0x02
 #define USB_DESCRIPTOR_TYPE_STRING               0x03
 #define USB_DESCRIPTOR_TYPE_INTERFACE            0x04
 #define USB_DESCRIPTOR_TYPE_ENDPOINT             0x05
+#define USB_DESCRIPTOR_TYPE_DEVICE_QUALIFIER     0x06
+#define USB_DESCRIPTOR_TYPE_OTHER_SPEED_CONFIG   0x07
+#define USB_DESCRIPTOR_TYPE_INTERFACE_POWER      0x08
+#define USB_DESCRIPTOR_TYPE_OTG                  0x09
+#define USB_DESCRIPTOR_TYPE_DEBUG                0x0a
+#define USB_DESCTIPTOR_TYPE_INTERFACE_ASSOC      0x0b
 #define USB_DESCRIPTOR_TYPE_HID                  0x21
 #define USB_DESCRIPTOR_TYPE_REPORT               0x22
 #define USB_DESCRIPTOR_TYPE_PHYSICAL             0x23
@@ -81,8 +99,9 @@
 
 /* iConfiguration */
 #define USB_CONFIGURATION_RESERVED_ZERO          0x1f
-#define USB_CONFIGURATION_REMOTE_WAKEUP          0x20
-#define USB_CONFIGURATION_SELF_POWERED           0x40
+#define USB_CONFIGURATION_BUS_POWERED            0x00 /* (0<<6) */
+#define USB_CONFIGURATION_REMOTE_WAKEUP          0x20 /* (1<<5) */
+#define USB_CONFIGURATION_SELF_POWERED           0x40 /* (1<<6) */
 #define USB_CONFIGURATION_RESERVED_ONE           0x80
 
 /* bmAttribute */
@@ -280,114 +299,6 @@ enum usbBCD
  * structs
  */
 
-/* device descriptor */
-typedef struct _usb_device_descriptor
-{
-  u8 bLength;
-  u8 bDescriptorType;
-  u16 bcdUSB;
-  u8 bDeviceClass;
-  u8 bDeviceSubClass;
-  u8 bDeviceProtocol;
-  u8 bMaxPacketSize0;
-  u16 idVendor;
-  u16 idProduct;
-  u16 bcdDevice;
-  u8 iManufacturer;
-  u8 iProduct;
-  u8 iSerialNumber;
-  u8 bNumConfigurations;
-} usbDeviceDescriptor;
-
-/* endpoint descriptor */
-typedef struct _usb_endpoint_descriptor
-{
-  u8 bLength;
-  u8 bDescriptorType;
-  u8 bEndpointAddress;
-  u8 bmAttributes;
-  u16 wMaxPacketSize;
-  u8 bInterval;
-/*
-  u8 bRefresh;
-  u8 bSynchAddress;
-  const unsigned char *extra ATTRIBUTE_PRXPTR;
-  s32 extra_length;
-*/
-} usbEndpointDescriptor;
-
-/* iInterface descriptor */
-typedef struct _usb_interface_descriptor
-{
-  u8 bLength;
-  u8 bDescriptorType;
-  u8 bInterfaceNumber;
-  u8 bAlternateSetting;
-  u8 bNumEndpoints;
-  u8 bInterfaceClass;
-  u8 bInterfaceSubClass;
-  u8 bInterfaceProtocol;
-  u8 iInterface;
-/*
-  const struct usbEndpointDescriptor *endpoint ATTRIBUTE_PRXPTR;
-  const unsigned char *extra ATTRIBUTE_PRXPTR;
-  s32 extra_length;
-*/
-} usbInterfaceDescriptor;
-
-/*
-typedef struct _usb_interface
-{
-  const struct usbInterfaceDescriptor *altsetting ATTRIBUTE_PRXPTR;
-  s32 num_altsetting;
-} usbInterface;
-*/
-
-/* Configuration descriptor */
-typedef struct _usb_config_descriptor
-{
-  u8 bLength;
-  u8 bDescriptorType;
-  u16 wTotalLength;
-  u8 bNumInterfaces;
-  u8 bConfigurationValue;
-  u8 iConfiguration;
-  u8 bmAttributes;
-  u8 MaxPower;
-/*
-  const struct usbInterface *interface ATTRIBUTE_PRXPTR;
-  const unsigned char *extra ATTRIBUTE_PRXPTR;
-*/
-} usbConfigDescriptor;
-
-/* string descriptor */
-typedef struct _usb_string_descriptor
-{
-  u8 bLength;
-  u8 bDescriptorType;
-  u8 bString[0];
-} usbStringDescriptor;
-
-/* HID descriptor info (class specific descriptor) */
-typedef struct _usb_hid_sub_descriptor_info
-{
-  u8 bDescriptorType;
-  u8 wDescriptorLength0;
-  u8 wDescriptorLength1;
-} usbHidSubDescriptorInfo;
-
-/* HID descriptor */
-typedef struct _usb_hid_descriptor
-{
-  u8 bLength;
-  u8 bDescriptorType;
-  u8 bcdHID0;
-  u8 bcdHID1;
-  u8 bCountryCode;
-  u8 bNumDescriptors;  /* number of subdescriptor */
-  usbHidSubDescriptorInfo subDescriptorInfo[0];
-} usbHidDescriptor;
-
 /* control setup */
 typedef struct _usb_control_setup
 {
@@ -397,6 +308,139 @@ typedef struct _usb_control_setup
   u16 wIndex;
   u16 wLength;
 } usbControlSetup;
+
+/* 0x01 device descriptor */
+typedef struct _usb_device_descriptor
+{
+  u8 bLength;              /* descriptor size in bytes */
+  u8 bDescriptorType;      /* constant USB_DESCRIPTOR_TYPE_DEVICE */
+  u16 bcdUSB;              /* USB spec release compliance number */
+  u8 bDeviceClass;         /* class code */
+  u8 bDeviceSubClass;      /* subclass code */
+  u8 bDeviceProtocol;      /* protocol code */
+  u8 bMaxPacketSize0;      /* max packet size for endpoint 0 */
+  u16 idVendor;            /* USB-IF Vendor ID (VID) */
+  u16 idProduct;           /* Product ID (PID) */
+  u16 bcdDevice;           /* device release number */
+  u8 iManufacturer;        /* manufacturer string descriptor index */
+  u8 iProduct;             /* product string desccriptor index */
+  u8 iSerialNumber;        /* serial number string descriptor index */
+  u8 bNumConfigurations;   /* number of configurations */
+} usbDeviceDescriptor;
+
+/* 0x02 configuration descriptor */
+typedef struct _usb_config_descriptor
+{
+  u8 bLength;              /* descriptor size in bytes */
+  u8 bDescriptorType;      /* constant USB_DESCRIPTOR_TYPE_CONFIG */
+  u16 wTotalLength;        /* number of bytes in descriptor and all children */
+  u8 bNumInterfaces;       /* number of interfaces in config */
+  u8 bConfigurationValue;  /* identifier for GET_CONFIGURATION / SET_CONFIGURATION */
+  u8 iConfiguration;       /* index of string descriptor for the config */
+  u8 bmAttributes;         /* self/bus power and remote wakeup settings */
+  u8 MaxPower;             /* bus powered required as (max milliamps/2) */
+} usbConfigDescriptor;
+
+/* 0x03 string descriptor */
+typedef struct _usb_string_descriptor
+{
+  u8 bLength;              /* descriptor size in bytes */
+  u8 bDescriptorType;      /* constant USB_DESCRIPTOR_TYPE_STRING */
+  u8 bString[0];           /* unicode string */
+} usbStringDescriptor;
+
+/* 0x04 interface descriptor */
+typedef struct _usb_interface_descriptor
+{
+  u8 bLength;              /* descriptor size in bytes */
+  u8 bDescriptorType;      /* constant USB_DESCRIPTOR_TYPE_INTERFACE */
+  u8 bInterfaceNumber;     /* number identifying this interface */
+  u8 bAlternateSetting;    /* value used to select alternate setting */
+  u8 bNumEndpoints;        /* number of endpoints supported (excluding 0) */
+  u8 bInterfaceClass;      /* class code */
+  u8 bInterfaceSubClass;   /* subclass code */
+  u8 bInterfaceProtocol;   /* protocol code */
+  u8 iInterface;           /* index of string descriptor for the interface */
+} usbInterfaceDescriptor;
+
+/* 0x05 endpoint descriptor */
+typedef struct _usb_endpoint_descriptor
+{
+  u8 bLength;              /* descriptor size in bytes */
+  u8 bDescriptorType;      /* constant USB_DESCRIPTOR_TYPE_ENDPOINT */
+  u8 bEndpointAddress;     /* endpoint number and direction */
+  u8 bmAttributes;         /* transfer type supported */
+  u16 wMaxPacketSize;      /* maximum packet size supported */
+  u8 bInterval;            /* maximum latency/polling interval/NAK rate */
+} usbEndpointDescriptor;
+
+/* 0x06 device qualifier descriptor */
+typedef struct _usb_device_qualifier_descriptor
+{
+  u8 bLength;              /* descriptor size in bytes */
+  u8 bDescriptorType;      /* constant USB_DESCRIPTOR_TYPE_DEVICE_QUALIFIER */
+  u16 bcdUSB;              /* USB spec release compliance number */
+  u8 bDeviceClass;         /* class code */
+  u8 bDeviceSubClass;      /* subclass code */
+  u8 bDeviceProtocol;      /* protocol code */
+  u8 bMaxPacketSize0;      /* max packet size for endpoint 0 */
+  u8 bNumConfigurations;   /* number of configurations */
+  u8 bReserved;            /* reserved for future use */
+} usbDeviceQualifierDescriptor;
+
+/* 0x07 other_speed_configuration descriptor */
+typedef struct _usb_other_speed_configuration_descriptor
+{
+  u8 bLength;              /* descriptor size in bytes */
+  u8 bDescriptorType;      /* constant USB_DESCRIPTOR_TYPE_OTHER_SPEED_CONFIG */
+  u16 wTotalLength;        /* number of bytes in descriptor and all children */
+  u8 bNumInterfaces;       /* number of interfaces in config */
+  u8 bConfigurationValue;  /* identifier for GET_CONFIGURATION / SET_CONFIGURATION */
+  u8 iConfiguration;       /* index of string descriptor for the config */
+  u8 bmAttributes;         /* self/bus power and remote wakeup settings */
+  u8 MaxPower;             /* bus powered required as (max milliamps/2) */
+} usbOtherSpeedConfigurationDescriptor;
+
+/* 0x0b interface association descriptor */
+typedef struct _usb_interface_association_descriptor
+{
+  u8 bLength;              /* descriptor size in bytes */
+  u8 bDescriptorType;      /* constant USB_DESCRIPTOR_TYPE_INTERFACE_ASSOC */
+  u8 bFirstInterface;      /* first associated interface with function */
+  u8 bInterfaceCount;      /* number of contiguous interfaces associated with function */
+  u8 bFunctionClass;       /* class code */
+  u8 bFunctionSubClass;    /* subclass code */
+  u8 bFunctionProtocol;    /* protocol code */
+  u8 iFunction;            /* index of string descriptor for the function */
+} usbInterfaceAssociationDescriptor;
+
+/* HID descriptor info (class specific descriptor) */
+typedef struct _usb_hid_sub_descriptor_info
+{   
+  u8 bDescriptorType; 
+  u8 wDescriptorLength0;
+  u8 wDescriptorLength1;
+} usbHidSubDescriptorInfo;
+
+/* 0x21 HID descriptor */
+typedef struct _usb_hid_descriptor
+{
+  u8 bLength;              /* descriptor size in bytes */
+  u8 bDescriptorType;      /* constant USB_DESCRIPTOR_TYPE_HID */
+  u8 bcdHID0;
+  u8 bcdHID1;
+  u8 bCountryCode;
+  u8 bNumDescriptors;      /* number of subdescriptor */
+  usbHidSubDescriptorInfo subDescriptorInfo[0];
+} usbHidDescriptor;
+
+/*
+typedef struct _usb_interface
+{
+  const struct usbInterfaceDescriptor *altsetting ATTRIBUTE_PRXPTR;
+  s32 num_altsetting;
+} usbInterface;
+*/
 
 /* */
 typedef struct _usb_isoch_psw_len
@@ -436,8 +480,8 @@ typedef struct _usb_isoch_request
  * struct aliases
  */
 
-typedef usbConfigDescriptor usbConfigurationDescriptor;
 typedef usbControlSetup usbDeviceRequest;
+typedef usbConfigDescriptor usbConfigurationDescriptor;
 
 
 /*
@@ -505,176 +549,176 @@ s32 usbHSIsochronousTransfer(s32 pipe_id, usbHSIsochRequest *req, usbHSIsochDone
  * standard control xfer macros
  */
 
-#define usbClearDeviceFeature(pid, fs, cb, arg) ({  \
+#define usbClearDeviceFeature(pipe_id, fs, done_cb, arg) ({  \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x00; \
   device_request.bRequest = USB_REQUEST_CLEAR_FEATURE; \
   device_request.wValue = (fs); \
   device_request.wIndex = 0; \
   device_request.wLength = 0; \
-  usbControlTransfer((pid), (&device_request), NULL, (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), NULL, (done_cb), (arg)); })
 
-#define usbClearInterfaceFeature(pid, fs, iInterface, cb, arg) ({ \
+#define usbClearInterfaceFeature(pipe_id, fs, iInterface, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x01; \
   device_request.bRequest = USB_REQUEST_CLEAR_FEATURE; \
   device_request.wValue = (fs); \
   device_request.wIndex = (iInterface); \
   device_request.wLength = 0; \
-  usbControlTransfer((pid), (&device_request), NULL, (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), NULL, (done_cb), (arg)); })
 
-#define usbClearEndpointFeature(pid, fs, endpoint, cb, arg) ({ \
+#define usbClearEndpointFeature(pipe_id, fs, endpoint, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x02; \
   device_request.bRequest = USB_REQUEST_CLEAR_FEATURE; \
   device_request.wValue = (fs); \
   device_request.wIndex = (endpoint); \
   device_request.wLength = 0; \
-  usbControlTransfer((pid), (&device_request), NULL, (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), NULL, (done_cb), (arg)); })
 
-#define usbGetConfiguration(pid, ptr, cb, arg) ({ \
+#define usbGetConfiguration(pipe_id, ptr, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x80; \
   device_request.bRequest = USB_REQUEST_GET_CONFIGURATION; \
   device_request.wValue = 0; \
   device_request.wIndex = 0; \
   device_request.wLength = 1; \
-  usbControlTransfer((pid), (&device_request), (ptr), (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), (ptr), (done_cb), (arg)); })
 
-#define usbGetDescriptor(pid, type, wIndex, lang_id, ptr, len, cb, arg) ({ \
+#define usbGetDescriptor(pipe_id, type, wIndex, lang_id, ptr, len, done_cb, arg) \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x80; \
   device_request.bRequest = USB_REQUEST_GET_DESCRIPTOR; \
   device_request.wValue = ((type) << 8) | (wIndex); \
   device_request.wIndex = (lang_id); \
   device_request.wLength = (len); \
-  usbControlTransfer((pid), (&device_request), (ptr), (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), (ptr), (done_cb), (arg));
 
-#define usbGetInterface(pid, iInterface, ptr, cb, arg) ({ \
+#define usbGetInterface(pipe_id, iInterface, ptr, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x81; \
   device_request.bRequest = USB_REQUEST_GET_INTERFACE; \
   device_request.wValue = 0; \
   device_request.wIndex = (iInterface); \
   device_request.wLength = 1; \
-  usbControlTransfer((pid), (&device_request), (ptr), (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), (ptr), (done_cb), (arg)); })
 
-#define usbGetDeviceStatus(pid, ptr, cb, arg) ({ \
+#define usbGetDeviceStatus(pipe_id, ptr, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x80; \
   device_request.bRequest = USB_REQUEST_GET_STATUS; \
   device_request.wValue = 0; \
   device_request.wIndex = 0; \
   device_request.wLength = 2; \
-  usbControlTransfer((pid), (&device_request), (ptr), (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), (ptr), (done_cb), (arg)); })
 
-#define usbGetInterfaceStatus(pid, iInterface, ptr, cb, arg) ({ \
+#define usbGetInterfaceStatus(pipe_id, iInterface, ptr, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x81; \
   device_request.bRequest = USB_REQUEST_GET_STATUS; \
   device_request.wValue = 0; \
   device_request.wIndex = (iInterface); \
   device_request.wLength = 2; \
-  usbControlTransfer((pid), (&device_request), (ptr), (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), (ptr), (done_cb), (arg)); })
 
-#define usbGetEndpointStatus(pid, endpoint, ptr, cb, arg) ({ \
+#define usbGetEndpointStatus(pipe_id, endpoint, ptr, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x82; \
   device_request.bRequest = USB_REQUEST_GET_STATUS; \
   device_request.wValue = 0; \
   device_request.wIndex = (endpoint); \
   device_request.wLength = 2; \
-  usbControlTransfer((pid), (&device_request), (ptr), (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), (ptr), (done_cb), (arg)); })
 
-#define usbSetAddress(pid, address, cb, arg) ({ \
+#define usbSetAddress(pipe_id, address, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x00; \
   device_request.bRequest = USB_REQUEST_SET_ADDRESS; \
   device_request.wValue = (address); \
   device_request.wIndex = 0; \
   device_request.wLength = 0; \
-  usbControlTransfer((pid), (&device_request), NULL, (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), NULL, (done_cb), (arg)); })
 
-#define usbSetConfiguration(pid, config, cb, arg) ({ \
+#define usbSetConfiguration(pipe_id, config, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x00; \
   device_request.bRequest = USB_REQUEST_SET_CONFIGURATION; \
   device_request.wValue = (config); \
   device_request.wIndex = 0; \
   device_request.wLength = 0; \
-  usbControlTransfer((pid), (&device_request), NULL, (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), NULL, (done_cb), (arg)); })
 
-#define usbSetDeviceDescriptor(pid, type, wIndex, lang_id, ptr, len, cb, arg) ({ \
+#define usbSetDeviceDescriptor(pipe_id, type, wIndex, lang_id, ptr, len, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x00; \
   device_request.bRequest = USB_REQUEST_SET_DESCRIPTOR; \
   device_request.wValue = ((type) << 8) | (wIndex); \
   device_request.wIndex = (lang_id); \
   device_request.wLength = (len); \
-  usbControlTransfer((pid), (&device_request), (ptr), (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), (ptr), (done_cb), (arg)); })
 
-#define usbSetInterfaceDescriptor(pid, type, wIndex, lang_id, ptr, len, cb, arg) ({ \
+#define usbSetInterfaceDescriptor(pipe_id, type, wIndex, lang_id, ptr, len, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x01; \
   device_request.bRequest = USB_REQUEST_SET_DESCRIPTOR; \
   device_request.wValue = ((type) << 8) | (wIndex); \
   device_request.wIndex = (lang_id); \
   device_request.wLength = (len); \
-  usbControlTransfer((pid), (&device_request), (ptr), (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), (ptr), (done_cb), (arg)); })
 
-#define usbSetEndpointDescriptor(pid, type, wIndex, lang_id, ptr, len, cb, arg) ({ \
+#define usbSetEndpointDescriptor(pipe_id, type, wIndex, lang_id, ptr, len, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x02; \
   device_request.bRequest = USB_REQUEST_SET_DESCRIPTOR; \
   device_request.wValue = ((type) << 8) | (wIndex); \
   device_request.wIndex = (lang_id); \
   device_request.wLength = (len); \
-  usbControlTransfer((pid), (&device_request), (ptr), (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), (ptr), (done_cb), (arg)); })
 
-#define usbSetDeviceFeature(pid, fs, cb, arg) ({ \
+#define usbSetDeviceFeature(pipe_id, fs, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x00; \
   device_request.bRequest = USB_REQUEST_SET_FEATURE; \
   device_request.wValue = (fs); \
   device_request.wIndex = 0; \
   device_request.wLength = 0; \
-  usbControlTransfer((pid), (&device_request), NULL, (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), NULL, (done_cb), (arg)); })
 
-#define usbSetInterfaceFeature(pid, fs, iInterface, cb, arg) ({ \
+#define usbSetInterfaceFeature(pipe_id, fs, iInterface, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x01; \
   device_request.bRequest = USB_REQUEST_SET_FEATURE; \
   device_request.wValue = (fs); \
   device_request.wIndex = (iInterface); \
   device_request.wLength = 0; \
-  usbControlTransfer((pid), (&device_request), NULL, (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), NULL, (done_cb), (arg)); })
 
-#define usbSetEndpointFeature(pid, fs, endpoint, cb, arg) ({ \
+#define usbSetEndpointFeature(pipe_id, fs, endpoint, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x02; \
   device_request.bRequest = USB_REQUEST_SET_FEATURE; \
   device_request.wValue = (fs); \
   device_request.wIndex = (endpoint); \
   device_request.wLength = 0; \
-  usbControlTransfer((pid), (&device_request), NULL, (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), NULL, (done_cb), (arg)); })
 
-#define usbSetInterface(pid, iInterface, alt_setting, cb, arg) ({ \
+#define usbSetInterface(pipe_id, iInterface, alt_setting, done_cb, arg) ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x01; \
   device_request.bRequest = USB_REQUEST_SET_INTERFACE; \
   device_request.wValue = (alt_setting); \
   device_request.wIndex = (iInterface); \
   device_request.wLength = 0; \
-  usbControlTransfer((pid), (&device_request), NULL, (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), NULL, (done_cb), (arg)); })
 
-#define usbSynchFrame(pid, endpoint, pfn, cb, arg)  ({ \
+#define usbSynchFrame(pipe_id, endpoint, buf, done_cb, arg)  ({ \
   usbDeviceRequest device_request; \
   device_request.bmRequestType = 0x82; \
   device_request.bRequest = USB_REQUEST_SYNCH_FRAME; \
   device_request.wValue = 0; \
   device_request.wIndex = (endpoint); \
   device_request.wLength = 2; \
-  usbControlTransfer((pid), (&device_request), pfn, (cb), (arg)); })
+  usbControlTransfer((pipe_id), (&device_request), buf, (done_cb), (arg)); })
 
 
 #endif /* __USB_H__ */

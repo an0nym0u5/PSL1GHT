@@ -18,8 +18,9 @@ EXPORT(sysProcessIsStack, 0x4f7172c9); /* sysPrxForUser */
 EXPORT(sysProcessExit, 0xe6f2c1e7);
 EXPORT(sysProcessExitspawn, 0xfc52a7a9); /* sysPrxForUser */
 EXPORT(sysProcessExitSpawn2, 0x67f9fedb);
-EXPORT(sysProcessAtexitSpawn, 0x2c847572); /* sysPrxForUser */
-EXPORT(sysProcessAtExitSpawn, 0x96328741); /* sysPrxForUser */
+EXPORT(sysProcessExitSpawnWithLevel, 0xa2c7ba64); /* sysPrxForUser */
+EXPORT(sysProcessAtExitSpawn, 0x2c847572); /* sysPrxForUser */
+EXPORT(sysProcess_At_ExitSpawn, 0x96328741); /* sysPrxForUser */
 
 /* prx handling */
 EXPORT(sysPrxRegisterLibrary, 0x42b23552); /* sysPrxForUser */
@@ -38,7 +39,7 @@ EXPORT(sysPrxGetModuleId, 0x74311398); /* sysPrxForUser */
 EXPORT(sysPrxGetModuleIdByAddress, 0x0341bb97); /* sysPrxForUser */
 EXPORT(sysPrxGetModuleIdByName, 0xe0998dbf); /* sysPrxForUser */
 EXPORT(sysPrxUnloadModule, 0xf0aece0d); /* sysPrxForUser */
-EXPORT(sysPrxExitspawnWithLevel, 0xa2c7ba64); /* sysPrxForUser */
+EXPORT(sysPrxExitSpawnWithLevel, 0xa2c7ba64); /* sysPrxForUser */
 
 /* thread handling */
 EXPORT(sysThreadCreateEx, 0x24a1ea07);

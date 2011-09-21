@@ -25,6 +25,10 @@ extern s32 usbUnregisterExtraLddEx(usbLddOpsEx *lddops);
 
 s32 usbControlTransfer(s32 pipe_id, usbDeviceRequest *req, void *buf, usbDoneCallback cb, void *arg)
 {
+/*
+    printf ( "IN: usbControlTransfer(%d, %p, %p, %p, %p)\n", pipe_id, req, buf, cb, arg ) ;
+    printf ( "OUT: usbControlTransferEx(%d, %p, %p, %p, %p)\n", pipe_id, req, buf, (opd32*)__get_opd32(cb), arg ) ;
+*/
     return usbControlTransferEx(pipe_id, req, buf, (opd32*)__get_opd32(cb), arg);
 }
 
@@ -57,8 +61,10 @@ s32 usbRegisterLdd(usbLddOps *ldd_ops)
         (opd32*)__get_opd32(ldd_ops->attach),
         (opd32*)__get_opd32(ldd_ops->detach)
     };
+/*
     printf ( "IN:  usbRegisterLdd(%p) = probe=%p, attach=%p, detach=%p\n", ldd_ops, ldd_ops->probe, ldd_ops->attach, ldd_ops->detach ) ;
     printf ( "OUT: usbRegisterLddEx(%p) = probe=%p, attach=%p, detach=%p\n", &ldd_ops_ex, ldd_ops_ex.probe, ldd_ops_ex.attach, ldd_ops_ex.detach ) ;
+*/
     return usbRegisterLddEx(&ldd_ops_ex);
 }
 
@@ -71,8 +77,10 @@ s32 usbUnregisterLdd(usbLddOps *ldd_ops)
         (opd32*)__get_opd32(ldd_ops->attach),
         (opd32*)__get_opd32(ldd_ops->detach)
     };
+/*
     printf ( "IN:  usbUnregisterLdd(%p) = probe=%p, attach=%p, detach=%p\n", ldd_ops, ldd_ops->probe, ldd_ops->attach, ldd_ops->detach ) ;
     printf ( "OUT: usbUnregisterLddEx(%p) = probe=%p, attach=%p, detach=%p\n", &ldd_ops_ex, ldd_ops_ex.probe, ldd_ops_ex.attach, ldd_ops_ex.detach ) ;
+*/
     return usbUnregisterLddEx(&ldd_ops_ex);
 }
 
@@ -85,8 +93,10 @@ s32 usbRegisterExtraLdd(usbLddOps *ldd_ops, u16 vendor_id, u16 product_id)
         (opd32*)__get_opd32(ldd_ops->attach),
         (opd32*)__get_opd32(ldd_ops->detach)
     };
+/*
     printf ( "IN:  usbRegisterExtraLdd(%p) = probe=%p, attach=%p, detach=%p\n", ldd_ops, ldd_ops->probe, ldd_ops->attach, ldd_ops->detach ) ;
     printf ( "OUT: usbRegisterExtraLddEx(%p) = probe=%p, attach=%p, detach=%p\n", &ldd_ops_ex, ldd_ops_ex.probe, ldd_ops_ex.attach, ldd_ops_ex.detach ) ;
+*/
     return usbRegisterExtraLddEx(&ldd_ops_ex, vendor_id, product_id);
 }
 
@@ -99,8 +109,10 @@ s32 usbRegisterExtraLdd2(usbLddOps *ldd_ops, u16 vendor_id, u16 product_id_min, 
         (opd32*)__get_opd32(ldd_ops->attach),
         (opd32*)__get_opd32(ldd_ops->detach)
     };
+/*
     printf ( "IN:  usbRegisterExtraLdd2(%p) = probe=%p, attach=%p, detach=%p\n", ldd_ops, ldd_ops->probe, ldd_ops->attach, ldd_ops->detach ) ;
     printf ( "OUT: usbRegisterExtraLdd2Ex(%p) = probe=%p, attach=%p, detach=%p\n", &ldd_ops_ex, ldd_ops_ex.probe, ldd_ops_ex.attach, ldd_ops_ex.detach ) ;
+*/
     return usbRegisterExtraLdd2Ex(&ldd_ops_ex, vendor_id, product_id_min, product_id_max);
 }
 
@@ -113,8 +125,10 @@ s32 usbUnregisterExtraLdd(usbLddOps *ldd_ops)
         (opd32*)__get_opd32(ldd_ops->attach),
         (opd32*)__get_opd32(ldd_ops->detach)
     };
+/*
     printf ( "IN:  usbUnregisterExtraLdd(%p) = probe=%p, attach=%p, detach=%p\n", ldd_ops, ldd_ops->probe, ldd_ops->attach, ldd_ops->detach ) ;
     printf ( "OUT: usbUnregisterExtraLddEx(%p) = probe=%p, attach=%p, detach=%p\n", &ldd_ops_ex, ldd_ops_ex.probe, ldd_ops_ex.attach, ldd_ops_ex.detach ) ;
+*/
     return usbUnregisterExtraLddEx(&ldd_ops_ex);
 }
 

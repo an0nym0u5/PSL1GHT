@@ -136,7 +136,7 @@ extern "C" {
 #define KB_RAWKEY_YEN_106				0x89
 
 /*! \brief Keyboard Led State. */
-typedef struct KbLed {
+typedef struct _kb_led {
 	union {
 		u32 leds;
 		struct {
@@ -151,7 +151,7 @@ typedef struct KbLed {
 } KbLed;
 
 /*! \brief Keyboard Modifier Key State. */
-typedef struct KbMkey {
+typedef struct _kb_mkey {
 	union {
 		u32 mkeys;
 		struct {
@@ -170,7 +170,7 @@ typedef struct KbMkey {
 } KbMkey;
 
 /*! \brief Keyboard input data data structure. */
-typedef struct KbData {
+typedef struct _kb_data {
 	KbLed led;					/*!< \brief Keyboard Led State */
 	KbMkey mkey;				/*!< \brief Keyboard Modifier Key State */
 	s32 nb_keycode;				/*!< \brief Number of key codes (0 equal no data) */
@@ -178,19 +178,19 @@ typedef struct KbData {
 } KbData;
 
 /*! \brief Keyboard input mode values. */
-typedef enum KbRmode {
+typedef enum _kb_r_mode {
 	KB_RMODE_INPUTCHAR	= 0,	/*!< \brief Character Input Mode */
 	KB_RMODE_PACKET		= 1		/*!< \brief Packet Mode */
 } KbRmode;
 
 /*! \brief Keyboard raw or ASCII mode values. */
-typedef enum KbCodeType {
+typedef enum _kb_code_type {
 	KB_CODETYPE_RAW		= 0,	/*!< \brief Obtain device code as RAW code type */
 	KB_CODETYPE_ASCII	= 1		/*!< \brief Obtain device code as ASCII code type */
 } KbCodeType;
 
 /*! \brief Keyboard mapping values. */
-typedef enum KbMapping {
+typedef enum _kb_mapping {
 	KB_MAPPING_101						= 0,
 	KB_MAPPING_106						= 1,
 	KB_MAPPING_106_KANA					= 2,
@@ -215,7 +215,7 @@ typedef enum KbMapping {
 } KbMapping;
 
 /*! \brief Keyboard info data structure. */
-typedef struct KbInfo {
+typedef struct _kb_info {
 	u32 max;					/*!< \brief max kb allowed to connect */
 	u32 connected;				/*!< \brief how many kb connected */
 	u32 info;					/*!< \brief Bit 0 lets the system intercept keyboard? other bits are reserved */
@@ -224,7 +224,7 @@ typedef struct KbInfo {
 } KbInfo;
 
 /*! \brief Keyboard config data structure. */
-typedef struct KbConfig {
+typedef struct _kb_config {
 	u32 mapping;	/*!< \brief See KbMapping enum definition */
 	u32 rmode;		/*!< \brief See KbRmode enum definition */
 	u32 codetype;	/*!< \brief See KbCodeType enum definition */

@@ -10,7 +10,7 @@
 /*! \brief Return value */
 #define SYSUTIL_OK                              0
 
-/*! \brief Event slot 0. Used for events related to the PS button menu. */
+/*! \brief Event slot 0. */
 #define SYSUTIL_EVENT_SLOT0			0
 /*! \brief Event slot 1 */
 #define SYSUTIL_EVENT_SLOT1			1
@@ -76,7 +76,9 @@ s32 sysUtilUnregisterCallback(s32 slot);
 /*! \brief Register a callback function for system events.
 
 This function usually is called at the beginning of a program to set up an
-event manager.
+event manager. There can be up to 4 event managers installed at the same
+time, by placing them in different slots. All system events are delivered
+to all 4 slots in order, so each manager will see all of them.
 
   \param slot Event slot identifier. Possible values are:
     - \ref SYSUTIL_EVENT_SLOT0

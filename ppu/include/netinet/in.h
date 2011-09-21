@@ -4,38 +4,6 @@
 #include <ppu-types.h>
 #include <net/socket.h>
 
-typedef u16 in_port_t;
-typedef u32 in_addr_t;
-
-struct in_addr
-{
-	in_addr_t s_addr;
-};
-
-struct sockaddr_in
-{
-	u8 sin_len;
-	sa_family_t sin_family;
-	in_port_t sin_port;
-	struct in_addr sin_addr;
-	u8 sin_zero[0x08];
-};
-
-struct sockaddr_in_p2p
-{
-	u8 sin_len;
-	sa_family_t sin_family;
-	in_port_t sin_port;
-	struct in_addr sin_addr;
-	in_port_t sin_vport;
-	u8 sin_zero[6];
-};
-
-struct ip_mreq
-{
-	struct in_addr imr_multiaddr;
-	struct in_addr imr_interface;
-};
 
 #define IPPROTO_IP           0x00
 #define IPPROTO_ICMP         0x01
@@ -85,6 +53,41 @@ struct ip_mreq
 #define IP_MULTICAST_LOOP    11
 #define IP_ADD_MEMBERSHIP    12
 #define IP_DROP_MEMBERSHIP   13
+
+
+typedef u16 in_port_t;
+typedef u32 in_addr_t;
+
+struct in_addr
+{
+        in_addr_t s_addr;
+};
+
+struct sockaddr_in
+{
+        u8 sin_len;
+        sa_family_t sin_family;
+        in_port_t sin_port;
+        struct in_addr sin_addr;
+        u8 sin_zero[0x08];
+};
+
+struct sockaddr_in_p2p
+{
+        u8 sin_len;
+        sa_family_t sin_family;
+        in_port_t sin_port;
+        struct in_addr sin_addr;
+        in_port_t sin_vport;
+        u8 sin_zero[6];
+};
+
+struct ip_mreq
+{
+        struct in_addr imr_multiaddr;
+        struct in_addr imr_interface;
+};
+
 
 #include <arpa/inet.h>
 

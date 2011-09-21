@@ -7,11 +7,9 @@
 
 #include <ppu-types.h>
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 
 /*! \brief Terminate the running process.
 
@@ -41,10 +39,8 @@ values:
 */
 void sysProcessExitSpawn2(const char *path,const char *argv[],const char *envp[],void *data,size_t size,int priority,u64 flags);
 
-
 #ifdef __cplusplus
 	}
 #endif
 
 #endif
-

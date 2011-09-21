@@ -18,7 +18,7 @@ all:
 	@$(MAKE) -C libsysutil --no-print-directory
 	@$(MAKE) -C libsysmodule --no-print-directory
 	@$(MAKE) -C libvdec --no-print-directory
-#	@$(MAKE) -C libusb --no-print-directory
+	@$(MAKE) -C libusb --no-print-directory
 	@$(MAKE) -C libnp --no-print-directory
 	@$(MAKE) -C libfont --no-print-directory
 	@$(MAKE) -C libfontFT --no-print-directory
@@ -44,7 +44,7 @@ install:
 	@$(MAKE) -C libsysutil install --no-print-directory
 	@$(MAKE) -C libsysmodule install --no-print-directory
 	@$(MAKE) -C libvdec install --no-print-directory
-#	@$(MAKE) -C libusb install --no-print-directory
+	@$(MAKE) -C libusb install --no-print-directory
 	@$(MAKE) -C libnp install --no-print-directory
 	@$(MAKE) -C libfont install --no-print-directory
 	@$(MAKE) -C libfontFT install --no-print-directory
@@ -70,7 +70,7 @@ clean:
 	@$(MAKE) -C libsysutil clean --no-print-directory
 	@$(MAKE) -C libsysmodule clean --no-print-directory
 	@$(MAKE) -C libvdec clean --no-print-directory
-#	@$(MAKE) -C libusb clean --no-print-directory
+	@$(MAKE) -C libusb clean --no-print-directory
 	@$(MAKE) -C libnp clean --no-print-directory
 	@$(MAKE) -C libfont clean --no-print-directory
 	@$(MAKE) -C libfontFT clean --no-print-directory
