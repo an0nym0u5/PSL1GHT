@@ -1,0 +1,9 @@
+cellSysmodule   0x112a5ee9      cellSysmoduleUnloadModule
+cellSysmodule   0x1ef115ef      cellSysmoduleGetImagesize
+cellSysmodule   0x32267a31      cellSysmoduleLoadModule
+cellSysmodule   0x3c92be09      cellSysmoduleFetchImage
+cellSysmodule   0x5a59e258      cellSysmoduleIsLoaded
+cellSysmodule   0x63ff6ff9      cellSysmoduleInitialize
+cellSysmodule   0x96c07adf      cellSysmoduleFinalize
+cellSysmodule   0xa193143c      cellSysmoduleSetMemcontainer
+

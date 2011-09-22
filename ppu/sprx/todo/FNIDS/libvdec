@@ -1,0 +1,12 @@
+libvdec   0x0053e2d8    cellVdecOpenEx
+libvdec   0x16698e83    cellVdecClose
+libvdec   0x17c702b9    cellVdecGetPicItem
+libvdec   0x2bf4ddd2    cellVdecDecodeAu
+libvdec   0x807c861a    cellVdecGetPicture
+libvdec   0x824433f0    cellVdecEndSeq
+libvdec   0xb6bbcd5d    cellVdecOpen
+libvdec   0xc757c2aa    cellVdecStartSeq
+libvdec   0xc982a84a    cellVdecQueryAttrEx
+libvdec   0xe13ef6fc    cellVdecSetFrameRate
+libvdec   0xff6f6ebe    cellVdecQueryAttr
+

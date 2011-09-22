@@ -1,0 +1,7 @@
+cellGameExec   0x38579ec9       cellGameSetExitParam
+cellGameExec   0x59b1ede1       cellGameGetHomeDataExportPath
+cellGameExec   0x59bbebd4       cellGameGetHomePath
+cellGameExec   0x72cc6cf7       cellGameGetHomeDataImportPath
+cellGameExec   0x94e9f81d       cellGameGetHomeLaunchOptionPath
+cellGameExec   0xf6acd0bc       cellGameGetBootGameInfo
+

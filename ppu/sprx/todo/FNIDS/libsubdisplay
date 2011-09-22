@@ -1,0 +1,11 @@
+cellSubDisplay   0x5468d6b0     cellSubDisplayAudioOutNonBlocking
+cellSubDisplay   0x551d80a5     cellSubDisplayEnd
+cellSubDisplay   0x6595ce22     cellSubDisplayGetRequiredMemory
+cellSubDisplay   0x6d85ddb3     cellSubDisplayStop
+cellSubDisplay   0x8a264d71     cellSubDisplayGetPeerNum
+cellSubDisplay   0x938ac642     cellSubDisplayGetVideoBuffer
+cellSubDisplay   0xa5bccb47     cellSubDisplayStart
+cellSubDisplay   0xaee1e0c2     cellSubDisplayAudioOutBlocking
+cellSubDisplay   0xe2485f79     cellSubDisplayGetPeerList
+cellSubDisplay   0xf9a7e8a5     cellSubDisplayInit
+

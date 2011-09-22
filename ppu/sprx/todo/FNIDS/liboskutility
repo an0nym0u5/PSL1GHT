@@ -1,0 +1,15 @@
+cellOskExtUtility   0x09565b21  cellOskDialogExtInputDeviceUnlock
+cellOskExtUtility   0x1e1b4c97  cellOskDialogExtRegisterKeyboardEventHookCallback
+cellOskExtUtility   0x23a2ede6  cellOskDialogExtAddJapaneseOptionDictionary
+cellOskExtUtility   0x40187c25  cellOskDialogExtEnableClipboard
+cellOskExtUtility   0x42439db5  cellOskDialogExtSendFinishMessage
+cellOskExtUtility   0x4fe14d09  cellOskDialogExtAddOptionDictionary
+cellOskExtUtility   0x75370397  cellOskDialogExtSetInitialScale
+cellOskExtUtility   0x7c95feb8  cellOskDialogExtInputDeviceLock
+cellOskExtUtility   0x7eb292cd  cellOskDialogExtSetBaseColor
+cellOskExtUtility   0x8692fcd2  cellOskDialogExtRegisterConfirmWordFilterCallback
+cellOskExtUtility   0x8b60c469  cellOskDialogExtUpdateInputText
+cellOskExtUtility   0x9cb12c89  cellOskDialogExtDisableHalfByteKana
+cellOskExtUtility   0xe6c43c58  cellOskDialogExtEnableHalfByteKana
+cellOskExtUtility   0xe800f586  cellOskDialogExtRegisterForceFinishCallback
+

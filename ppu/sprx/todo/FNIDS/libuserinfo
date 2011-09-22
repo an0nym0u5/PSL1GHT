@@ -1,0 +1,6 @@
+cellUserInfo   0x2b761140       cellUserInfoGetStat
+cellUserInfo   0x3097cc1c       cellUserInfoSelectUser_ListType
+cellUserInfo   0x55123a25       cellUserInfoSelectUser_SetList
+cellUserInfo   0xb3516536       cellUserInfoEnableOverlay
+cellUserInfo   0xc55e338b       cellUserInfoGetList
+

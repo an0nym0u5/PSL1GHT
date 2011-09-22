@@ -1,0 +1,21 @@
+cellSearchUtility   0x025ce169  cellSearchGetMusicSelectionContext
+cellSearchUtility   0x0591826f  cellSearchStartContentSearch
+cellSearchUtility   0x0a4c8295  cellSearchStartListSearch
+cellSearchUtility   0x13524faa  cellSearchStartSceneSearch
+cellSearchUtility   0x35cda406  cellSearchGetContentInfoDeveloperData
+cellSearchUtility   0x37b5ba0c  cellSearchGetContentInfoPathMovieThumb
+cellSearchUtility   0x3b210319  cellSearchGetContentInfoByOffset
+cellSearchUtility   0x540d9068  cellSearchGetOffsetByContentId
+cellSearchUtility   0x64fb0b76  cellSearchStartContentSearchInList
+cellSearchUtility   0x774033d6  cellSearchEnd
+cellSearchUtility   0x8fe376a6  cellSearchCancel
+cellSearchUtility   0x94e21701  cellSearchGetContentIdByOffset
+cellSearchUtility   0x9663a44b  cellSearchGetContentInfoByContentId
+cellSearchUtility   0xbfab7616  cellSearchFinalize
+cellSearchUtility   0xc0ed0522  cellSearchStartSceneSearchInVideo
+cellSearchUtility   0xc81ccf8a  cellSearchInitialize
+cellSearchUtility   0xd7a7a433  cellSearchGetContentInfoGameComment
+cellSearchUtility   0xe73cb0d2  cellSearchPrepareFile
+cellSearchUtility   0xed20e079  cellSearchGetMusicSelectionContextOfSingleTrack
+cellSearchUtility   0xffb28491  cellSearchGetContentInfoPath
+

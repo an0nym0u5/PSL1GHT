@@ -1,0 +1,18 @@
+sceNpTrophy   0x079f0e87        sceNpTrophyGetGameProgress
+sceNpTrophy   0x1197b52c        sceNpTrophyRegisterContext
+sceNpTrophy   0x1c25470d        sceNpTrophyCreateHandle
+sceNpTrophy   0x27deda93        sceNpTrophySetSoundLevel
+sceNpTrophy   0x370136fe        sceNpTrophyGetRequiredDiskSpace
+sceNpTrophy   0x3741ecc7        sceNpTrophyDestroyContext
+sceNpTrophy   0x39567781        sceNpTrophyInit
+sceNpTrophy   0x48bd97c7        sceNpTrophyAbortHandle
+sceNpTrophy   0x49d18217        sceNpTrophyGetGameInfo
+sceNpTrophy   0x623cd2dc        sceNpTrophyDestroyHandle
+sceNpTrophy   0x8ceedd21        sceNpTrophyUnlockTrophy
+sceNpTrophy   0xa7fabf4d        sceNpTrophyTerm
+sceNpTrophy   0xb3ac3478        sceNpTrophyGetTrophyUnlockState
+sceNpTrophy   0xbaedf689        sceNpTrophyGetTrophyIcon
+sceNpTrophy   0xe3bf9a28        sceNpTrophyCreateContext
+sceNpTrophy   0xfce6d30a        sceNpTrophyGetTrophyInfo
+sceNpTrophy   0xff299e03        sceNpTrophyGetGameIcon
+

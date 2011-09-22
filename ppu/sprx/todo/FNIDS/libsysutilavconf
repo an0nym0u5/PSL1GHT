@@ -1,0 +1,17 @@
+cellSysutilAvconfExt   0x0bddef7d       cellAudioOutUnregisterDevice
+cellSysutilAvconfExt   0x18d0ada6       cellAudioOutGetDeviceInfo2
+cellSysutilAvconfExt   0x1cfa1a11       cellVideoOutSetXVColor
+cellSysutilAvconfExt   0x269ffedd       cellVideoOutSetupDisplay
+cellSysutilAvconfExt   0x3d5730ce       cellAudioInGetDeviceInfo
+cellSysutilAvconfExt   0x4ec8c141       cellVideoOutConvertCursorColor
+cellSysutilAvconfExt   0x655a0364       cellVideoOutGetGamma
+cellSysutilAvconfExt   0x65bf9ea3       cellAudioInGetAvailableDeviceInfo
+cellSysutilAvconfExt   0xc3273d9b       cellAudioOutGetAvailableDeviceInfo
+cellSysutilAvconfExt   0xc7020f62       cellVideoOutSetGamma
+cellSysutilAvconfExt   0xc7087631       cellAudioOutRegisterDevice
+cellSysutilAvconfExt   0xe4645af8       cellAudioOutSetDeviceMode
+cellSysutilAvconfExt   0xeb6c50fb       cellAudioInSetDeviceMode
+cellSysutilAvconfExt   0xeb6fcff1       cellAudioInRegisterDevice
+cellSysutilAvconfExt   0xfa6bcc17       cellAudioInUnregisterDevice
+cellSysutilAvconfExt   0xfaa275a4       cellVideoOutGetScreenSize
+

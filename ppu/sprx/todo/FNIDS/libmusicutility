@@ -1,0 +1,23 @@
+cellMusicUtility   0x0b461648   cellMusicGetSelectionContext
+cellMusicUtility   0x2bdc5d6b   cellMusicSetSelectionContext2
+cellMusicUtility   0x4014c246   cellMusicSetVolume2
+cellMusicUtility   0x4c188caa   cellMusicGetContentsId
+cellMusicUtility   0x5bff31bf   cellMusicSetSelectionContext
+cellMusicUtility   0x61865281   cellMusicInitialize2SystemWorkload
+cellMusicUtility   0x648b7611   cellMusicGetPlaybackStatus2
+cellMusicUtility   0x6674de2d   cellMusicGetContentsId2
+cellMusicUtility   0x6f2104f3   cellMusicFinalize
+cellMusicUtility   0x72876546   cellMusicInitializeSystemWorkload
+cellMusicUtility   0x72ec14b5   cellMusicInitialize
+cellMusicUtility   0x7be4dc31   cellMusicFinalize2
+cellMusicUtility   0x8793ef97   cellMusicGetSelectionContext2
+cellMusicUtility   0x8aa188e3   cellMusicGetVolume
+cellMusicUtility   0x95f7d9d9   cellMusicGetPlaybackStatus
+cellMusicUtility   0x98947a6e   cellMusicSetPlaybackCommand2
+cellMusicUtility   0xa0661626   cellMusicSetPlaybackCommand
+cellMusicUtility   0xad04cddd   cellMusicSelectContents2
+cellMusicUtility   0xb2336ba7   cellMusicSelectContents
+cellMusicUtility   0xbe50b11e   cellMusicInitialize2
+cellMusicUtility   0xe74ce7bd   cellMusicSetVolume
+cellMusicUtility   0xf9073a24   cellMusicGetVolume2
+

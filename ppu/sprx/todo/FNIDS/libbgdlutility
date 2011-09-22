@@ -1,0 +1,5 @@
+cellBGDLUtility   0x2ab0d183    cellBGDLGetInfo2
+cellBGDLUtility   0x4e9bb95b    cellBGDLGetInfo
+cellBGDLUtility   0x74e57bdf    cellBGDLGetMode
+cellBGDLUtility   0x7e134a90    cellBGDLSetMode
+

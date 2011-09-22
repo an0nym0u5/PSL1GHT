@@ -1,0 +1,13 @@
+cellSaveData   0x04c06fc2       cellSaveDataGetListItem
+cellSaveData   0x273d116a       cellSaveDataUserListExport
+cellSaveData   0x27cb8bc2       cellSaveDataListDelete
+cellSaveData   0x39d6ee43       cellSaveDataUserListImport
+cellSaveData   0x46a2d878       cellSaveDataFixedExport
+cellSaveData   0x491cc554       cellSaveDataListExport
+cellSaveData   0x52541151       cellSaveDataFixedImport
+cellSaveData   0x529231b0       cellSaveDataUserFixedImport
+cellSaveData   0x6b4e0de6       cellSaveDataListImport
+cellSaveData   0x7048a9ba       cellSaveDataUserListDelete
+cellSaveData   0x95ae2cde       cellSaveDataUserFixedExport
+cellSaveData   0xf6482036       cellSaveDataUserGetListItem
+

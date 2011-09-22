@@ -1,0 +1,24 @@
+cellAtrac   0x006016da  cellAtracGetBitrate
+cellAtrac   0x06ddb53e  cellAtracSetSecondBuffer
+cellAtrac   0x0f9667b6  cellAtracGetChannel
+cellAtrac   0x2642d4cc  cellAtracCreateDecoderExt
+cellAtrac   0x2bfff084  cellAtracGetStreamDataInfo
+cellAtrac   0x46cfc013  cellAtracAddStreamData
+cellAtrac   0x4797d1ff  cellAtracGetNextSample
+cellAtrac   0x5f62d546  cellAtracGetMaxSample
+cellAtrac   0x66afc68e  cellAtracSetDataAndGetMemSize
+cellAtrac   0x761cb9be  cellAtracDeleteDecoder
+cellAtrac   0x7772eb2b  cellAtracResetPlayPosition
+cellAtrac   0x78ba5c41  cellAtracSetLoopNum
+cellAtrac   0x7b22e672  cellAtracGetNextDecodePosition
+cellAtrac   0x8eb0e65f  cellAtracDecode
+cellAtrac   0x99efe171  cellAtracIsSecondBufferNeeded
+cellAtrac   0x99fb73d1  cellAtracGetBufferInfoForResetting
+cellAtrac   0xab6b6dbf  cellAtracGetLoopInfo
+cellAtrac   0xb5c11938  cellAtracGetInternalErrorInfo
+cellAtrac   0xbe07f05e  cellAtracGetSecondBufferInfo
+cellAtrac   0xc9a95fcb  cellAtracGetVacantSize
+cellAtrac   0xcf01d5d4  cellAtracGetSoundInfo
+cellAtrac   0xdfab73aa  cellAtracGetRemainFrame
+cellAtrac   0xfa293e88  cellAtracCreateDecoder
+

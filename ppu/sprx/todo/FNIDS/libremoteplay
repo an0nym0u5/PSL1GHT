@@ -1,0 +1,9 @@
+cellRemotePlay   0x533f41df     cellRemotePlayGetStatus
+cellRemotePlay   0x743918bd     cellRemotePlaySetComparativeVolume
+cellRemotePlay   0xa445cd55     cellRemotePlayGetPeerInfo
+cellRemotePlay   0xc267987b     cellRemotePlayGetSharedMemory
+cellRemotePlay   0xd29fe5e3     cellRemotePlayEncryptAllData
+cellRemotePlay   0xd6f3fc82     cellRemotePlayStopPeerVideoOut
+cellRemotePlay   0xe12c8c19     cellRemotePlayGetComparativeVolume
+cellRemotePlay   0xfb793f27     cellRemotePlayBreak
+

@@ -1,0 +1,24 @@
+cellAudio   0x04af134e  cellAudioCreateNotifyEventQueue
+cellAudio   0x0b168f92  cellAudioInit
+cellAudio   0x17d1213b  cellAudioSendAck
+cellAudio   0x28bc1409  cellAudioUnsetPersonalDevice
+cellAudio   0x2b9bd9ad  cellAudioRemoveNotifyEventQueueEx
+cellAudio   0x31211f6b  cellAudioMiscSetAccessoryVolume
+cellAudio   0x377e0cd9  cellAudioSetNotifyEventQueue
+cellAudio   0x4109d08c  cellAudioGetPortTimestamp
+cellAudio   0x4129fe2d  cellAudioPortClose
+cellAudio   0x5676f81c  cellAudioSetPersonalDevice
+cellAudio   0x56dfe179  cellAudioSetPortLevel
+cellAudio   0x5b1e2c73  cellAudioPortStop
+cellAudio   0x74a66af0  cellAudioGetPortConfig
+cellAudio   0x832df17e  cellAudioAdd6chData
+cellAudio   0x89be28f2  cellAudioPortStart
+cellAudio   0x9e4b1db8  cellAudioAdd2chData
+cellAudio   0xa4c9ba65  cellAudioCreateNotifyEventQueueEx
+cellAudio   0xb56ef5a1  cellAudioSetNotifyEventQueueEx
+cellAudio   0xca5ac370  cellAudioQuit
+cellAudio   0xcd7bc431  cellAudioPortOpen
+cellAudio   0xdab029aa  cellAudioAddData
+cellAudio   0xe4046afe  cellAudioGetPortBlockTag
+cellAudio   0xff3626fd  cellAudioRemoveNotifyEventQueue
+

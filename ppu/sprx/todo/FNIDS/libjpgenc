@@ -1,0 +1,11 @@
+cellJpgEnc   0x0cf2b78b cellJpgEncReset
+cellJpgEnc   0x12d9b6c5 cellJpgEncQueryAttr
+cellJpgEnc   0x2ae79be8 cellJpgEncWaitForInput
+cellJpgEnc   0x4262e880 cellJpgEncGetStreamInfo
+cellJpgEnc   0x636dc89e cellJpgEncEncodePicture2
+cellJpgEnc   0x6f2d371c cellJpgEncOpenEx
+cellJpgEnc   0x969fc5f7 cellJpgEncClose
+cellJpgEnc   0x9b4e3a74 cellJpgEncWaitForOutput
+cellJpgEnc   0xa4bfae51 cellJpgEncOpen
+cellJpgEnc   0xa9e81214 cellJpgEncEncodePicture
+

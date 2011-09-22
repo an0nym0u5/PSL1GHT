@@ -1,0 +1,5 @@
+sceNpUtil   0x432b3cbf  sceNpUtilBandwidthTestShutdown
+sceNpUtil   0xc2ced2b7  sceNpUtilBandwidthTestInitStart
+sceNpUtil   0xc880f37d  sceNpUtilBandwidthTestGetStatus
+sceNpUtil   0xc99ee313  sceNpUtilBandwidthTestAbort
+

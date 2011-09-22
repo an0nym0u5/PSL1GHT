@@ -1,0 +1,21 @@
+cellMusicDecodeUtility   0x066bb1cf     cellMusicDecodeSetDecodeCommand
+cellMusicDecodeUtility   0x1576e4f2     cellMusicDecodeGetDecodeStatus2
+cellMusicDecodeUtility   0x25ea7ac0     cellMusicDecodeGetContentsId2
+cellMusicDecodeUtility   0x2ef701ec     cellMusicDecodeSetDecodeCommand2
+cellMusicDecodeUtility   0x491d6ba5     cellMusicDecodeSetSelectionContext2
+cellMusicDecodeUtility   0x4aef2877     cellMusicDecodeFinalize2
+cellMusicDecodeUtility   0x58ab1999     cellMusicDecodeGetContentsId
+cellMusicDecodeUtility   0x5af74c50     cellMusicDecodeGetDecodeStatus
+cellMusicDecodeUtility   0x84f154b2     cellMusicDecodeInitializeSystemWorkload
+cellMusicDecodeUtility   0xa8615dc8     cellMusicDecodeFinalize
+cellMusicDecodeUtility   0xa881b744     cellMusicDecodeRead
+cellMusicDecodeUtility   0xb2d054df     cellMusicDecodeRead2
+cellMusicDecodeUtility   0xb641168e     cellMusicDecodeInitialize2SystemWorkload
+cellMusicDecodeUtility   0xb84f5c81     cellMusicDecodeSetSelectionContext
+cellMusicDecodeUtility   0xc22563c4     cellMusicDecodeSelectContents2
+cellMusicDecodeUtility   0xd55dbc11     cellMusicDecodeInitialize
+cellMusicDecodeUtility   0xdbf70550     cellMusicDecodeGetSelectionContext
+cellMusicDecodeUtility   0xf24cb963     cellMusicDecodeSelectContents
+cellMusicDecodeUtility   0xf80e31e5     cellMusicDecodeInitialize2
+cellMusicDecodeUtility   0xf91639f9     cellMusicDecodeGetSelectionContext2
+

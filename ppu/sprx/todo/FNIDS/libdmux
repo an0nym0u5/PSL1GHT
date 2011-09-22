@@ -1,0 +1,21 @@
+cellDmux   0x002e8da2   cellDmuxPeekAuEx
+cellDmux   0x02170d1a   cellDmuxQueryEsAttr
+cellDmux   0x04e7499f   cellDmuxSetStream
+cellDmux   0x05371c8d   cellDmuxDisableEs
+cellDmux   0x11bc3a6c   cellDmuxOpen2
+cellDmux   0x21d424f0   cellDmuxResetEs
+cellDmux   0x24ea6474   cellDmuxReleaseAu
+cellDmux   0x2750c5e0   cellDmuxPeekAu
+cellDmux   0x2c9a5857   cellDmuxGetAuEx
+cellDmux   0x3f76e3cd   cellDmuxQueryAttr2
+cellDmux   0x42c716b5   cellDmuxGetAu
+cellDmux   0x52911bcf   cellDmuxQueryEsAttr2
+cellDmux   0x5d345de9   cellDmuxResetStream
+cellDmux   0x68492de9   cellDmuxOpen
+cellDmux   0x7b56dc3f   cellDmuxEnableEs
+cellDmux   0x8c692521   cellDmuxClose
+cellDmux   0xa2d4189b   cellDmuxQueryAttr
+cellDmux   0xccff1284   cellDmuxResetStreamAndWaitDone
+cellDmux   0xebb3b2bd   cellDmuxFlushEs
+cellDmux   0xf6c23560   cellDmuxOpenEx
+

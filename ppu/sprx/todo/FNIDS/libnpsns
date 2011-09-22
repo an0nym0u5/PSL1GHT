@@ -1,0 +1,11 @@
+sceNpSns   0x021d6c1f   sceNpSnsFbStreamPublish
+sceNpSns   0x2c0f3548   sceNpSnsFbInit
+sceNpSns   0x3711833f   sceNpSnsFbAbortHandle
+sceNpSns   0x53d03ce1   sceNpSnsFbCheckThrottle
+sceNpSns   0x6e42c0dd   sceNpSnsFbDestroyHandle
+sceNpSns   0x702dc876   sceNpSnsFbGetAccessToken
+sceNpSns   0x8fd1d549   sceNpSnsFbCreateHandle
+sceNpSns   0xaa9ed7ff   sceNpSnsFbCheckConfig
+sceNpSns   0xaf86c77a   sceNpSnsFbLoadThrottle
+sceNpSns   0xc05545fd   sceNpSnsFbTerm
+

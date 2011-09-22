@@ -1,0 +1,4 @@
+cellSysutilAp   0x3343824c      cellSysutilApOn
+cellSysutilAp   0x90c2bb19      cellSysutilApOff
+cellSysutilAp   0x9e67e0dd      cellSysutilApGetRequiredMemSize
+

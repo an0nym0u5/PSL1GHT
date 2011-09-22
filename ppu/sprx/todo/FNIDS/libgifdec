@@ -1,0 +1,13 @@
+cellGifDec   0x02e7e03e cellGifDecExtDecodeData
+cellGifDec   0x116a7da9 cellGifDecClose
+cellGifDec   0x17fb83c1 cellGifDecExtOpen
+cellGifDec   0x41a90dc4 cellGifDecSetParameter
+cellGifDec   0x44b1bc61 cellGifDecDecodeData
+cellGifDec   0x4711cb7f cellGifDecExtCreate
+cellGifDec   0x75745079 cellGifDecOpen
+cellGifDec   0x95cae771 cellGifDecExtSetParameter
+cellGifDec   0xb60d42a5 cellGifDecCreate
+cellGifDec   0xe53f91f2 cellGifDecExtReadHeader
+cellGifDec   0xe74b2cb1 cellGifDecDestroy
+cellGifDec   0xf0da95de cellGifDecReadHeader
+

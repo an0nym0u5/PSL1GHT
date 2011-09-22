@@ -1,0 +1,6 @@
+cellMusicExportUtility   0x92b50ebc     cellMusicExportProgress
+cellMusicExportUtility   0xb202f0e8     cellMusicExportFromFile
+cellMusicExportUtility   0xb4c9b4f9     cellMusicExportInitialize
+cellMusicExportUtility   0xe0443a44     cellMusicExportInitialize2
+cellMusicExportUtility   0xe90effea     cellMusicExportFinalize
+

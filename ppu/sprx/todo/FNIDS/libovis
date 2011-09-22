@@ -1,0 +1,5 @@
+cellOvis   0x629ba0c0   cellOvisInvalidateOverlappedSegments
+cellOvis   0x82f294b2   cellOvisGetOverlayTableSize
+cellOvis   0xa876c911   cellOvisInitializeOverlayTable
+cellOvis   0xce6cb776   cellOvisFixSpuSegments
+

@@ -1,0 +1,5 @@
+cellLibprof   0x0252efcc        cellUserTraceInit
+cellLibprof   0x05893e7c        cellUserTraceRegister
+cellLibprof   0x6d045c2e        cellUserTraceUnregister
+cellLibprof   0x898c77bf        cellUserTraceTerminate
+

@@ -1,0 +1,13 @@
+cellJpgDec   0x65cbbb16 cellJpgDecExtSetParameter
+cellJpgDec   0x6d9ebccf cellJpgDecReadHeader
+cellJpgDec   0x716f8792 cellJpgDecExtDecodeData
+cellJpgDec   0x8b300f66 cellJpgDecExtCreate
+cellJpgDec   0x9338a07a cellJpgDecClose
+cellJpgDec   0x976ca5c2 cellJpgDecOpen
+cellJpgDec   0xa7978f59 cellJpgDecCreate
+cellJpgDec   0xa9f703e3 cellJpgDecExtOpen
+cellJpgDec   0xaf8bb012 cellJpgDecDecodeData
+cellJpgDec   0xb91eb3d2 cellJpgDecExtReadHeader
+cellJpgDec   0xd8ea91f8 cellJpgDecDestroy
+cellJpgDec   0xe08f3910 cellJpgDecSetParameter
+

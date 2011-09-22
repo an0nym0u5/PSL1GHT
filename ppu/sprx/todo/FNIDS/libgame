@@ -1,0 +1,16 @@
+cellGame   0x2a8e6b92   cellGameGetDiscContentInfoUpdatePath
+cellGame   0x3a5d726a   cellGameGetParamString
+cellGame   0x42a2e133   cellGameCreateGameData
+cellGame   0x70acec67   cellGameContentPermit
+cellGame   0x87406734   cellGameThemeInstallFromBuffer
+cellGame   0xa80bf223   cellGameGetLocalWebContentPath
+cellGame   0xb0a1f8c6   cellGameContentErrorDialog
+cellGame   0xb367c6e3   cellGameDeleteGameData
+cellGame   0xb7a45caf   cellGameGetParamInt
+cellGame   0xce4374f6   cellGamePatchCheck
+cellGame   0xd24e3928   cellGameThemeInstall
+cellGame   0xdaa5cd20   cellGameSetParamString
+cellGame   0xdb9819f3   cellGameDataCheck
+cellGame   0xef9d42d5   cellGameGetSizeKB
+cellGame   0xf52639ea   cellGameBootCheck
+

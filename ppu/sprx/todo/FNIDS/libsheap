@@ -1,0 +1,19 @@
+cellSheap   0x2452679f  cellKeySheapMutexDelete
+cellSheap   0x3478e1e6  cellKeySheapMutexNew
+cellSheap   0x37968718  cellSheapQueryMax
+cellSheap   0x4a5b9659  cellKeySheapBufferNew
+cellSheap   0x4b1383fb  cellSheapAllocate
+cellSheap   0x5c5994bd  cellSheapFree
+cellSheap   0x69a5861d  cellKeySheapSemaphoreNew
+cellSheap   0x73a45cf8  cellKeySheapSemaphoreDelete
+cellSheap   0x79a6abd0  cellKeySheapQueueDelete
+cellSheap   0x7fa23275  cellSheapQueryFree
+cellSheap   0x987e260e  cellKeySheapQueueNew
+cellSheap   0xa1b25841  cellKeySheapInitialize
+cellSheap   0xbbb47cd8  cellSheapInitialize
+cellSheap   0xe6b37362  cellKeySheapBufferDelete
+cellSheap   0xe897c835  cellKeySheapBarrierNew
+cellSheap   0xed136702  cellKeySheapRwmDelete
+cellSheap   0xf01ac471  cellKeySheapRwmNew
+cellSheap   0xf6f5fbca  cellKeySheapBarrierDelete
+

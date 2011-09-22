@@ -1,0 +1,10 @@
+cellPngEnc   0x117cd726 cellPngEncClose
+cellPngEnc   0x19256dc5 cellPngEncOpen
+cellPngEnc   0x496cfcd0 cellPngEncQueryAttr
+cellPngEnc   0x585269bc cellPngEncGetStreamInfo
+cellPngEnc   0x5b546ca4 cellPngEncEncodePicture
+cellPngEnc   0x662bd637 cellPngEncWaitForInput
+cellPngEnc   0x6ac91de3 cellPngEncReset
+cellPngEnc   0x90ef2963 cellPngEncWaitForOutput
+cellPngEnc   0xc82558ce cellPngEncOpenEx
+

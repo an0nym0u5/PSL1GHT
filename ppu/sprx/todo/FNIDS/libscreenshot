@@ -1,0 +1,5 @@
+cellScreenShotUtility   0x7a9c2243      cellScreenShotSetOverlayImage
+cellScreenShotUtility   0x9e33ab8f      cellScreenShotEnable
+cellScreenShotUtility   0xd3ad63e4      cellScreenShotSetParameter
+cellScreenShotUtility   0xfc6f4e74      cellScreenShotDisable
+

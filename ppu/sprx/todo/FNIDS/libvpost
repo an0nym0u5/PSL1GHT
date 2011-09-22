@@ -1,0 +1,6 @@
+cellVpost   0x10ef39f6  cellVpostClose
+cellVpost   0x40524325  cellVpostOpenEx
+cellVpost   0x95e788c3  cellVpostQueryAttr
+cellVpost   0xabb8cc3d  cellVpostExec
+cellVpost   0xcd33f3e2  cellVpostOpen
+
