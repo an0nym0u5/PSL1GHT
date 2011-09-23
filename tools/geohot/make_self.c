@@ -110,9 +110,9 @@ void init_Self_Shdr(Self_Shdr* hdr) {
   set_u32(&(hdr->s_hdrversion), 2);
 #ifdef SPRX
   // on 3.41
-  set_u16(&(hdr->s_flags), 4);
+  //set_u16(&(hdr->s_flags), 4);
   // on 3.55
-  //set_u16(&(hdr->s_flags), 7);
+  set_u16(&(hdr->s_flags), 7);
 #else
   set_u16(&(hdr->s_flags), 1);
 #endif

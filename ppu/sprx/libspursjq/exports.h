@@ -2,30 +2,31 @@
 #define __EXPORTS_H__
 
 
-EXPORT(spursCreateJobQueue, 0xf244e799); /* cellSpursJq */
-EXPORT(spursCreateJobQueueWithJobDescriptorPool, 0x983be7fc); /* cellSpursJq */
-EXPORT(spursJobQueueAllocateJobDescriptorBody, 0x0d69929e); /* cellSpursJq */
-EXPORT(spursJobQueuePort2CopyPushJobBody, 0xc39173a4); /* cellSpursJq */
-EXPORT(spursJobQueuePort2PushAndReleaseJobBody, 0xe1731df3); /* cellSpursJq */
-EXPORT(spursJobQueuePort2PushJobBody, 0xcf89f218); /* cellSpursJq */
-EXPORT(spursJobQueuePort2PushJobListBody, 0xb53436e7); /* cellSpursJq */
-EXPORT(spursJobQueuePortCopyPushBody, 0x46c3fb5a); /* cellSpursJq */
-EXPORT(spursJobQueuePortCopyPushJobBody, 0x1917359d); /* cellSpursJq */
-EXPORT(spursJobQueuePortCopyPushJobBody2, 0xef66c4b7); /* cellSpursJq */
-EXPORT(spursJobQueuePortPushBody, 0x4e1a17a6); /* cellSpursJq */
-EXPORT(spursJobQueuePortPushFlush, 0xbd1c5d6b); /* cellSpursJq */
-EXPORT(spursJobQueuePortPushJobBody, 0x85cd04cd); /* cellSpursJq */
-EXPORT(spursJobQueuePortPushJobBody2, 0x90e392cf); /* cellSpursJq */
-EXPORT(spursJobQueuePortPushJobListBody, 0x1b6eea7e); /* cellSpursJq */
-EXPORT(spursJobQueuePortPushSync, 0x9396be1d); /* cellSpursJq */
-EXPORT(spursJobQueuePushAndReleaseJobBody, 0x1da890c7); /* cellSpursJq */
-EXPORT(spursJobQueuePushBody, 0x99316997); /* cellSpursJq */
-EXPORT(spursJobQueuePushFlush, 0xdf0120c2); /* cellSpursJq */
-EXPORT(spursJobQueuePushJob2Body, 0x36d0a53c); /* cellSpursJq */
-EXPORT(spursJobQueuePushJobBody, 0xc4843b74); /* cellSpursJq */
-EXPORT(spursJobQueuePushJobBody2, 0x98203e3c); /* cellSpursJq */
-EXPORT(spursJobQueuePushJobListBody, 0xaf1c7a1d); /* cellSpursJq */
-EXPORT(spursJobQueuePushSync, 0x701fd8a9); /* cellSpursJq */
+EXPORT(_spursCreateJobQueue, 0xf244e799); /* cellSpursJq */
+EXPORT(_spursCreateJobQueueWithJobDescriptorPool, 0x983be7fc); /* cellSpursJq */
+EXPORT(_spursJobQueueAllocateJobDescriptorBody, 0x0d69929e); /* cellSpursJq */
+EXPORT(_spursJobQueuePort2CopyPushJobBody, 0xc39173a4); /* cellSpursJq */
+EXPORT(_spursJobQueuePort2PushAndReleaseJobBody, 0xe1731df3); /* cellSpursJq */
+EXPORT(_spursJobQueuePort2PushJobBody, 0xcf89f218); /* cellSpursJq */
+EXPORT(_spursJobQueuePort2PushJobListBody, 0xb53436e7); /* cellSpursJq */
+EXPORT(_spursJobQueuePortCopyPushBody, 0x46c3fb5a); /* cellSpursJq */
+EXPORT(_spursJobQueuePortCopyPushJobBody, 0x1917359d); /* cellSpursJq */
+EXPORT(_spursJobQueuePortCopyPushJobBody2, 0xef66c4b7); /* cellSpursJq */
+EXPORT(_spursJobQueuePortPushBody, 0x4e1a17a6); /* cellSpursJq */
+EXPORT(_spursJobQueuePortPushFlush, 0xbd1c5d6b); /* cellSpursJq */
+EXPORT(_spursJobQueuePortPushJobBody, 0x85cd04cd); /* cellSpursJq */
+EXPORT(_spursJobQueuePortPushJobBody2, 0x90e392cf); /* cellSpursJq */
+EXPORT(_spursJobQueuePortPushJobListBody, 0x1b6eea7e); /* cellSpursJq */
+EXPORT(_spursJobQueuePortPushSync, 0x9396be1d); /* cellSpursJq */
+EXPORT(_spursJobQueuePushAndReleaseJobBody, 0x1da890c7); /* cellSpursJq */
+EXPORT(_spursJobQueuePushBody, 0x99316997); /* cellSpursJq */
+EXPORT(_spursJobQueuePushFlush, 0xdf0120c2); /* cellSpursJq */
+EXPORT(_spursJobQueuePushJob2Body, 0x36d0a53c); /* cellSpursJq */
+EXPORT(_spursJobQueuePushJobBody, 0xc4843b74); /* cellSpursJq */
+EXPORT(_spursJobQueuePushJobBody2, 0x98203e3c); /* cellSpursJq */
+EXPORT(_spursJobQueuePushJobListBody, 0xaf1c7a1d); /* cellSpursJq */
+EXPORT(_spursJobQueuePushSync, 0x701fd8a9); /* cellSpursJq */
+
 EXPORT(spursGetJobQueueId, 0xc343ee10); /* cellSpursJq */
 EXPORT(spursJobQueueAttributeInitialize, 0x43ddab4f); /* cellSpursJq */
 EXPORT(spursJobQueueAttributeSetDoBusyWaiting, 0x0582338a); /* cellSpursJq */

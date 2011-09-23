@@ -2,22 +2,23 @@
 #define __EXPORTS_H__
 
 
-EXPORT(spursAttributeInitialize, 0x95180230); /* cellSpurs */
-EXPORT(spursEventFlagInitialize, 0x5ef96465); /* cellSpurs */
-EXPORT(spursJobChainAttributeInitialize, 0x3548f483); /* cellSpurs */
-EXPORT(spursLFQueueInitialize, 0x011ee38b); /* cellSpurs */
-EXPORT(spursLFQueuePopBody, 0x35dae22b); /* cellSpurs */
-EXPORT(spursLFQueuePushBody, 0x8a85674d); /* cellSpurs */
-EXPORT(spursQueueInitialize, 0x082bfb09); /* cellSpurs */
-EXPORT(spursSemaphoreInitialize, 0x77cdac0c); /* cellSpurs */
-EXPORT(spursSendSignal, 0xe0a6dbe4); /* cellSpurs */
-EXPORT(spursTaskAttribute2Initialize, 0x8adadf65); /* cellSpurs */
-EXPORT(spursTaskAttributeInitialize, 0xb8474eff); /* cellSpurs */
-EXPORT(spursTasksetAttribute2Initialize, 0xc2acdf43); /* cellSpurs */
-EXPORT(spursTasksetAttributeInitialize, 0x16394a4e); /* cellSpurs */
-EXPORT(spursWorkloadAttributeInitialize, 0xefeb2679); /* cellSpurs */
-EXPORT(spursWorkloadFlagReceiver, 0xa73bf47e); /* cellSpurs */
-EXPORT(spursWorkloadFlagReceiver2, 0x2ddbcc0a); /* cellSpurs */
+EXPORT(_spursAttributeInitialize, 0x95180230); /* cellSpurs */
+EXPORT(_spursEventFlagInitialize, 0x5ef96465); /* cellSpurs */
+EXPORT(_spursJobChainAttributeInitialize, 0x3548f483); /* cellSpurs */
+EXPORT(_spursLFQueueInitialize, 0x011ee38b); /* cellSpurs */
+EXPORT(_spursLFQueuePopBody, 0x35dae22b); /* cellSpurs */
+EXPORT(_spursLFQueuePushBody, 0x8a85674d); /* cellSpurs */
+EXPORT(_spursQueueInitialize, 0x082bfb09); /* cellSpurs */
+EXPORT(_spursSemaphoreInitialize, 0x77cdac0c); /* cellSpurs */
+EXPORT(_spursSendSignal, 0xe0a6dbe4); /* cellSpurs */
+EXPORT(_spursTaskAttribute2Initialize, 0x8adadf65); /* cellSpurs */
+EXPORT(_spursTaskAttributeInitialize, 0xb8474eff); /* cellSpurs */
+EXPORT(_spursTasksetAttribute2Initialize, 0xc2acdf43); /* cellSpurs */
+EXPORT(_spursTasksetAttributeInitialize, 0x16394a4e); /* cellSpurs */
+EXPORT(_spursWorkloadAttributeInitialize, 0xefeb2679); /* cellSpurs */
+EXPORT(_spursWorkloadFlagReceiver, 0xa73bf47e); /* cellSpurs */
+EXPORT(_spursWorkloadFlagReceiver2, 0x2ddbcc0a); /* cellSpurs */
+
 EXPORT(spursAddUrgentCall, 0x8fdf50b2); /* cellSpurs */
 EXPORT(spursAddUrgentCommand, 0x17001000); /* cellSpurs */
 EXPORT(spursAddWorkload, 0x69726aa2); /* cellSpurs */
@@ -34,10 +35,10 @@ EXPORT(spursCreateJobChainWithAttribute, 0x303c19cd); /* cellSpurs */
 EXPORT(spursCreateTask, 0xbeb600ac); /* cellSpurs */
 EXPORT(spursCreateTask2, 0xe14ca62d); /* cellSpurs */
 EXPORT(spursCreateTask2WithBinInfo, 0xe4944a1c); /* cellSpurs */
-EXPORT(spursCreateTaskWithAttribute, 0x1d46fedf); /* cellSpurs */
 EXPORT(spursCreateTaskset, 0x52cc6c82); /* cellSpurs */
 EXPORT(spursCreateTaskset2, 0x4a6465e3); /* cellSpurs */
 EXPORT(spursCreateTasksetWithAttribute, 0xc10931cb); /* cellSpurs */
+EXPORT(spursCreateTaskWithAttribute, 0x1d46fedf); /* cellSpurs */
 EXPORT(spursDestroyTaskset2, 0x1ebcf459); /* cellSpurs */
 EXPORT(spursDetachLv2EventQueue, 0x4e66d483); /* cellSpurs */
 EXPORT(spursEnableExceptionEventHandler, 0x32b94add); /* cellSpurs */

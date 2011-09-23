@@ -57,6 +57,12 @@
  * \param ppc segment
  * \param crash dump param addr
  */
+/*! \brief Configure process priority and stack size.
+
+Typically call this macro outside function declarations.
+\param prio priority (1000 = normal)
+\param stacksize stack size
+*/
 #define SYS_PROCESS_PARAM(prio,stacksize) \
 	sys_process_param_t __sys_process_param __attribute__((aligned(8), section(".sys_proc_param"), unused)) = { \
 		sizeof(sys_process_param_t), \

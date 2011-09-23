@@ -17,4 +17,3 @@ void rescSetFlipHandler(void (*handler)(const u32 head))
 	rescSetFlipHandlerEx((opd32*)__get_opd32(handler));
 }
 
-

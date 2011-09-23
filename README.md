@@ -52,6 +52,7 @@ install it to, for example...
 
     cd /path/to/psl1ght.git/
     export PSL1GHT=/path/to/psl1ght.git/build
+    make install-ctrl
     make
     make install
 

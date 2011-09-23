@@ -819,7 +819,7 @@ void rsxSetBlendEquation(gcmContextData *context,u16 color,u16 alpha)
 	RSX_CONTEXT_CURRENT_END(2);
 }
 
-void rsxSetBlendColor(gcmContextData *context,u16 color0,u16 color1)
+void rsxSetBlendColor(gcmContextData *context,u32 color0,u32 color1)
 {
 	RSX_CONTEXT_CURRENT_BEGIN(4);
 
@@ -944,10 +944,10 @@ void rsxSetTransferImage(gcmContextData *context,const u8 mode,const u32 dstOffs
 	RSX_CONTEXT_CURRENTP[20] = (16 << 16);
 
 	RSX_CONTEXT_CURRENTP[21] = RSX_SUBCHANNEL_METHOD(6,NV03_SCALED_IMAGE_FROM_MEMORY_IMAGE_IN_SIZE,4);
-	RSX_CONTEXT_CURRENTP[22] = ((height << 16) | width);
+	RSX_CONTEXT_CURRENTP[22] = (((height + ((srcY+15)>>4)) << 16) | (width + ((srcX+15)>>4)));
 	RSX_CONTEXT_CURRENTP[23] = (srcPitch | (GCM_TRANSFER_ORIGIN_CORNER << 16) | (GCM_TRANSFER_INTERPOLATOR_NEAREST << 24));
 	RSX_CONTEXT_CURRENTP[24] = srcOffset;
-	RSX_CONTEXT_CURRENTP[25] = 0;
+	RSX_CONTEXT_CURRENTP[25] = ((srcY << 16) | srcX);
 
 	RSX_CONTEXT_CURRENT_END(26);
 }

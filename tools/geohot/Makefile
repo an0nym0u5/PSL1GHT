@@ -34,7 +34,7 @@ endif
 
 ifneq (,$(findstring Darwin,$(UNAME)))
 	SDK			:= /Developer/SDKs/MacOSX10.4u.sdk 
-	OSXCFLAGS	:= -mmacosx-version-min=10.4 -arch i386
+	OSXCFLAGS	:=	-mmacosx-version-min=10.4 -arch i386
 	OSXCXXFLAGS	:=	$(OSXCFLAGS)
 	CXXFLAGS	+=	-fvisibility=hidden
 	LDFLAGS		+=	-mmacosx-version-min=10.4 -arch i386 -Wl,-syslibroot,$(SDK) -L/opt/local/lib -lgmp -lcrypto -lz

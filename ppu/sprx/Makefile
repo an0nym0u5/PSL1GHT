@@ -8,6 +8,7 @@ all:
 	@$(MAKE) -C libcamera --no-print-directory
 	@$(MAKE) -C libaudio --no-print-directory
 	@$(MAKE) -C libpngdec --no-print-directory
+	@$(MAKE) -C libpngenc --no-print-directory
 	@$(MAKE) -C libjpgdec --no-print-directory
 	@$(MAKE) -C libgcm_sys --no-print-directory
 	@$(MAKE) -C libresc --no-print-directory
@@ -22,8 +23,8 @@ all:
 	@$(MAKE) -C libnp --no-print-directory
 	@$(MAKE) -C libspurs --no-print-directory
 	@$(MAKE) -C libspursjq --no-print-directory
-	@$(MAKE) -C libfont --no-print-directory
-	@$(MAKE) -C libfontFT --no-print-directory
+#	@$(MAKE) -C libfont --no-print-directory
+#	@$(MAKE) -C libfontFT --no-print-directory
 #	@$(MAKE) -C libfreetype --no-print-directory
 	
 install:
@@ -36,6 +37,7 @@ install:
 	@$(MAKE) -C libcamera install --no-print-directory
 	@$(MAKE) -C libaudio install --no-print-directory
 	@$(MAKE) -C libpngdec install --no-print-directory
+	@$(MAKE) -C libpngenc install --no-print-directory
 	@$(MAKE) -C libjpgdec install --no-print-directory
 	@$(MAKE) -C libgcm_sys install --no-print-directory
 	@$(MAKE) -C libresc install --no-print-directory
@@ -50,8 +52,8 @@ install:
 	@$(MAKE) -C libnp install --no-print-directory
 	@$(MAKE) -C libspurs install --no-print-directory
 	@$(MAKE) -C libspursjq install --no-print-directory
-	@$(MAKE) -C libfont install --no-print-directory
-	@$(MAKE) -C libfontFT install --no-print-directory
+#	@$(MAKE) -C libfont install --no-print-directory
+#	@$(MAKE) -C libfontFT install --no-print-directory
 #	@$(MAKE) -C libfreetype install --no-print-directory
 	
 clean:
@@ -64,6 +66,7 @@ clean:
 	@$(MAKE) -C libcamera clean --no-print-directory
 	@$(MAKE) -C libaudio clean --no-print-directory
 	@$(MAKE) -C libpngdec clean --no-print-directory
+	@$(MAKE) -C libpngenc clean --no-print-directory
 	@$(MAKE) -C libjpgdec clean --no-print-directory
 	@$(MAKE) -C libgcm_sys clean --no-print-directory
 	@$(MAKE) -C libresc clean --no-print-directory
@@ -78,8 +81,8 @@ clean:
 	@$(MAKE) -C libnp clean --no-print-directory
 	@$(MAKE) -C libspurs clean --no-print-directory
 	@$(MAKE) -C libspursjq clean --no-print-directory
-	@$(MAKE) -C libfont clean --no-print-directory
-	@$(MAKE) -C libfontFT clean --no-print-directory
+#	@$(MAKE) -C libfont clean --no-print-directory
+#	@$(MAKE) -C libfontFT clean --no-print-directory
 #	@$(MAKE) -C libfreetype clean --no-print-directory
 	
 .PHONY: all clean install

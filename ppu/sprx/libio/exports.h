@@ -1,36 +1,33 @@
 #ifndef __EXPORTS_H__
 #define __EXPORTS_H__
 
-EXPORT(sys_config_start, 0x068fcbc6);
-EXPORT(sys_config_stop, 0x6d367953);
-EXPORT(sys_config_add_service_listener, 0x6ae10596);
-EXPORT(sys_config_remove_service_listener, 0xf5d9d571);
-EXPORT(sys_config_register_service, 0x78f058a2);
-EXPORT(sys_config_unregister_service, 0x5f81900c);
 
 /* Pad */
 EXPORT(ioPadInit, 0x1cf98800);
 EXPORT(ioPadEnd, 0x4d9b75d5);
 EXPORT(ioPadClearBuf, 0x0d5f2c14);
-EXPORT(ioPadInfoPressMode, 0x0e2dfaad);
+EXPORT(ioPadInfoPressMode, 0x0e2dfaad); /* unknown FNID */
 EXPORT(ioPadLddRegisterController, 0x20a97ba2);
-EXPORT(ioPadGetInfo, 0x3aaad464);
-EXPORT(ioPadGetRawData, 0x3f797dff);
+EXPORT(ioPadGetInfo, 0x3aaad464); /* unknown FNID */
+EXPORT(ioPadGetRawData, 0x3f797dff); /* unknown FNID */
 EXPORT(ioPadGetDataExtra, 0x6bc09c61);
-EXPORT(ioPadInfoSensorMode, 0x78200559);
+EXPORT(ioPadInfoSensorMode, 0x78200559); /* unknown FNID */
 EXPORT(ioPadGetData, 0x8b72cda1);
 EXPORT(ioPadLddGetPortNo, 0x8b8231e5);
 EXPORT(ioPadLddDataInsert, 0xbafd6409);
-EXPORT(ioPadSetSensorMode, 0xbe5be3ba);
-EXPORT(ioPadGetCapabilityInfo, 0xdbf4c59c);
+EXPORT(ioPadSetSensorMode, 0xbe5be3ba); /* unknown FNID */
+EXPORT(ioPadGetCapabilityInfo, 0xdbf4c59c); /* unknown FNID */
 EXPORT(ioPadLddUnregisterController, 0xe442faa8);
 EXPORT(ioPadSetActDirect, 0xf65544ee);
-EXPORT(ioPadSetPressMode, 0xf83f8182);
-
+EXPORT(ioPadSetPressMode, 0xf83f8182); /* unknown FNID */
 EXPORT(ioPadPeriphGetInfo, 0x4cc9b68d);
 EXPORT(ioPadSetPortSetting, 0x578e3c98);
 EXPORT(ioPadPeriphGetData, 0x8a00f264);
 EXPORT(ioPadGetInfo2, 0xa703a51d);
+EXPORT(ioPadDbgGetData, 0xcf3051f7); /* sys_io */
+EXPORT(ioPadDbgLddRegisterController, 0xa74396e5); /* sys_io */
+EXPORT(ioPadDbgLddSetDataInsertMode, 0x94b98e39); /* sys_io */
+EXPORT(ioPadDbgPeriphRegisterDevice, 0x7c5d5fc1); /* sys_io */
 
 /* Mouse */
 EXPORT(ioMouseInit, 0xc9030138);
@@ -55,5 +52,14 @@ EXPORT(ioKbSetLEDStatus, 0x3f72c56e);
 EXPORT(ioKbGetInfo, 0x2f1774d5);
 EXPORT(ioKbGetConfiguration, 0x1f71ecbe);
 EXPORT(ioKbClearBuf, 0x2073b7f6);
+
+/* SysConfig */
+EXPORT(ioSysConfigAddServiceListener, 0x6ae10596); /* sys_io */
+EXPORT(ioSysConfigRegisterService, 0x78f058a2); /* sys_io */
+EXPORT(ioSysConfigRemoveServiceListener, 0xf5d9d571); /* sys_io */
+EXPORT(ioSysConfigStart, 0x068fcbc6); /* sys_io */
+EXPORT(ioSysConfigStop, 0x6d367953); /* sys_io */
+EXPORT(ioSysConfigUnregisterService, 0x5f81900c); /* sys_io */
+
 
 #endif

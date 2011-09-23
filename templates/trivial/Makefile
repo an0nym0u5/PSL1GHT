@@ -20,6 +20,11 @@ LDFLAGS=
 # Destination where the .pkg is built
 BUILDDIR=build
 
+# Put your user data into this directory - all will be added to the .pkg
+# add /dev_hdd0/game/$APPID/ to the relative path of the file inside $PKGFILES
+# e.g. $PKGFILES/foo.jpg -> /dev_hdd0/game/MY_APP_ID/foo.jpg
+PKGFILES=data
+
 # If you want to use dependancy checking, define a directory for .d files
 # DEPSDIR=
 
@@ -29,7 +34,7 @@ BUILDDIR=build
 #TITLE=Sample
 
 # Icon that appears in XMB. Needs to be of certain properties.
-#ICON=file.png
+#ICON0=file.png
 
 # ID of your application. Also the installation directory
 # (/dev_hdd0/game/$APPID/)
@@ -49,20 +54,4 @@ run:
 
 clean:
 	rm -rf $(TARGET)*.pkg $(TARGET)*.self $(BUILDDIR)
-
-.eboot: $(TARGET).self
-	echo building EBOOT.BIN ...
-	mkdir -p $(BUILDDIR)/pkg/USRDIR
-	$(SELF_NPDRM) $(BUILDDIR)/$(TARGET).elf $(BUILDDIR)/pkg/USRDIR/EBOOT.BIN $(CONTENTID) >> /dev/null
-
-# "ps3load" for FW 3.55. 
-# build the .self file normally, start a FTP server on the PS3, and 
-# run 'make push' to update the binary. Run application from XMB.
-# You need to install the .pkg only once
-# You probably need to modify the settings below
-push: .eboot
-	curlftpfs ftp://root:openbox@10.0.0.5  ~/mount/ 
-	cp build/pkg/USRDIR/EBOOT.BIN ~/mount/dev_hdd0/game/$(APPID)/USRDIR/EBOOT.BIN
-	fusermount -u ~/mount/
-
 

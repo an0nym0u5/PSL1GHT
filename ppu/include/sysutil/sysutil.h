@@ -10,7 +10,7 @@
 /*! \brief Return value */
 #define SYSUTIL_OK                              0
 
-/*! \brief Event slot 0. */
+/*! \brief Event slot 0 */
 #define SYSUTIL_EVENT_SLOT0			0
 /*! \brief Event slot 1 */
 #define SYSUTIL_EVENT_SLOT1			1

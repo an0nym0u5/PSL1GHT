@@ -81,26 +81,45 @@
 /*! \brief Do not use multiple samples. */
 #define GCM_TF_CENTER_1                                    0
 
+/*! \brief blue color component */
 #define GCM_COLOR_MASK_B                                   0x00000001
+/*! \brief green color component */
 #define GCM_COLOR_MASK_G                                   0x00000100
+/*! \brief red color component */
 #define GCM_COLOR_MASK_R                                   0x00010000
+/*! \brief alpha component */
 #define GCM_COLOR_MASK_A                                   0x01000000
 
+/*! \brief clear the Z buffer (depth buffer) */
 #define GCM_CLEAR_Z                                        0x01
+/*! \brief clear the stencil buffer */
 #define GCM_CLEAR_S                                        0x02
+/*! \brief clear the red components */
 #define GCM_CLEAR_R                                        0x10
+/*! \brief clear the green components */
 #define GCM_CLEAR_G                                        0x20
+/*! \brief clear the blue components */
 #define GCM_CLEAR_B                                        0x40
+/*! \brief clear the alpha components */
 #define GCM_CLEAR_A                                        0x80
+/*! \brief clear all RGBA components, Z buffer and stencil buffer */
 #define GCM_CLEAR_M                                        0xf3
 
+/*! \brief depth test never passes. */
 #define GCM_NEVER                                          0x0200
+/*! \brief depth test passes if the incoming depth value is less than the stored depth value. */
 #define GCM_LESS                                           0x0201
+/*! \brief depth test passes if the incoming depth value is equal to the stored depth value. */
 #define GCM_EQUAL                                          0x0202
+/*! \brief depth test passes if the incoming depth value is less than or equal to the stored depth value. */
 #define GCM_LEQUAL                                         0x0203
+/*! \brief depth test passes if the incoming depth value is greater than the stored depth value. */
 #define GCM_GREATER                                        0x0204
+/*! \brief depth test passes if the incoming depth value is not equal to the stored depth value. */
 #define GCM_NOTEQUAL                                       0x0205
+/*! \brief depth test passes if the incoming depth value is greater than or equal to the stored depth value. */
 #define GCM_GEQUAL                                         0x0206
+/*! \brief depth test always passes. */
 #define GCM_ALWAYS                                         0x0207
 
 /*! \brief culling of front face */
@@ -275,67 +294,119 @@
 /*! \brief Smooth shading */
 #define GCM_SHADE_MODEL_SMOOTH                             0x1D01
 
+/*! \brief blend factors are zero */
 #define GCM_ZERO                                           0
+/*! \brief blend factors are one */
 #define GCM_ONE                                            1
+/*! \brief blend factors are the source color components */
 #define GCM_SRC_COLOR                                      0x0300
+/*! \brief blend factors are one minus source color components */
 #define GCM_ONE_MINUS_SRC_COLOR                            0x0301
+/*! \brief blend factors are the source alpha component */
 #define GCM_SRC_ALPHA                                      0x0302
+/*! \brief blend factors are one minus the source alpha component */
 #define GCM_ONE_MINUS_SRC_ALPHA                            0x0303
+/*! \brief blend factors are the destination alpha component */
 #define GCM_DST_ALPHA                                      0x0304
+/*! \brief blend factors are one minus the destination alpha component */
 #define GCM_ONE_MINUS_DST_ALPHA                            0x0305
+/*! \brief blend factors are the destination color components */
 #define GCM_DST_COLOR                                      0x0306
+/*! \brief blend factors are one minus the destination color components */
 #define GCM_ONE_MINUS_DST_COLOR                            0x0307
+/*! \brief blend factors are set to saturate the output */
 #define GCM_SRC_ALPHA_SATURATE                             0x0308
+/*! \brief blend factors are the constant color components */
 #define GCM_CONSTANT_COLOR                                 0x8001
+/*! \brief blend factors are one minus the constant color components */
 #define GCM_ONE_MINUS_CONSTANT_COLOR                       0x8002
+/*! \brief blend factors are the constant color alpha component */
 #define GCM_CONSTANT_ALPHA                                 0x8003
+/*! \brief blend factors are one minus the constant color alpha component */
 #define GCM_ONE_MINUS_CONSTANT_ALPHA                       0x8004
 
+/*! \brief use scaled source plus destination */
 #define GCM_FUNC_ADD                                       0x8006
+/*! \brief use the minimum of source and destination color components */
 #define GCM_MIN                                            0x8007
+/*! \brief use the maximum of source and destination color components */
 #define GCM_MAX                                            0x8008
+/*! \brief use scaled source minus destination */
 #define GCM_FUNC_SUBTRACT                                  0x800a
+/*! \brief use scaled destination minus source */
 #define GCM_FUNC_REVERSE_SUBTRACT                          0x800b
+/*! \brief use scaled destination minus source (signed) */
 #define GCM_FUNC_REVERSE_SUBTRACT_SIGNED                   0xf005
+/*! \brief use scaled source plus destination (signed) */
 #define GCM_FUNC_ADD_SIGNED                                0xf006
+/*! \brief use scaled destination plus source (signed) */
 #define GCM_FUNC_REVERSE_ADD_SIGNED                        0xf007
 
 #define GCM_TRANSFER_SURFACE                               0
 #define GCM_TRANSFER_SWIZZLE                               1
 
+/*! \brief Convert pixel component values using dithering. */
 #define GCM_TRANSFER_CONVERSION_DITHER                     0
+/*! \brief Convert pixel component values by truncation (\em ie, ignore lower bits). */
 #define GCM_TRANSFER_CONVERSION_TRUNCATE                   1
+/*! \brief Convert pixel component values by subtraction/truncation. */
 #define GCM_TRANSFER_CONVERSION_SUBTRACT_TRUNCATE          2
 
+/*! \brief Pixel format is 1-bit alpha, 5-bit red, 5-bit green, 5-bit blue */
 #define GCM_TRANSFER_SCALE_FORMAT_A1R5G5B5                 1
+/*! \brief Pixel format is 1-bit unused, 5-bit red, 5-bit green, 5-bit blue */
 #define GCM_TRANSFER_SCALE_FORMAT_X1R5G5B5                 2
+/*! \brief Pixel format is 8-bit alpha, 8-bit red, 8-bit green, 8-bit blue */
 #define GCM_TRANSFER_SCALE_FORMAT_A8R8G8B8                 3
+/*! \brief Pixel format is 8-bit unused, 8-bit red, 8-bit green, 8-bit blue */
 #define GCM_TRANSFER_SCALE_FORMAT_X8R8G8B8                 4
+/*! \brief Pixel format is 8-bit red chrominance, 8-bit luminance, 8-bit blue chrominance, 8-bit alpha */
 #define GCM_TRANSFER_SCALE_FORMAT_CR8YB8CB8YA8             5
+/*! \brief Pixel format is 8-bit luminance, 8-bit red chrominance, 8-bit alpha, 8-bit blue chrominance */
 #define GCM_TRANSFER_SCALE_FORMAT_YB8CR8YA8CB8             6
+/*! \brief Pixel format is 5-bit red, 6-bit green, 5-bit blue */
 #define GCM_TRANSFER_SCALE_FORMAT_R5G6B5                   7
+/*! \brief Pixel format is 8-bit grayscale */
 #define GCM_TRANSFER_SCALE_FORMAT_Y8                       8
+/*! \brief Pixel format is 8-bit alpha */
 #define GCM_TRANSFER_SCALE_FORMAT_AY8                      9
+/*! \brief Pixel format is EYB8ECR8EYA8ECB8 */
 #define GCM_TRANSFER_SCALE_FORMAT_EYB8ECR8EYA8ECB8         0xa
+/*! \brief Pixel format is ECR8EYB8ECB8EYA8 */
 #define GCM_TRANSFER_SCALE_FORMAT_ECR8EYB8ECB8EYA8         0xb
+/*! \brief Pixel format is 8-bit alpha, 8-bit blue, 8-bit green, 8-bit red */
 #define GCM_TRANSFER_SCALE_FORMAT_A8B8G8R8                 0xc
+/*! \brief Pixel format is 8-bit unused, 8-bit blue, 8-bit green, 8-bit red */
 #define GCM_TRANSFER_SCALE_FORMAT_X8B8G8R8                 0xd
 
+/*! \brief Copy source image, perform logical \c AND with destination. */
 #define GCM_TRANSFER_OPERATION_SRCCOPY_AND                 0
+/*! \brief Perform ROP (raster operation), and logical \c AND with destination. */
 #define GCM_TRANSFER_OPERATION_ROP_AND                     1
+/*! \brief Perform blending, and logical \c AND with destination. */
 #define GCM_TRANSFER_OPERATION_BLEND_AND                   2
+/*! \brief Copy source image. */
 #define GCM_TRANSFER_OPERATION_SRCCOPY                     3
+/*! \brief Copy pre-multiplied source image. */
 #define GCM_TRANSFER_OPERATION_SRCCOPY_PREMULT             4
+/*! \brief Blend pre-multiplied source image. */
 #define GCM_TRANSFER_OPERATION_BLEND_PREMULT               5
 
+/*! \brief Origin is the center of the source image. */
 #define GCM_TRANSFER_ORIGIN_CENTER                         1
+/*! \brief Origin is the topleft cornet of the source image. */
 #define GCM_TRANSFER_ORIGIN_CORNER                         2
 
-#define GCM_TRANSFER_INTERPOLATOR_NEAREST                  0 /* point sampling */
-#define GCM_TRANSFER_INTERPOLATOR_LINEAR                   1 /* bilinear interpolation */
+/*! \brief Use point sampling interpolation. */
+#define GCM_TRANSFER_INTERPOLATOR_NEAREST                  0
+/*! \brief Use point linear interpolation. */
+#define GCM_TRANSFER_INTERPOLATOR_LINEAR                   1
 
-#define GCM_TRANSFER_SURFACE_FORMAT_R5G5B5                 4
+/*! \brief Source surface pixel format is 5-bit red, 6-bit green, 5-bit blue. */
+#define GCM_TRANSFER_SURFACE_FORMAT_R5G6B5                 4
+/*! \brief Source surface pixel format is 8-bit alpha, 8-bit red, 8-bit green, 8-bit blue. */
 #define GCM_TRANSFER_SURFACE_FORMAT_A8R8G8B8               0xa
+/*! \brief Source surface pixel format is Y32. */
 #define GCM_TRANSFER_SURFACE_FORMAT_Y32                    0xb
 
 #ifdef __cplusplus
@@ -577,17 +648,21 @@ typedef struct _gcmTexture
     u32 offset;
 } gcmTexture;
 
-/*! \brief Specify scaled image blit geometry and format for rsxSetTransferImage() */
+/*! \brief Specify scaled image blit geometry and format for rsxSetTransferScaleSurface(). */
 typedef struct _gcmTransferScale
 {
-    /*! \brief Not sure what this dones. Possible values:
+    /*! \brief Conversion to perform when converting pixels to lower bit precision.
+
+      Possible values:
          - \ref GCM_TRANSFER_CONVERSION_DITHER
          - \ref GCM_TRANSFER_CONVERSION_TRUNCATE
          - \ref GCM_TRANSFER_CONVERSION_SUBTRACT_TRUNCATE
      */ 
     u32 conversion;
 
-    /*! \brief Format of image data. Possible values:
+    /*! \brief Format of source image pixels.
+
+      Possible values:
          - \ref GCM_TRANSFER_SCALE_FORMAT_A1R5G5B5
          - \ref GCM_TRANSFER_SCALE_FORMAT_X1R5G5B5
          - \ref GCM_TRANSFER_SCALE_FORMAT_A8R8G8B8
@@ -604,7 +679,9 @@ typedef struct _gcmTransferScale
      */ 
     u32 format;
 
-    /*! \brief Blit operation. Possible values:
+    /*! \brief Blit operation.
+
+      Possible values:
          - \ref GCM_TRANSFER_OPERATION_SRCCOPY_AND
          - \ref GCM_TRANSFER_OPERATION_ROP_AND
          - \ref GCM_TRANSFER_OPERATION_BLEND_AND
@@ -653,29 +730,36 @@ typedef struct _gcmTransferScale
     /*! \brief Pitch size, in bytes, of the source image data (width multiplied by the number of bytes in each pixel). */
     u16 pitch;
 
-    /*! \brief How the origin of each pixel is determined. Possible values:
+    /*! \brief How the origin of each pixel is determined.
+
+      Possible values:
         - \ref GCM_TRANSFER_ORIGIN_CENTER
         - \ref GCM_TRANSFER_ORIGIN_CORNER
      */ 
     u8 origin;
 
-    /*! \brief Sampling for scaled blits. Possible values:
-        - \ref GCM_TRANSFER_INTERPOLATOR_NEAREST: no interpolation
-        - \ref GCM_TRANSFER_INTERPOLATOR_LINEAR: bilinear interpolation
+    /*! \brief Sampling for scaled blits.
+
+      Possible values:
+        - \ref GCM_TRANSFER_INTERPOLATOR_NEAREST
+        - \ref GCM_TRANSFER_INTERPOLATOR_LINEAR
      */ 
     u8 interp;
 
-    /*! \brief Image data offset, e.g., a value returned by gcmAddressToOffset() or gcmMapMainMemory(). */
+    /*! \brief Image data offset, e.g., a value returned by gcmAddressToOffset()
+      or gcmMapMainMemory(). */
     u32 offset;
 
-    /*! \brief X origin of destination rectangle. */
+    /*! \brief X origin of the blit rectangle in the source image.
+      Format is 16-bit fixed point, see rsxGetFixedUint16(). */
     u16 inX;
 
-    /*! \brief Y origin of destination rectangle. */
+    /*! \brief Y origin of the blit rectangle in the source image.
+      Format is 16-bit fixed point, see rsxGetFixedUint16(). */
     u16 inY;
 } gcmTransferScale;
 
-/*! \brief Specify destination surface characteristics for rsxSetTransferImage(). */
+/*! \brief Specify destination surface characteristics for rsxSetTransferScaleSurface(). */
 typedef struct _gcmTransferSurface
 {
     /*! \brief Format of destination surface. Possible values are:
