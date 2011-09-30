@@ -22,7 +22,7 @@ typedef struct _sys_cache_param
 {
   char cacheId[SYSUTIL_CACHE_ID_SIZE];
   char getCachePath[SYSUTIL_CACHE_PATH_MAX];
-  void *reserved;
+  void *reserved ATTRIBUTE_PRXPTR;
 } sysCacheParam;
 
 #ifdef __cplusplus

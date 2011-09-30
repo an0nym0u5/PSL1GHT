@@ -17,7 +17,7 @@ EXPORT(sysBoardStorageWrite, 0x8bb03ab8); /* sysPrxForUser */
 EXPORT(sysProcessIsStack, 0x4f7172c9); /* sysPrxForUser */
 EXPORT(sysProcessExit, 0xe6f2c1e7);
 EXPORT(sysProcessExitspawn, 0xfc52a7a9); /* sysPrxForUser */
-EXPORT(sysProcessExitSpawn2, 0x67f9fedb);
+EXPORT(sysProcessExitSpawn2Ex, 0x67f9fedb);
 EXPORT(sysProcessExitSpawnWithLevel, 0xa2c7ba64); /* sysPrxForUser */
 EXPORT(sysProcessAtExitSpawn, 0x2c847572); /* sysPrxForUser */
 EXPORT(sysProcess_At_ExitSpawn, 0x96328741); /* sysPrxForUser */

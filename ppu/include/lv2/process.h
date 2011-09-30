@@ -38,6 +38,7 @@ values:
 - \ref SYS_PROCESS_SPAWN_STACK_SIZE_1M
 */
 void sysProcessExitSpawn2(const char *path,const char *argv[],const char *envp[],void *data,size_t size,int priority,u64 flags);
+void sysProcessExitSpawn(const char *path,const char *argv[],const char *envp[],void *data,u32 size,s32 priority,u64 flags);
 
 #ifdef __cplusplus
 	}
