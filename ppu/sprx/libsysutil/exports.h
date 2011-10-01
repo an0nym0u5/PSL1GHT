@@ -98,8 +98,8 @@ EXPORT(sysTrophyTerm, 0xa7fabf4d);
 EXPORT(sysTrophyUnlockTrophy, 0x8ceedd21);
 
 /* system cache support */
-EXPORT(sysutilSysCacheClear, 0x744c1544); /* cellSysutil */
-EXPORT(sysutilSysCacheMount, 0x1e7bff94); /* cellSysutil */
+EXPORT(sysCacheClear, 0x744c1544); /* cellSysutil */
+EXPORT(sysCacheMount, 0x1e7bff94); /* cellSysutil */
 
 
 #endif
