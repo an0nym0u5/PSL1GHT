@@ -1,5 +1,5 @@
-#ifndef __LV2_SYSUTIL_GAME_H__
-#define __LV2_SYSUTIL_GAME_H__
+#ifndef __SYSUTIL_GAME_H__
+#define __SYSUTIL_GAME_H__
 
 #include <ppu-types.h>
 #include <ppu-asm.h>
@@ -181,5 +181,5 @@ s32 sysGameUnregisterDiscChangeCallback(void);
     }
 #endif
 
-#endif /* __LV2_SYSUTIL_GAME_H__ */
+#endif /* __SYSUTIL_GAME_H__ */
 

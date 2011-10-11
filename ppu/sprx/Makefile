@@ -17,6 +17,8 @@ all:
 	@$(MAKE) -C libhttputil --no-print-directory
 	@$(MAKE) -C libsysfs --no-print-directory
 	@$(MAKE) -C libsysutil --no-print-directory
+	@$(MAKE) -C libsysutil_game --no-print-directory
+	@$(MAKE) -C libsysutil_gameexec --no-print-directory
 	@$(MAKE) -C libsysmodule --no-print-directory
 	@$(MAKE) -C libvdec --no-print-directory
 	@$(MAKE) -C libusb --no-print-directory
@@ -46,6 +48,8 @@ install:
 	@$(MAKE) -C libhttputil install --no-print-directory
 	@$(MAKE) -C libsysfs install --no-print-directory
 	@$(MAKE) -C libsysutil install --no-print-directory
+	@$(MAKE) -C libsysutil_game install --no-print-directory
+	@$(MAKE) -C libsysutil_gameexec install --no-print-directory
 	@$(MAKE) -C libsysmodule install --no-print-directory
 	@$(MAKE) -C libvdec install --no-print-directory
 	@$(MAKE) -C libusb install --no-print-directory
@@ -75,6 +79,8 @@ clean:
 	@$(MAKE) -C libhttputil clean --no-print-directory
 	@$(MAKE) -C libsysfs clean --no-print-directory
 	@$(MAKE) -C libsysutil clean --no-print-directory
+	@$(MAKE) -C libsysutil_game clean --no-print-directory
+	@$(MAKE) -C libsysutil_gameexec clean --no-print-directory
 	@$(MAKE) -C libsysmodule clean --no-print-directory
 	@$(MAKE) -C libvdec clean --no-print-directory
 	@$(MAKE) -C libusb clean --no-print-directory

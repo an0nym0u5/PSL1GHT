@@ -5,7 +5,6 @@
 #include <sysutil/msg.h>
 #include <sysutil/sysutil.h>
 #include <sysutil/save.h>
-#include <sysutil/game.h>
 #include <sysutil/disc.h>
 
 /* sysUtil functions */
@@ -45,10 +44,6 @@ extern s32 sysSaveAutoSave2Ex (s32 version, const char *directoryName,
     sysSaveErrorDialogMode errorDialogMode,
     sysSaveBufferSettings *bufferSettings,
     opd32 *statusCb, opd32 *fileCb, sys_mem_container_t container, void *user_data);
-
-/* sysGame functions */
-extern s32 sysGameThemeInstallFromBufferEx(u32 fileSize, u32 bufSize, void *buf, opd32 *themeCb, u32 option);
-extern s32 sysGameDiscRegisterDiscChangeCallbackEx(sysGameDiscEjectCallback cbEject,sysGameDiscInsertCallback cbInsert);
 
 /* Disc utility support */
 extern s32 sysDiscRegisterDiscChangeCallbackEx(opd32 *cbEject,opd32 *cbInsert);
@@ -210,17 +205,6 @@ s32 sysSaveAutoSave2 (s32 version,
       (opd32*) __get_opd32(statusCb),
       (opd32*) __get_opd32(fileCb),
       container, user_data);
-}
-
-/* game utility support */
-s32 sysGameThemeInstallFromBuffer(u32 fileSize, u32 bufSize, void *buf, sysGameThemeInstallCallback themeCb, u32 option)
-{
-	return sysGameThemeInstallFromBufferEx(fileSize,bufSize,buf,(opd32*)__get_opd32(themeCb),option);
-}
-
-s32 sysGameDiscRegisterDiscChangeCallback(sysDiscEjectCallback cbEject,sysDiscInsertCallback cbInsert)
-{
-        return sysDiscRegisterDiscChangeCallbackEx((opd32*)__get_opd32(cbEject),(opd32*)__get_opd32(cbInsert));
 }
 
 /* Disc utility support */
