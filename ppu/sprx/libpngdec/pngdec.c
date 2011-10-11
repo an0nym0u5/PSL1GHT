@@ -28,6 +28,7 @@ THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <malloc.h>
 #include <string.h>
+#include <rsx/rsx.h>
 #include <ppu-asm.h>
 
 #include <pngdec/pngdec.h>
@@ -87,7 +88,8 @@ static s32 decodePNG(pngDecSource *src,pngData *out)
 
 			if(ret==0) {
 				out->pitch = bytes_per_line = outParam.width*4;
-				out->bmp_out = malloc(out->pitch*outParam.height);
+				//out->bmp_out = malloc(out->pitch*outParam.height);
+				out->bmp_out = rsxMemalign(64, out->pitch*outParam.height);
 				if(!out->bmp_out)
 					ret = -1;
 				else {

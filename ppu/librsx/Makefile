@@ -36,7 +36,7 @@ LIBRARY		:= $(LIBDIR)/librsx
 DEFINCS		:= -I$(BASEDIR) -I$(BASEDIR)/../include -I$(BASEDIR)/../include/rsx
 INCLUDES	:=	$(DEFINCS)
 
-CFLAGS		:= -O2 -mregnames -Wall -mcpu=cell $(MACHDEP) -DLIBRSX_INTERNAL $(INCLUDES) -Wa,-mcell
+CFLAGS		:= -g -O2 -mregnames -Wall -mcpu=cell $(MACHDEP) -DLIBRSX_INTERNAL $(INCLUDES) -Wa,-mcell
 ASFLAGS		:=	$(MACHDEP) -mregnames -mcpu=cell -D__ASSEMBLY__ -Wa,-mcell $(INCLUDES)
 
 #---------------------------------------------------------------------------------
