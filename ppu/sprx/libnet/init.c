@@ -40,6 +40,7 @@ s32 netInitialize()
 
 s32 netDeinitialize()
 {
+	s32 ret;
 	netFinalizeNetwork();
 
 	if(__netMemory) free(__netMemory);
