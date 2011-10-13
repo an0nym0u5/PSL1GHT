@@ -17,8 +17,12 @@ s32 netInitialize()
 	s32 ret;
 	netInitParam params;
 	
-	ret = sysModuleLoad(SYSMODULE_NET);
-	if(ret<0) return lv2errno(ret);
+	ret = sysModuleIsLoaded(SYSMODULE_NET);
+	if(ret!=0)
+	{
+		ret = sysModuleLoad(SYSMODULE_NET);
+		if(ret<0) return lv2errno(ret);
+	}
 
 	memset(&params,0,sizeof(netInitParam));
 	__netMemory = malloc(LIBNET_MEMORY_SIZE);
@@ -41,6 +45,10 @@ s32 netDeinitialize()
 	if(__netMemory) free(__netMemory);
 	__netMemory = NULL;
 
-	sysModuleUnload(SYSMODULE_NET);
+	ret = sysModuleIsLoaded(SYSMODULE_NET);
+	if(ret==0)
+	{
+		sysModuleUnload(SYSMODULE_NET);
+	}
 	return 0;
 }
