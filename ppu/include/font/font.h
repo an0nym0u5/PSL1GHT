@@ -12,6 +12,9 @@ extern "C" {
 #endif
 
 
+#define FONT_SYSTEM_MAX                             (16)
+#define FONT_FILE_CACHE_SIZE                        (1*1024*1024) //1MB
+
 #define FONT_LIBRARY_TYPE_NONE                      (0)
 #define FONT_LIBRARY_TYPE_FREETYPE                  (2)
 
@@ -60,25 +63,41 @@ extern "C" {
 #define fontVertexesGlyph_getSubHeader(vGlyph)      ((vGlyph)?(vGlyph)->subHeader:(fontVertexesGlyphSubHeader*)0)
 
 /*
+ * font enums
+ */
+/*
+enum {
+   FONT_SYSTEM_FONT0 = 0,
+   FONT_SYSTEM_GOTHIC_LATIN = FONT_SYSTEM_FONT0,
+   FONT_SYSTEM_GOTHIC_JP,
+   FONT_SYSTEM_SANS_SERIF,
+   FONT_SYSTEM_SERIF,
+   FONT_USER_FONT0 = SYSTEM_FONT_MAX
+}FontEnum;
+*/
+
+/*
  * font structs
  */
 typedef struct _font_entry
 {
     u32 lock;
     u32 uniqueId;
-    const void* fontLib ATTRIBUTE_PRXPTR;
-    void* fontH ATTRIBUTE_PRXPTR;
+    const void *fontLib ATTRIBUTE_PRXPTR;
+    void *fontH ATTRIBUTE_PRXPTR;
 } fontEntry;
+
+typedef struct _file_cache
+{
+    u32 *buffer ATTRIBUTE_PRXPTR;
+    u32 size;
+} fileCache;
 
 typedef struct _font_config
 {
-    struct
-    {
-        u32* buffer ATTRIBUTE_PRXPTR;
-        u32 size;
-    } FileCache;
+    fileCache FileCache;
     u32 fontEntriesMax;
-    fontEntry* fontEntries ATTRIBUTE_PRXPTR;
+    fontEntry *fontEntries ATTRIBUTE_PRXPTR;
     u32 flags;
 } fontConfig;
 
@@ -86,7 +105,7 @@ typedef struct _font_library
 {
     u32 libraryType;
     u32 libraryVersion;
-    u32 SystemClosed[];
+    u32 **SystemClosed ATTRIBUTE_PRXPTR;
 } fontLibrary;
 
 typedef struct _font_type
@@ -137,9 +156,9 @@ typedef struct _font_glyph_outline
         float y;
     } *Points ATTRIBUTE_PRXPTR;
     u8 *pointTags ATTRIBUTE_PRXPTR;
-    u16* contourIndexs ATTRIBUTE_PRXPTR;
+    u16 *contourIndexs ATTRIBUTE_PRXPTR;
     u32 flags;
-    void* generateEnv ATTRIBUTE_PRXPTR;
+    void *generateEnv ATTRIBUTE_PRXPTR;
 } fontGlyphOutline;
 
 typedef struct _font_glyph
@@ -160,7 +179,7 @@ typedef struct _font_vertexes_glyph_sub_header
 typedef struct _font_vertexes_glyph_data
 {
     const u32 size;
-    float SystemClosed[];
+    float *SystemClosed ATTRIBUTE_PRXPTR;
 } fontVertexesGlyphData;
 
 typedef struct _font_vertexes_glyph
@@ -207,7 +226,7 @@ typedef struct _font_glyph_style
 
 typedef struct _font_render_surface
 {
-    void* buffer ATTRIBUTE_PRXPTR;
+    void *buffer ATTRIBUTE_PRXPTR;
     s32 widthByte;
     s32 pixelSizeByte;
     s32 width,height;
@@ -232,14 +251,14 @@ typedef struct _font_image_trans_info
 
 typedef struct _font
 {
-    void* SystemReserved[64] ATTRIBUTE_PRXPTR;
-} font;
+    u32 *SystemReserved[64] ;
+} fontContainer;
 
 typedef struct _font_renderer_config
 {
     struct
     {
-        void* buffer ATTRIBUTE_PRXPTR;
+        void *buffer ATTRIBUTE_PRXPTR;
         u32 initSize;
         u32 maxSize;
         u32 expandSize;
@@ -249,18 +268,18 @@ typedef struct _font_renderer_config
 
 typedef struct _font_renderer
 {
-    void *systemReserved[64] ATTRIBUTE_PRXPTR;
+    void *systemReserved[64];
 } fontRenderer;
 
 typedef struct _font_graphics
 {
     u32 graphicsType;
-    u32 SystemClosed[];
+    u32 *SystemClosed ATTRIBUTE_PRXPTR;
 } fontGraphics;
 
 typedef struct _font_graphics_draw_context
 {
-    void* SystemReserved[64] ATTRIBUTE_PRXPTR;
+    void *SystemReserved[64];
 } fontGraphicsDrawContext;
 
 
@@ -270,83 +289,83 @@ typedef struct _font_graphics_draw_context
 //s32 fontInitLibrary(fontLibraryConfig*,const fontLibrary**lib);
 void fontGetRevisionFlags(u64*revisionFlags);
 void fontGetInitializedRevisionFlags(u64*revisionFlags);
-s32 fontInitializeWithRevision(u64 revisionFlags,fontConfig* config);
+s32 fontInitializeWithRevision(u64 revisionFlags,fontConfig *config);
 
 
-s32 fontGetLibrary(font*,const fontLibrary**lib,u32* type);
+s32 fontGetLibrary(fontContainer *fc,const fontLibrary**lib,u32 *type);
 s32 fontGlyphGetScalePixel(fontGlyph*,float *w,float *h);
-s32 fontSetScalePixel(font*,float w,float h);
-s32 fontGetScalePixel(font*,float *w,float *h);
-s32 fontGetKerning(font*,u32 preCode,u32 code,fontKerning* kerning);
+s32 fontSetScalePixel(fontContainer *fc,float w,float h);
+s32 fontGetScalePixel(fontContainer *fc,float *w,float *h);
+s32 fontGetKerning(fontContainer *fc,u32 preCode,u32 code,fontKerning *kerning);
 
 s32 fontSetFontsetOpenMode(const fontLibrary*,u32 openMode);
 s32 fontSetFontOpenMode(const fontLibrary*,u32 openMode);
 
-s32 fontOpenFontset(const fontLibrary*,fontType*,font*);
-s32 fontOpenFontsetOnMemory(const fontLibrary*,fontType*,font*);
+s32 fontOpenFontset(const fontLibrary*,fontType*,fontContainer *fc);
+s32 fontOpenFontsetOnMemory(const fontLibrary*,fontType*,fontContainer *fc);
 
-s32 fontOpenFontFile(const fontLibrary*,u8* fontPath,u32 subNum,s32 uniqueID,font*);
-s32 fontOpenFontMemory(const fontLibrary*,void* fontAddr,u32 fontSize,u32 subNum,s32 uniqueID,font*);
-s32 fontOpenFontInstance(font*org,font*ins);
+s32 fontOpenFontFile(const fontLibrary*,u8* fontPath,u32 subNum,s32 uniqueID,fontContainer *fc);
+s32 fontOpenFontMemory(const fontLibrary*,void* fontAddr,u32 fontSize,u32 subNum,s32 uniqueID,fontContainer *fc);
+s32 fontOpenFontInstance(fontContainer *org,fontContainer *ins);
 
-s32 fontAdjustGlyphExpandBuffer(font*,s32 pointN,s32 contourN);
-s32 fontGetGlyphExpandBufferInfo(font*,s32* pointN,s32* contourN);
+s32 fontAdjustGlyphExpandBuffer(fontContainer *fc,s32 pointN,s32 contourN);
+s32 fontGetGlyphExpandBufferInfo(fontContainer *fc,s32* pointN,s32* contourN);
 
-s32 fontSetResolutionDpi(font*,u32 hDpi,u32 vDpi);
-s32 fontGetResolutionDpi(font*,u32 *hDpi,u32 *vDpi);
+s32 fontSetResolutionDpi(fontContainer *fc,u32 hDpi,u32 vDpi);
+s32 fontGetResolutionDpi(fontContainer *fc,u32 *hDpi,u32 *vDpi);
 
-s32 fontAdjustFontScaling(font*,float fontScale);
-s32 fontSetScalePoint(font*,float w,float h);
-s32 fontSetEffectSlant(font*,float effectSlant);
-s32 fontGetScalePoint(font*,float *w,float *h);
+s32 fontAdjustFontScaling(fontContainer *fc,float fontScale);
+s32 fontSetScalePoint(fontContainer *fc,float w,float h);
+s32 fontSetEffectSlant(fontContainer *fc,float effectSlant);
+s32 fontGetScalePoint(fontContainer *fc,float *w,float *h);
 
-s32 fontSetEffectWeight(font*,float effectWeight);
-s32 fontGetEffectWeight(font*,float *effectWeight);
+s32 fontSetEffectWeight(fontContainer *fc,float effectWeight);
+s32 fontGetEffectWeight(fontContainer *fc,float *effectWeight);
 
-s32 fontGetEffectSlant(font*,float *effectSlant);
+s32 fontGetEffectSlant(fontContainer *fc,float *effectSlant);
 
-s32 fontGetHorizontalLayout(font*,fontHorizontalLayout* layout);
-s32 fontGetVerticalLayout(font*,fontVerticalLayout* layout);
+s32 fontGetHorizontalLayout(fontContainer *fc,fontHorizontalLayout* layout);
+s32 fontGetVerticalLayout(fontContainer *fc,fontVerticalLayout* layout);
 
-s32 fontGetFontIdCode(font*,u32 code,u32*fontId,u32*fontcode);
+s32 fontGetFontIdCode(fontContainer *fc,u32 code,u32*fontId,u32*fontcode);
 
-s32 fontGetCharGlyphMetrics(font*,u32 code,fontGlyphMetrics*);
-s32 fontGetCharGlyphMetricsVertical(font*,u32 code,fontGlyphMetrics*);
+s32 fontGetCharGlyphMetrics(fontContainer *fc,u32 code,fontGlyphMetrics*);
+s32 fontGetCharGlyphMetricsVertical(fontContainer *fc,u32 code,fontGlyphMetrics*);
 
-s32 fontSetupRenderScalePoint(font*,float w,float h);
-s32 fontSetupRenderScalePixel(font*,float w,float h);
+s32 fontSetupRenderScalePoint(fontContainer *fc,float w,float h);
+s32 fontSetupRenderScalePixel(fontContainer *fc,float w,float h);
 
-s32 fontSetupRenderEffectWeight(font*,float additionalWeight);
-s32 fontSetupRenderEffectSlant(font*,float effectSlant);
+s32 fontSetupRenderEffectWeight(fontContainer *fc,float additionalWeight);
+s32 fontSetupRenderEffectSlant(fontContainer *fc,float effectSlant);
 
-s32 fontGetRenderScalePoint(font*,float *w,float *h);
-s32 fontGetRenderScalePixel(font*,float *w,float *h);
+s32 fontGetRenderScalePoint(fontContainer *fc,float *w,float *h);
+s32 fontGetRenderScalePixel(fontContainer *fc,float *w,float *h);
 
-s32 fontGetRenderEffectWeight(font*,float *effectWeight);
-s32 fontGetRenderEffectSlant(font*,float *effectSlant);
+s32 fontGetRenderEffectWeight(fontContainer *fc,float *effectWeight);
+s32 fontGetRenderEffectSlant(fontContainer *fc,float *effectSlant);
 
-s32 fontGetRenderCharGlyphMetrics(font*,u32 code,fontGlyphMetrics*);
-s32 fontGetRenderCharGlyphMetricsVertical(font*cfEx,u32 code,fontGlyphMetrics*metrics);
-s32 fontGetRenderScaledKerning(font*,u32 preCode,u32 code,fontKerning* kerning);
+s32 fontGetRenderCharGlyphMetrics(fontContainer *fc,u32 code,fontGlyphMetrics*);
+s32 fontGetRenderCharGlyphMetricsVertical(fontContainer *cf,u32 code,fontGlyphMetrics*metrics);
+s32 fontGetRenderScaledKerning(fontContainer *fc,u32 preCode,u32 code,fontKerning* kerning);
 
-s32 fontGenerateCharGlyph(font*,u32 code,fontGlyph**);
-s32 fontGenerateCharGlyphVertical(font*,u32 code,fontGlyph**);
+s32 fontGenerateCharGlyph(fontContainer *fc,u32 code,fontGlyph**);
+s32 fontGenerateCharGlyphVertical(fontContainer *fc,u32 code,fontGlyph**);
 
-s32 fontDeleteGlyph(font*,fontGlyph*);
+s32 fontDeleteGlyph(fontContainer *fc,fontGlyph*);
 
 s32 fontDelete(const fontLibrary*,void*);
 
 void fontRenderSurfaceInit(fontRenderSurface*,void* buffer,s32 bufWidthByte,s32 pixelSizeByte,s32 w,s32 h);
 void fontRenderSurfaceSetScissor(fontRenderSurface*,s32 x0,s32 y0,u32 w,u32 h);
 
-s32 fontRenderCharGlyphImage(font*,u32 code,fontRenderSurface*,float x,float y,fontGlyphMetrics*,fontImageTransInfo*);
-s32 fontRenderCharGlyphImageHorizontal(font*,u32 code,fontRenderSurface*,float x,float y,fontGlyphMetrics*,fontImageTransInfo*);
-s32 fontRenderCharGlyphImageVertical(font*,u32 code,fontRenderSurface*,float x,float y,fontGlyphMetrics*,fontImageTransInfo*);
+s32 fontRenderCharGlyphImage(fontContainer *fc,u32 code,fontRenderSurface*,float x,float y,fontGlyphMetrics*,fontImageTransInfo*);
+s32 fontRenderCharGlyphImageHorizontal(fontContainer *fc,u32 code,fontRenderSurface*,float x,float y,fontGlyphMetrics*,fontImageTransInfo*);
+s32 fontRenderCharGlyphImageVertical(fontContainer *fc,u32 code,fontRenderSurface*,float x,float y,fontGlyphMetrics*,fontImageTransInfo*);
 
 s32 fontCreateRenderer(const fontLibrary* lib,fontRendererConfig* confing,fontRenderer* renderer);
-s32 fontBindRenderer(font*,fontRenderer*);
-s32 fontUnbindRenderer(font*);
-s32 fontGetBindingRenderer(font*,fontRenderer**);
+s32 fontBindRenderer(fontContainer *fc,fontRenderer*);
+s32 fontUnbindRenderer(fontContainer *fc);
+s32 fontGetBindingRenderer(fontContainer *fc,fontRenderer**);
 s32 fontDestroyRenderer(fontRenderer* renderer);
 
 s32 fontGlyphRenderImage(fontGlyph*,fontGlyphStyle*,fontRenderer*,fontRenderSurface*surf,float x,float y,fontGlyphMetrics*,fontImageTransInfo*);
@@ -376,7 +395,7 @@ s32 fontGraphicsSetScalePixel(fontGraphicsDrawContext*,float w,float h);
 s32 fontGraphicsGetScalePixel(fontGraphicsDrawContext*,float *w,float *h);
 
 s32 fontClearFileCache(void);
-s32 fontCloseFont(font*cf);
+s32 fontCloseFont(fontContainer *fc);
 s32 fontEndGraphics(const fontGraphics*);
 s32 fontEndLibrary(const fontLibrary*lib);
 s32 fontEnd(void);
@@ -385,7 +404,7 @@ s32 fontEnd(void);
  * font helpers
  */
 
-static inline void fontConfig_initialize(fontConfig* config)
+static inline void fontConfigInitialize(fontConfig* config)
 {
     config->FileCache.buffer = (u32*)0;
     config->FileCache.size = 0;
@@ -394,7 +413,7 @@ static inline void fontConfig_initialize(fontConfig* config)
     config->flags = 0x00000000;
 }
 
-static inline void fontRendererConfig_initialize(fontRendererConfig* config)
+static inline void fontRendererConfigInitialize(fontRendererConfig* config)
 {
     config->BufferingPolicy.buffer = (void*)0;
     config->BufferingPolicy.initSize = 0;
@@ -403,7 +422,7 @@ static inline void fontRendererConfig_initialize(fontRendererConfig* config)
     config->BufferingPolicy.resetSize  = 0;
 }
 
-static inline void fontRendererConfig_setAllocateBuffer(fontRendererConfig* config,u32 initSize,u32 maxSize)
+static inline void fontRendererConfigSetAllocateBuffer(fontRendererConfig* config,u32 initSize,u32 maxSize)
 {
     config->BufferingPolicy.buffer = (void*)0;
     config->BufferingPolicy.initSize = initSize;
@@ -423,30 +442,35 @@ static inline s32 fontInit(fontConfig *config)
 /*
  * font callbacks
  */
+void *fontMalloc(void *obj, u32 size);
+void fontFree(void *obj, void *ptr);
+void *fontRealloc(void *obj, void *ptr, u32 size);
+void *fontCalloc(void *obj, u32 num, u32 size);
 
-typedef void* (*fontMallocCallback)(void*Object,u32 size);
-typedef void  (*fontFreeCallback)(void*Object,void*free_address);
-typedef void* (*fontReallocCallback)(void*Object,void*p,u32 reallocSize);
-typedef void* (*fontCallocCallback)(void*Object,u32 num,u32 size);
+typedef void* (*fontMallocCallback)(void*obj,u32 size);
+typedef void  (*fontFreeCallback)(void*obj,void*ptr);
+typedef void* (*fontReallocCallback)(void*obj,void*ptr,u32 size);
+typedef void* (*fontCallocCallback)(void*obj,u32 num,u32 size);
 typedef void  (*fontGetOutlineVertexCallback)(void*arg,s32 contourN,s32 vertexNumber,s32 vertexAttr,float x,float y);
 
 typedef struct fontMemoryInterface
 {
-    void* Object ATTRIBUTE_PRXPTR;
-    fontMallocCallback Malloc;
-    fontFreeCallback Free;
-    fontReallocCallback Realloc;
-    fontCallocCallback Calloc;
+    void *Object ATTRIBUTE_PRXPTR;
+    fontMallocCallback Malloc ATTRIBUTE_PRXPTR;
+    fontFreeCallback Free ATTRIBUTE_PRXPTR;
+    fontReallocCallback Realloc ATTRIBUTE_PRXPTR;
+    fontCallocCallback Calloc ATTRIBUTE_PRXPTR;
 } fontMemoryInterface;
 
-static inline void fontMemoryInterface_initialize(fontMemoryInterface*mIF)
+static inline void fontMemoryInterfaceInitialize(fontMemoryInterface*mIF)
 {
     mIF->Object = (void*)0;
     mIF->Malloc = (fontMallocCallback)0;
-    mIF->Free = (fontFreeCallback  )0;
+    mIF->Free = (fontFreeCallback)0;
     mIF->Realloc = (fontReallocCallback)0;
     mIF->Calloc = (fontCallocCallback)0;
 }
+
 /*
 typedef struct fontGetOutlineVertexesIF
 {
@@ -461,7 +485,7 @@ typedef struct fontGetOutlineVertexesIF
 
 typedef struct _font_library_config_FT
 {
-    void* library ATTRIBUTE_PRXPTR;
+    void *library ATTRIBUTE_PRXPTR;
     fontMemoryInterface MemoryIF;
 } fontLibraryConfigFT;
 
@@ -482,17 +506,17 @@ typedef struct _font_renderer_config_FT
  * fontFT functions
  */
 void fontFTGetRevisionFlags(u64*revisionFlags);
-s32 fontFTInitLibraryFreeTypeWithRevision(u64 revisionFlags,fontLibraryConfigFT*config,fontLibrary **lib);
+s32 fontFTInitLibraryFreeTypeWithRevision(u64 revisionFlags,fontLibraryConfigFT *config,fontLibrary **lib);
 void fontFTGetInitializedRevisionFlags(u64*revisionFlags);
 
 
 /*
  * fontFT helpers
  */
-static inline void fontFTLibraryConfig_initialize(fontLibraryConfigFT* config)
+static inline void fontFTLibraryConfigInitialize(fontLibraryConfigFT* config)
 {
     config->library = (void*)0;
-    fontMemoryInterface_initialize(&config->MemoryIF);
+    fontMemoryInterfaceInitialize(&config->MemoryIF);
     return;
 }
 
@@ -503,6 +527,25 @@ static inline s32 fontFTInitLibraryFreeType(fontLibraryConfigFT* config,fontLibr
     fontFTGetRevisionFlags(&revisionFlags);
     return fontFTInitLibraryFreeTypeWithRevision(revisionFlags,config,lib);
 }
+
+static inline void fontFTRendererConfigInitialize(fontRendererConfigFT* config)
+{
+    config->BufferingPolicy.buffer = (void*)0;
+    config->BufferingPolicy.initSize = 0;
+    config->BufferingPolicy.maxSize  = 0;
+    config->BufferingPolicy.expandSize = 1;
+    config->BufferingPolicy.resetSize  = 0;
+}
+
+static inline void fontFTRendererConfigSetAllocateBuffer(fontRendererConfigFT* config,u32 initSize,u32 maxSize)
+{
+    config->BufferingPolicy.buffer = (void*)0;
+    config->BufferingPolicy.initSize = initSize;
+    config->BufferingPolicy.maxSize  = maxSize;
+    config->BufferingPolicy.expandSize = 1;
+    config->BufferingPolicy.resetSize  = 0;
+}
+
 
 
 #ifdef __cplusplus
