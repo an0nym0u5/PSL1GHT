@@ -77,7 +77,8 @@ install: all
 	@cp -frv $(CURDIR)/lib/ppu/*.a $(PSL1GHT)/ppu/lib
 
 #---------------------------------------------------------------------------------
-$(LIBRARY).a: sprx.o sysutil_wrapper.o
+$(LIBRARY).a: sprx.o sysutil_wrapper.o sysutil_disc_wrapper.o \
+		sysutil_msg_wrapper.o sysutil_save_wrapper.o
 #---------------------------------------------------------------------------------
 
 .PHONY: lib ppu install
