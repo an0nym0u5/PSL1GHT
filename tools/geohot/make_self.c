@@ -271,7 +271,7 @@ void enumerate_segments() {
       AES_set_encrypt_key(segment_ptr->crypt_segment.erk, 128, &aes_key);
       memcpy(iv, segment_ptr->crypt_segment.riv, 16);
 #ifndef NO_CRYPT
-      AES_ctr128_encrypt(segment_ptr->data, segment_ptr->data, segment_ptr->len, &aes_key, iv, ecount_buf, &num);
+      AES_ctr128_encrypt(segment_ptr->data, segment_ptr->data, segment_ptr->len, &aes_key, iv, ecount_buf, (u32*)&num);
 #endif
     }
 
@@ -292,7 +292,7 @@ void init_Self_NPDRM(Self_NPDRM* npdrm, char* titleid, char* filename) {
   set_u32(&npdrm->unknown3, 1);
   set_u32(&npdrm->unknown4, 3);
   set_u32(&npdrm->unknown5, 1);
-  strncpy(npdrm->titleid, titleid, 0x30);
+  strncpy((char*)npdrm->titleid, titleid, 0x30);
 
   char *true_filename = strrchr(filename,'/');
   if(true_filename == NULL) {
@@ -311,7 +311,7 @@ void init_Self_NPDRM(Self_NPDRM* npdrm, char* titleid, char* filename) {
   char *buf = (char*)malloc(buf_len+1);
   memcpy(buf, npdrm->titleid, 0x30);
   strcpy(buf+0x30, true_filename);
-  aesOmac1Mode(npdrm->hash1, buf, buf_len, npdrm_omac_key3, sizeof(npdrm_omac_key3)*8);
+  aesOmac1Mode(npdrm->hash1, (u8*)buf, buf_len, npdrm_omac_key3, sizeof(npdrm_omac_key3)*8);
   free(buf);
   aesOmac1Mode(npdrm->hash2, (u8*)&(npdrm->magic), 0x60, npdrm_omac_key, sizeof(npdrm_omac_key)*8);
 }
@@ -575,7 +575,7 @@ int main(int argc, char* argv[]) {
   memset(ecount_buf, 0, 16); num=0;
   AES_set_encrypt_key(&output_self_data[metadata_offset], 128, &aes_key);
   memcpy(iv, &output_self_data[metadata_offset+0x20], 16);
-  AES_ctr128_encrypt(&output_self_data[0x40+metadata_offset], &output_self_data[0x40+metadata_offset], get_u64(&(output_self_header.s_shsize))-metadata_offset-0x40, &aes_key, iv, ecount_buf, &num);
+  AES_ctr128_encrypt(&output_self_data[0x40+metadata_offset], &output_self_data[0x40+metadata_offset], get_u64(&(output_self_header.s_shsize))-metadata_offset-0x40, &aes_key, iv, ecount_buf, (u32*)&num);
   memcpy(&output_self_data[metadata_offset], KEY(keypair_e), sizeof(md_header));
   /*AES_set_encrypt_key(KEY(erk), 256, &aes_key);
   AES_cbc_encrypt(&output_self_data[metadata_offset], &output_self_data[metadata_offset], 0x40, &aes_key, iv, AES_ENCRYPT);*/
