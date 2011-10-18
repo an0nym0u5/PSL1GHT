@@ -78,7 +78,8 @@ install: all
 
 #---------------------------------------------------------------------------------
 $(LIBRARY).a: sprx.o sysutil_wrapper.o sysutil_disc_wrapper.o \
-		sysutil_msg_wrapper.o sysutil_save_wrapper.o
+		sysutil_msg_wrapper.o sysutil_save_wrapper.o \
+		sysutil_savedata_wrapper.o
 #---------------------------------------------------------------------------------
 
 .PHONY: lib ppu install
