@@ -22,33 +22,25 @@ ifneq (,$(findstring MINGW,$(UNAME)))
 	PLATFORM	:= win32
 	POSTFIX		:= .exe
 	CFLAGS		+= -mno-cygwin
-	LDFLAGS		+= -mno-cygwin -s -lgmp -lcrypto -lz
-	OS			:= win32
+	LDFLAGS		+= -mno-cygwin -s
 endif
 
 ifneq (,$(findstring CYGWIN,$(UNAME)))
-	LDFLAGS		+= -s -lgmp -lcrypto -lz
+	LDFLAGS		+= -s
 	POSTFIX		:= .exe
-	OS			:= win32
 endif
 
 ifneq (,$(findstring Darwin,$(UNAME)))
-	SDK			:= /Developer/SDKs/MacOSX10.4u.sdk 
-	OSXCFLAGS	:=	-mmacosx-version-min=10.4 -arch i386
-	OSXCXXFLAGS	:=	$(OSXCFLAGS)
-	CXXFLAGS	+=	-fvisibility=hidden
-	LDFLAGS		+=	-mmacosx-version-min=10.4 -arch i386 -Wl,-syslibroot,$(SDK) -L/opt/local/lib -lgmp -lcrypto -lz
+	CFLAGS		+=	-I/opt/local/include -I/usr/local/include
+	LDFLAGS		+=	-L/opt/local/lib -L/usr/local/lib
 endif
 
 ifneq (,$(findstring BSD,$(UNAME)))
 	CFLAGS		+=	-I/usr/local/include
-	LDFLAGS		+=	-L/usr/local/lib -lgmp -lcrypto -lz
+	LDFLAGS		+=	-L/usr/local/lib
 endif
 
-ifneq (,$(findstring Linux,$(UNAME)))
-	LDFLAGS		+=	-lgmp -lcrypto -lz
-	OS		:=	Linux
-endif
+LDFLAGS	+=	-lgmp -lcrypto -lz
 
 TARGETS	:=	make_self$(POSTFIX) make_self_npdrm$(POSTFIX) package_finalize$(POSTFIX)
 
