@@ -168,7 +168,7 @@
                              : "r0","r12","lr","ctr","xer","cr0","cr1","cr5","cr6","cr7","memory")
 
 
-#define return_to_user_prog(ret_type)                        return (ret_type)(p1)
+#define return_to_user_prog(ret_type)                        return ((ret_type)(p1))
 
 #define register_passing_1(type)                                (type)(p2)
 #define register_passing_2(type)                                (type)(p3)
