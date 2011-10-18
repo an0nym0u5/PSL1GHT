@@ -140,21 +140,19 @@
 #define WRITE_PADDING(fp,ret,pad,size) ret=fwrite(pad,1,size,fp);if(ret!=size){fprintf(stderr,"%s():%d::ERROR: writing param.sfo keys padding: %x != %x (%s)\n",__func__,__LINE__,ret,size,strerror(errno));error();}
 
 #ifdef __BIG_ENDIAN__
-#define ntohll(x) (x)
-#define htonll(x) (x)
-#define htons(x) (x)
-#define htonl(x) (x)
-#define ntohs(x) (x)
-#define ntohl(x) (x)
+#define _htons(x) (x)
+#define _htonl(x) (x)
+#define _ntohs(x) (x)
+#define _ntohl(x) (x)
 #else
-#define htons(x) ((((uint16_t)(x) & 0xff00) >> 8) | \
-                 (((uint16_t)(x) & 0x00ff) << 8))
-#define htonl(x) ((((uint32_t)(x) & 0xff000000) >> 24) | \
-                 (((uint32_t)(x) & 0x00ff0000) >> 8)  | \
-                 (((uint32_t)(x) & 0x0000ff00) << 8)  | \
-                 (((uint32_t)(x) & 0x000000ff) << 24))
-#define ntohs  htons
-#define ntohl  htonl
+#define _htons(x) ((((uint16_t)(x) & 0xff00) >> 8) | \
+                  (((uint16_t)(x) & 0x00ff) << 8))
+#define _htonl(x) ((((uint32_t)(x) & 0xff000000) >> 24) | \
+                  (((uint32_t)(x) & 0x00ff0000) >> 8)  | \
+                  (((uint32_t)(x) & 0x0000ff00) << 8)  | \
+                  (((uint32_t)(x) & 0x000000ff) << 24))
+#define _ntohs  _htons
+#define _ntohl  _htonl
 #endif
 
 #endif /* __COMMON_H__ */

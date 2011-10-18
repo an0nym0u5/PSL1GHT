@@ -62,11 +62,11 @@ error ()
 void
 initHeader ( paramSFO *paramsfo )
 {
-  paramsfo->header.sfo_magic =     ntohl ( HDR_SFO_MAGIC ) ;
-  paramsfo->header.sfo_version =   ntohl ( HDR_SFO_VERSION ) ;
-  paramsfo->header.keys_offset =   ntohl ( HDR_KEYS_OFFSET ) ;
-  paramsfo->header.values_offset = ntohl ( HDR_VALUES_OFFSET ) ;
-  paramsfo->header.entries_count = ntohl ( HDR_ENTRIES_COUNT ) ;
+  paramsfo->header.sfo_magic =     _ntohl ( HDR_SFO_MAGIC ) ;
+  paramsfo->header.sfo_version =   _ntohl ( HDR_SFO_VERSION ) ;
+  paramsfo->header.keys_offset =   _ntohl ( HDR_KEYS_OFFSET ) ;
+  paramsfo->header.values_offset = _ntohl ( HDR_VALUES_OFFSET ) ;
+  paramsfo->header.entries_count = _ntohl ( HDR_ENTRIES_COUNT ) ;
 }
 
 void
