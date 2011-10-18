@@ -11,7 +11,6 @@ endif
 ifneq (,$(findstring MINGW,$(UNAME)))
 	PLATFORM	:= win32
 	COMPILER	:= --compiler=mingw32
-	OS			:= win32
 endif
 
 all: pkgcrypt.so
