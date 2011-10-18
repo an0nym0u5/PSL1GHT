@@ -9,7 +9,7 @@ endif
 
 CC	:=	gcc
 
-CFLAGS	:=	-Wall -Wno-char-subscripts -O2 -s
+CFLAGS	:=	-Wall -Wno-char-subscripts -O2
 
 ifeq ($(strip $(PS3DEV)),)
   ifeq ($(strip $(DEVKITPS3)),)
@@ -21,15 +21,12 @@ endif
 
 ifneq (,$(findstring MINGW,$(shell uname -s)))
 	exeext		:= .exe
+	CFLAGS		+= -s
 endif
 
 ifneq (,$(findstring CYGWIN,$(UNAME)))
 	exeext		:= .exe
-endif
-
-ifneq (,$(findstring Darwin,$(shell uname -s)))
-	SDK	:=	/Developer/SDKs/MacOSX10.4u.sdk
-	CFLAGS += -mmacosx-version-min=10.4 -isysroot $(SDK) -Wl,-syslibroot,$(SDK) -arch i386 -arch ppc
+	CFLAGS		+= -s
 endif
 
 TARGETS	:=	$(patsubst %.c,%$(exeext),$(wildcard *.c)) \
