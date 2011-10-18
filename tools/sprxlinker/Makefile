@@ -20,31 +20,24 @@ LDFLAGS		:= $(DEBUGFLAGS)
 ifneq (,$(findstring MINGW,$(UNAME)))
 	POSTFIX	:= .exe
 	CFLAGS	+= -mno-cygwin
-	LDFLAGS += -mno-cygwin -s -lelf
-	OS		:= win32
+	LDFLAGS += -mno-cygwin -s
 endif
 
 ifneq (,$(findstring CYGWIN,$(UNAME)))
 	POSTFIX	:= .exe
-	LDFLAGS += -s -lelf
-	OS		:= win32
+	LDFLAGS += -s
 endif
 
 ifneq (,$(findstring Darwin,$(UNAME)))
-	CFLAGS	+= -I/opt/local/include
-	LDFLAGS		+= -L/opt/local/lib -lelf
-	OS		:= Mac
+	CFLAGS	+= -I/opt/local/include/libelf -I/usr/local/include
+	LDFLAGS	+= -L/opt/local/lib -L/usr/local/lib
 endif
 
 ifneq (,$(findstring BSD,$(UNAME)))
-	LDFLAGS		+= -lelf
+	LDFLAGS	+= -L/opt/local/lib
 endif
 
-ifneq (,$(findstring Linux,$(UNAME)))
-	LDFLAGS		+= -lelf
-	OS		:= Linux
-endif
-
+LDFLAGS		+= -lelf
 TARGET		:= sprxlinker$(POSTFIX)
 SOURCE		:= .
 INCLUDE		:= .
