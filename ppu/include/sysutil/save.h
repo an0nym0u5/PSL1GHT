@@ -156,6 +156,8 @@ typedef struct {
   void *reserved ATTRIBUTE_PRXPTR;
 } sysSaveListSettings;
 
+typedef sysSaveListSettings sysSaveSetList;
+
 typedef struct {
   u32 maxDirectories;
   u32 maxFiles;
@@ -163,6 +165,8 @@ typedef struct {
   u32 bufferSize;
   void *buffer ATTRIBUTE_PRXPTR;
 } sysSaveBufferSettings;
+
+typedef sysSaveBufferSettings sysSaveSetBuf;
 
 typedef struct {
   s32 result;
@@ -172,11 +176,15 @@ typedef struct {
   void *user_data ATTRIBUTE_PRXPTR;
 } sysSaveCallbackResult;
 
+typedef sysSaveCallbackResult sysSaveCBResult;
+
 typedef struct {
   char directoryName[SYS_SAVE_MAX_DIRECTORY_NAME];
   char listParameter[SYS_SAVE_MAX_LIST_PARAMETER];
   u8 reserved[8];
 } sysSaveDirectoryList;
+
+typedef sysSaveDirectoryList sysSaveDirList;
 
 typedef struct {
   char *title ATTRIBUTE_PRXPTR;
@@ -185,12 +193,16 @@ typedef struct {
   void *reserved ATTRIBUTE_PRXPTR;
 } sysSaveNewSaveGameIcon;
 
+typedef sysSaveNewSaveGameIcon sysSaveNewDataIcon;
+
 typedef struct {
   sysSaveNewSavePosition position;
   char *directoryName ATTRIBUTE_PRXPTR;
   sysSaveNewSaveGameIcon *icon ATTRIBUTE_PRXPTR;
   void *reserved ATTRIBUTE_PRXPTR;
 } sysSaveNewSaveGame;
+
+typedef sysSaveNewSaveGame sysSaveListNewData;
 
 typedef struct {
   /* total directories found */
@@ -201,6 +213,8 @@ typedef struct {
   sysSaveDirectoryList *directoryList ATTRIBUTE_PRXPTR;
   u8 reserved[64];
 } sysSaveListIn;
+
+typedef sysSaveListIn sysSaveListGet;
 
 typedef struct {
   /* Where to put the focus of the cursor */
@@ -213,12 +227,16 @@ typedef struct {
   void *reserved ATTRIBUTE_PRXPTR;
 } sysSaveListOut;
 
+typedef sysSaveListOut sysSaveListSet;
+
 typedef struct {
   time_t atime;
   time_t mtime;
   time_t ctime;
   char directoryName[SYS_SAVE_MAX_DIRECTORY_NAME];
 } sysSaveDirectoryStatus;
+
+typedef sysSaveDirectoryStatus sysSaveDirStat;
 
 typedef struct {
   char title[SYS_SAVE_MAX_TITLE];
@@ -241,6 +259,8 @@ typedef struct {
   u8 reserved2[3];
 } sysSaveFileStatus;
 
+typedef sysSaveFileStatus sysSaveFileStat;
+
 typedef struct {
   s32 freeSpaceKB;
   u32 isNew;
@@ -259,6 +279,8 @@ typedef struct {
   u8 reserved[64];
 } sysSaveStatusIn;
 
+typedef sysSaveStatusIn sysSaveStatGet;
+
 typedef struct {
   u32 dispPosition;
   u32 dispMode;
@@ -274,10 +296,14 @@ typedef struct {
   sysSaveAutoIndicator *indicator ATTRIBUTE_PRXPTR;
 } sysSaveStatusOut;
 
+typedef sysSaveStatusOut sysSaveStatSet;
+
 typedef struct {
   u32 previousOperationResultSize;
   u8 reserved[64];
 } sysSaveFileIn;
+
+typedef sysSaveFileIn sysSaveFileGet;
 
 typedef struct {
   sysSaveFileOperation fileOperation;
@@ -291,20 +317,25 @@ typedef struct {
   void *buffer ATTRIBUTE_PRXPTR;
 } sysSaveFileOut;
 
+typedef sysSaveFileOut sysSaveFileSet;
+
 typedef struct {
   char *directoryName ATTRIBUTE_PRXPTR;
   sysSaveNewSaveGameIcon *icon ATTRIBUTE_PRXPTR;
   void *reserved ATTRIBUTE_PRXPTR;
 } sysSaveFixedOut;
 
+typedef sysSaveFixedOut sysSaveFixedSet;
+
 typedef struct {
   s32 result;
-  char dirName[SYS_SAVE_DIRNAME_SIZE];
+  char directoryName[SYS_SAVE_DIRNAME_SIZE];
   s32 sizeKB;
   s32 hddFreeKB;
   char reserved[64];
-} sysSaveDoneGet;
+} sysSaveDoneIn;
 
+typedef sysSaveDoneIn sysSaveDoneGet;
 
 typedef void (* sysSaveListCallback) (sysSaveCallbackResult *result,
     sysSaveListIn *in, sysSaveListOut *out);
