@@ -64,6 +64,7 @@ static bool InitCompiler()
 	HMODULE libcgc=LoadLibrary("cg.dll");
 #elif defined(__APPLE__)
     void *libcgc=dlopen("Cg", RTLD_LAZY);
+    if (libcgc==NULL) libcgc=dlopen("/Library/Frameworks/Cg.framework/Cg", RTLD_LAZY);
 #else
     void *libcgc=dlopen("libCg.so", RTLD_LAZY);
 #endif

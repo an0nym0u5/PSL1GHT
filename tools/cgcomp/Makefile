@@ -35,26 +35,15 @@ ifneq (,$(findstring MINGW,$(UNAME)))
 	EXEEXT		:= .exe
 	CFLAGS		+= -mno-cygwin
 	LDFLAGS		+= -mno-cygwin -s
-	OS	:=	win32
 endif
 
 ifneq (,$(findstring CYGWIN,$(UNAME)))
 	LDFLAGS		+= -s
 	EXEEXT		:= .exe
-	OS	:=	win32
-endif
-
-ifneq (,$(findstring Darwin,$(UNAME)))
-	SDK			:= /Developer/SDKs/MacOSX10.4u.sdk 
-	OSXCFLAGS	:= -mmacosx-version-min=10.4 -arch i386
-	OSXCXXFLAGS	:=	$(OSXCFLAGS)
-	CXXFLAGS	+=	-fvisibility=hidden
-	LDFLAGS += -mmacosx-version-min=10.4 -arch i386 -Wl,-syslibroot,$(SDK)
 endif
 
 ifneq (,$(findstring Linux,$(UNAME)))
 	LDFLAGS += -ldl -lpthread
-	OS := Linux
 endif
 
 LIBS		:=
@@ -138,13 +127,13 @@ $(OUTPUT): $(DFILES) $(OFILES)
 %.o : %.cpp
 	@echo $(notdir $<)
 	@$(CXX) -E -MMD $(CXXFLAGS) $< > /dev/null
-	@$(CXX) $(OSXCXXFLAGS) $(CXXFLAGS) -o $@ -c $<
+	@$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 #---------------------------------------------------------------------------------
 %.o : %.c
 	@echo $(notdir $<)
 	@$(CC) -E -MMD $(CFLAGS) $< > /dev/null
-	@$(CC) $(OSXCFLAGS) $(CFLAGS) -o $@ -c $<
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
 
 
