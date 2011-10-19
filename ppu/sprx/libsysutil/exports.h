@@ -57,15 +57,15 @@ EXPORT(sysSaveDelete2, 0xedadd797);
 
 /* NEW save data */
 EXPORT(sysSaveDataListLoad2Ex, 0x1dfbfdd6);
-EXPORT(sysSaveDataListSaveData2Ex, 0x2de0d663);
+EXPORT(sysSaveDataListSave2Ex, 0x2de0d663);
 EXPORT(sysSaveDataListAutoLoadEx, 0x21425307);
-EXPORT(sysSaveDataListAutoSaveDataEx, 0x4dd03a4e);
+EXPORT(sysSaveDataListAutoSaveEx, 0x4dd03a4e);
 EXPORT(sysSaveDataFixedLoad2Ex, 0x2a8eada2);
-EXPORT(sysSaveDataFixedSaveData2Ex, 0x2aae9ef5);
+EXPORT(sysSaveDataFixedSave2Ex, 0x2aae9ef5);
 EXPORT(sysSaveDataAutoLoad2Ex, 0xfbd5c856);
-EXPORT(sysSaveDataAutoSaveData2Ex, 0x8b7ed64b);
+EXPORT(sysSaveDataAutoSave2Ex, 0x8b7ed64b);
 EXPORT(sysSaveDataAutoLoadEx, 0xc22c79b5); /* cellSysutil */
-EXPORT(sysSaveDataAutoSaveDataEx, 0xf8a175ec); /* cellSysutil */
+EXPORT(sysSaveDataAutoSaveEx, 0xf8a175ec); /* cellSysutil */
 EXPORT(sysSaveDataFixedDeleteEx, 0xced17573); /* cellSysutil */
 EXPORT(sysSaveDataFixedExportEx, 0x46a2d878); /* sysSaveData */
 EXPORT(sysSaveDataFixedImportEx, 0x52541151); /* sysSaveData */
@@ -73,27 +73,27 @@ EXPORT(sysSaveDataListDeleteEx, 0x27cb8bc2); /* sysSaveData */
 EXPORT(sysSaveDataListExportEx, 0x491cc554); /* sysSaveData */
 EXPORT(sysSaveDataListImportEx, 0x6b4e0de6); /* sysSaveData */
 EXPORT(sysSaveDataUserAutoLoadEx, 0xcdc6aefd); /* cellSysutil */
-EXPORT(sysSaveDataUserAutoSaveDataEx, 0x52aac4fa); /* cellSysutil */
+EXPORT(sysSaveDataUserAutoSaveEx, 0x52aac4fa); /* cellSysutil */
 EXPORT(sysSaveDataUserFixedDeleteEx, 0x8b8a2f48); /* cellSysutil */
 EXPORT(sysSaveDataUserFixedExportEx, 0x95ae2cde); /* sysSaveData */
 EXPORT(sysSaveDataUserFixedImportEx, 0x529231b0); /* sysSaveData */
 EXPORT(sysSaveDataUserFixedLoadEx, 0x6e7264ed); /* cellSysutil */
-EXPORT(sysSaveDataUserFixedSaveDataEx, 0x40b34847); /* cellSysutil */
+EXPORT(sysSaveDataUserFixedSaveEx, 0x40b34847); /* cellSysutil */
 EXPORT(sysSaveDataUserListAutoLoadEx, 0x248bd1d8); /* cellSysutil */
-EXPORT(sysSaveDataUserListAutoSaveDataEx, 0x0e091c36); /* cellSysutil */
+EXPORT(sysSaveDataUserListAutoSave, 0x0e091c36); /* cellSysutil */
 EXPORT(sysSaveDataUserListDeleteEx, 0x7048a9ba); /* sysSaveData */
 EXPORT(sysSaveDataUserListExportEx, 0x273d116a); /* sysSaveData */
 EXPORT(sysSaveDataUserListImportEx, 0x39d6ee43); /* sysSaveData */
 EXPORT(sysSaveDataUserListLoadEx, 0x39dd8425); /* cellSysutil */
-EXPORT(sysSaveDataUserListSaveDataEx, 0x0f03cfb0); /* cellSysutil */
+EXPORT(sysSaveDataUserListSaveEx, 0x0f03cfb0); /* cellSysutil */
 EXPORT(sysSaveDataDelete2, 0xedadd797);
 EXPORT(sysSaveDataEnableOverlay, 0xe7fa820b); /* cellSysutil */
 EXPORT(sysSaveDataGetListItem, 0x04c06fc2); /* sysSaveData */
 EXPORT(sysSaveDataUserGetListItem, 0xf6482036); /* sysSaveData */
 EXPORT(sysSaveDataListLoad, 0xef5a353d); /* cellSysutil */
-EXPORT(sysSaveDataListSaveData, 0x3dbd2314); /* cellSysutil */
+EXPORT(sysSaveDataListSave, 0x3dbd2314); /* cellSysutil */
 EXPORT(sysSaveDataFixedLoad, 0x50183b44); /* cellSysutil */
-EXPORT(sysSaveDataFixedSaveData, 0x41bc2ca1); /* cellSysutil */
+EXPORT(sysSaveDataFixedSave, 0x41bc2ca1); /* cellSysutil */
 EXPORT(sysSaveDataDelete, 0xa4ed7dfe); /* cellSysutil */
 
 /* Disc utility support */
