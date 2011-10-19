@@ -102,6 +102,13 @@ typedef enum
     SYS_SAVEDATA_SORTTYPE_SUBTITLE               = 1
 } SysSaveDataSortType;
 
+/* List Sort Order */
+typedef enum
+{
+    SYS_SAVEDATA_SORTORDER_DESCENT              = 0,
+    SYS_SAVEDATA_SORTORDER_ASCENT               = 1
+} sysSaveDataSortOrder;
+
 typedef enum
 {
     SYS_SAVEDATA_ICONPOS_HEAD                    = 0,
