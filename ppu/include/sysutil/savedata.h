@@ -202,8 +202,8 @@ typedef struct
 {
     u32 sortType;
     u32 sortOrder;
-    char *dirNamePrefix;
-    void *reserved;
+    char *dirNamePrefix ATTRIBUTE_PRXPTR;
+    void *reserved ATTRIBUTE_PRXPTR;
 } sysSaveDataSetList;
 
 typedef struct
@@ -212,25 +212,25 @@ typedef struct
     u32 fileListMax;
     u32 reserved[6];
     u32 bufSize;
-    void *buf;
+    void *buf ATTRIBUTE_PRXPTR;
 } sysSaveDataSetBuf;
 
 typedef struct
 {
-    char *title;
+    char *title ATTRIBUTE_PRXPTR;
     u32 iconBufSize;
-    void *iconBuf;
-    void *reserved;
+    void *iconBuf ATTRIBUTE_PRXPTR;
+    void *reserved ATTRIBUTE_PRXPTR;
 } sysSaveDataNewDataIcon;
 
 typedef struct
 {
     u32 dispPosition;
     u32 dispMode;
-    char *dispMsg;
+    char *dispMsg ATTRIBUTE_PRXPTR;
     u32 picBufSize;
-    void *picBuf;
-    void *reserved;
+    void *picBuf ATTRIBUTE_PRXPTR;
+    void *reserved ATTRIBUTE_PRXPTR;
 } sysSaveDataAutoIndicator;
 
 typedef struct
@@ -243,33 +243,33 @@ typedef struct
 typedef struct
 {
     u32 iconPosition;
-    char *dirName;
-    sysSaveDataNewDataIcon *icon;
-    void *reserved;
+    char *dirName ATTRIBUTE_PRXPTR;
+    sysSaveDataNewDataIcon *icon ATTRIBUTE_PRXPTR;
+    void *reserved ATTRIBUTE_PRXPTR;
 } sysSaveDataListNewData;
 
 typedef struct
 {
     u32 dirNum;
     u32 dirListNum;
-    sysSaveDataDirList *dirList;
+    sysSaveDataDirList *dirList ATTRIBUTE_PRXPTR;
     char reserved[64];
 } sysSaveDataListGet;
 
 typedef struct
 {
     u32 focusPosition;
-    char *focusDirName;
+    char *focusDirName ATTRIBUTE_PRXPTR;
     u32 fixedListNum;
-    sysSaveDataDirList *fixedList;
-    sysSaveDataListNewData *newData;
-    void *reserved;
+    sysSaveDataDirList *fixedList ATTRIBUTE_PRXPTR;
+    sysSaveDataListNewData *newData ATTRIBUTE_PRXPTR;
+    void *reserved ATTRIBUTE_PRXPTR;
 } sysSaveDataListSet;
 
 typedef struct
 {
-    char *dirName;
-    sysSaveDataNewDataIcon *newIcon;
+    char *dirName ATTRIBUTE_PRXPTR;
+    sysSaveDataNewDataIcon *newIcon ATTRIBUTE_PRXPTR;
     u32 option;
 } sysSaveDataFixedSet;
 
@@ -315,15 +315,15 @@ typedef struct
     s32 sysSizeKB;
     u32 fileNum;
     u32 fileListNum;
-    sysSaveDataFileStat *fileList;
+    sysSaveDataFileStat *fileList ATTRIBUTE_PRXPTR;
     char reserved[64];
 } sysSaveDataStatGet;
 
 typedef struct
 {
-    sysSaveDataSystemFileParam *setParam;
+    sysSaveDataSystemFileParam *setParam ATTRIBUTE_PRXPTR;
     u32 reCreateMode;
-    sysSaveDataAutoIndicator *indicator;
+    sysSaveDataAutoIndicator *indicator ATTRIBUTE_PRXPTR;
 } sysSaveDataStatSet;
 
 typedef struct
@@ -335,14 +335,14 @@ typedef struct
 typedef struct
 {
     u32 fileOperation;
-    void *reserved;
+    void *reserved ATTRIBUTE_PRXPTR;
     u32 fileType;
     unsigned char secureFileId[SYS_SAVEDATA_SECUREFILEID_SIZE];
-    char *fileName;
+    char *fileName ATTRIBUTE_PRXPTR;
     u32 fileOffset;
     u32 fileSize;
     u32 fileBufSize;
-    void *fileBuf;
+    void *fileBuf ATTRIBUTE_PRXPTR;
 } sysSaveDataFileSet;
 
 typedef struct
@@ -359,8 +359,8 @@ typedef struct
     s32 result;
     u32 progressBarInc;
     s32 errNeedSizeKB;
-    char *invalidMsg;
-    void *userdata;
+    char *invalidMsg ATTRIBUTE_PRXPTR;
+    void *userdata ATTRIBUTE_PRXPTR;
 } sysSaveDataCBResult;
 
 
