@@ -80,7 +80,7 @@ EXPORT(sysSaveDataUserFixedImportEx, 0x529231b0); /* sysSaveData */
 EXPORT(sysSaveDataUserFixedLoadEx, 0x6e7264ed); /* cellSysutil */
 EXPORT(sysSaveDataUserFixedSaveEx, 0x40b34847); /* cellSysutil */
 EXPORT(sysSaveDataUserListAutoLoadEx, 0x248bd1d8); /* cellSysutil */
-EXPORT(sysSaveDataUserListAutoSave, 0x0e091c36); /* cellSysutil */
+EXPORT(sysSaveDataUserListAutoSaveEx, 0x0e091c36); /* cellSysutil */
 EXPORT(sysSaveDataUserListDeleteEx, 0x7048a9ba); /* sysSaveData */
 EXPORT(sysSaveDataUserListExportEx, 0x273d116a); /* sysSaveData */
 EXPORT(sysSaveDataUserListImportEx, 0x39d6ee43); /* sysSaveData */
